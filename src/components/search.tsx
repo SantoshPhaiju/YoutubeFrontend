@@ -40,13 +40,13 @@ const Search = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input {...field} placeholder="Search" className="px-4 rounded-l-full text-[22px] w-[400px]" />
+                  <Input {...field} placeholder="Search" className="px-4 focus-visible:right-0 focus-visible:ring-transparent focus-visible:border-black rounded-l-full text-[22px] w-[400px]" />
                 </FormControl>
               </FormItem>
             )}
           />
-          <Button type="submit" variant="ghost" size="icon" className="border-r pl-2 w-[60px] border-t border-b rounded-r-full">    
-            <IoSearch />
+          <Button type="submit" variant="secondary" size="icon" className="border-r pl-2 w-[60px] bg-white border-t border-b rounded-r-full">
+            <IoSearch className="h-[30px] w-[30px]" />
           </Button>
         </form>
       </Form>

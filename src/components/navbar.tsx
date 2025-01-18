@@ -1,20 +1,20 @@
 import { FaYoutube } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { RxHamburgerMenu } from "react-icons/rx";
 import Search from "./search";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 
 const Navbar = () => {
   return (
-    <header className="w-full flex justify-between bg-white items-center fixed top-0 left-0 p-4 border-b z-50">
-      <div className="logo select-none flex justify-center items-center gap-1 text-2xl font-semibold text-red-700">
-        <div className="hamburger mr-4 cursor-pointer">
-          <GiHamburgerMenu />
+    <header className="w-full flex justify-between bg-white items-center fixed top-0 left-0 py-1 px-8 border-b z-50">
+      <div className="logo select-none flex justify-center items-center gap-1 text-2xl font-semibold">
+        <div className="hamburger mr-2 cursor-pointer p-3 flex flex-col gap-[3px] justify-center items-center rounded-full hover:bg-gray-200">
+          <RxHamburgerMenu />
         </div>
-        <FaYoutube className="text-[24px]" />
-        MyTube
+        <FaYoutube className="text-[24px] text-red-700" />
+        <div className="text-[18px]">MyTube</div>
       </div>
       <div className="search">
         <Search />
@@ -30,7 +30,7 @@ const Navbar = () => {
           </Button>
         </div>
         <div>
-          <IoMdNotificationsOutline className="text-[30px]" />
+          <IoMdNotificationsOutline className="text-[30px] cursor-pointer" />
         </div>
         <div>
           <Avatar>
