@@ -8,7 +8,7 @@ import { Button } from "./ui/button";
 
 const Navbar = () => {
   return (
-    <header className="w-full flex justify-between bg-white items-center fixed top-0 left-0 py-1 px-8 border-b z-50">
+    <header className="w-full flex justify-between bg-white items-center fixed top-0 left-0 py-1 px-4 border-b z-50">
       <div className="logo select-none flex justify-center items-center gap-1 text-2xl font-semibold">
         <div className="hamburger mr-2 cursor-pointer p-3 flex flex-col gap-[3px] justify-center items-center rounded-full hover:bg-gray-200">
           <RxHamburgerMenu />
@@ -32,7 +32,7 @@ const Navbar = () => {
         <div>
           <IoMdNotificationsOutline className="text-[30px] cursor-pointer" />
         </div>
-        <div>
+        <div className="cursor-pointer">
           <Avatar>
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>CN</AvatarFallback>

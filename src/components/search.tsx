@@ -7,6 +7,8 @@ import { Form, FormControl, FormField, FormItem } from "./ui/form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { IoSearch } from "react-icons/io5";
+import { FaMicrophone } from "react-icons/fa6";
+
 
 const formSchema = z.object({
   searchQuery: z.string().min(2).max(50),
@@ -33,21 +35,36 @@ const Search = () => {
   return (
     <>
       <Form {...form}>
-        <form className="flex justify-center items-center gap-0" onSubmit={form.handleSubmit(onSubmit)}>
+        <form
+          className="flex justify-center items-center gap-0"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
           <FormField
             control={form.control}
             name="searchQuery"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input {...field} placeholder="Search" className="px-4 focus-visible:right-0 focus-visible:ring-transparent focus-visible:border-black rounded-l-full text-[22px] w-[400px]" />
+                  <Input
+                    {...field}
+                    placeholder="Search"
+                    className="px-4 focus-visible:right-0 border border-gray-300 focus-visible:ring-transparent focus-visible:border-black rounded-l-full text-[22px] w-[400px]"
+                  />
                 </FormControl>
               </FormItem>
             )}
           />
-          <Button type="submit" variant="secondary" size="icon" className="border-r pl-2 w-[60px] bg-white border-t border-b rounded-r-full">
+          <Button
+            type="submit"
+            variant="secondary"
+            size="icon"
+            className="border-r border-gray-300 pl-2 w-[60px] bg-white border-t border-b rounded-r-full"
+          >
             <IoSearch className="h-[30px] w-[30px]" />
           </Button>
+          <div className="ml-4 h-10 w-10 flex justify-center items-center bg-gray-200 hover:bg-gray-300 rounded-full cursor-pointer">
+            <FaMicrophone />
+          </div>
         </form>
       </Form>
     </>
