@@ -11,7 +11,7 @@ const SidebarItem = ({ icon, name, link }: {
       <div className="icon text-xl">
         {icon}
       </div>
-      <div className='text-lg'>
+      <div className='text-md'>
         {name}
       </div>
     </Link>
