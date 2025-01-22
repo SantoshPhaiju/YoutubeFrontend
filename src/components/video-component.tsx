@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { MdVerified } from "react-icons/md";
 
 const VideoComponent = () => {
   return (
-    <div className="w-full h-[300px] cursor-pointer">
+    <div className="w-full h-auto cursor-pointer">
       <div className="thumbnail">
         <Image
           src={"/assets/thumb.jpg"}
@@ -22,13 +23,14 @@ const VideoComponent = () => {
           </Avatar>
         </div>
         <div className="flex flex-col gap-1 px-1">
-          <div className="title text-md text-black h-[50px] ">
+          <div className="title text-md text-black">
             How to Make Money Using Google Maps in 2025 ($100 - $200 PER DAY)
             something
           </div>
-          <div className="flex flex-col mt-[2px]">
-            <div className="channelName text-sm text-gray-600">
-              Santosh Phaiju
+          <div className="flex flex-col mt-[1px]">
+            <div className="channelName text-sm text-gray-600 flex justify-start items-center gap-1">
+              Santosh Phaiju <MdVerified />
+
             </div>
             <div className="flex justify-start items-center gap-2 text-gray-600 text-sm">
               <div className="views">99k views</div>
