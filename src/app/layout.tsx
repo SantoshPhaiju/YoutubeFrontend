@@ -1,4 +1,5 @@
 import Navbar from "@/components/navbar";
+import Sidebar from "@/components/sidebar";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import React from "react";
@@ -30,7 +31,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Navbar />
-        <main className="mt-20">{children}</main>
+        <main className="mt-[70px] gap-5">
+          <div className="fixed top-0 left-0">
+            <Sidebar />
+          </div>
+          <div className="pl-[250px]">{children}</div>
+        </main>
       </body>
     </html>
   );
