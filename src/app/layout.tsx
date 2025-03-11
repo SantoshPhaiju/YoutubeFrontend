@@ -1,4 +1,4 @@
-import Navbar from "@/components/navbar";
+import RootClientLayout from "@/components/root-client-layout";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import React from "react";
@@ -29,8 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
-        <main className="mt-20">{children}</main>
+        <RootClientLayout>{children}</RootClientLayout>
       </body>
     </html>
   );

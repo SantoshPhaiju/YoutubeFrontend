@@ -1,57 +1,70 @@
-'use client';
+"use client";
 
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { FaMicrophone } from "react-icons/fa6";
+import { IoSearch } from "react-icons/io5";
+import { z } from "zod";
+import { Button } from "./ui/button";
 import { Form, FormControl, FormField, FormItem } from "./ui/form";
 import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { IoSearch } from "react-icons/io5";
 
 const formSchema = z.object({
   searchQuery: z.string().min(2).max(50),
 });
 
 const Search = () => {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      searchQuery: "",
+    },
+  });
 
-
-    const form = useForm<z.infer<typeof formSchema>>({
-      resolver: zodResolver(formSchema),
-      defaultValues: {
-        searchQuery: "",
-      },
-    });
-
-    // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
-      // Do something with the form values.
-      // ✅ This will be type-safe and validated.
-      console.log(values);
-    }
-
+  // 2. Define a submit handler.
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    console.log(values);
+  }
 
   return (
-    <>
+    <div className="h-[42px]">
       <Form {...form}>
-        <form className="flex justify-center items-center gap-0" onSubmit={form.handleSubmit(onSubmit)}>
+        <form
+          className="flex justify-center items-center gap-0 h-full"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
           <FormField
             control={form.control}
             name="searchQuery"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className=" h-full">
                 <FormControl>
-                  <Input {...field} placeholder="Search" className="px-4 rounded-l-full text-[22px] w-[400px]" />
+                  <Input
+                    {...field}
+                    placeholder="Search"
+                    className="px-4 focus-visible:right-0 h-full border border-gray-300 focus-visible:ring-transparent focus-visible:border-black rounded-l-full text-[22px] w-[450px]"
+                  />
                 </FormControl>
               </FormItem>
             )}
           />
-          <Button type="submit" variant="ghost" size="icon" className="border-r pl-2 w-[60px] border-t border-b rounded-r-full">    
-            <IoSearch />
+          <Button
+            type="submit"
+            variant="secondary"
+            size="icon"
+            className="border-r h-full border-gray-300 pl-2 w-[60px] bg-white border-t border-b rounded-r-full"
+          >
+            <IoSearch className="h-[50px] w-[50px]" />
           </Button>
+          <div className="ml-4 h-10 w-10 flex justify-center items-center bg-gray-200 hover:bg-gray-300 rounded-full cursor-pointer">
+            <FaMicrophone />
+          </div>
         </form>
       </Form>
-    </>
+    </div>
   );
-}
+};
 
-export default Search
+export default Search;
