@@ -1,3 +1,4 @@
+"use cient";
 import { cn } from "@/lib/utils";
 import { FaYoutube } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";

@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 import Navbar from "./navbar";
 import Sidebar from "./sidebar";
+import Videopage from "./videopage";
 
 const RootClientLayout = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -42,6 +43,7 @@ const RootClientLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </main>
       </div>
+      <Videopage />
     </>
   );
 };
