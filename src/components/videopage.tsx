@@ -1,27 +1,40 @@
-import React from 'react'
-import Navbar from './navbar'
-import Image from 'next/image';
-import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
-import { MdVerified } from 'react-icons/md';
-import SemiNav from './semi-nav';
-import SemiVideo from './semiVideoComponent';
-import { Button } from './ui/button';
+"use client";
+
+import { NavbarContext } from "@/context/navbar-context";
+import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import Image from "next/image";
+import { useContext, useEffect } from "react";
+import SemiNav from "./semi-nav";
+import SemiVideo from "./semiVideoComponent";
+import { Button } from "./ui/button";
 
 const Videopage = () => {
+  const { setIsSidebarOpen, setShowCategories } = useContext(NavbarContext);
+  useEffect(() => {
+    setIsSidebarOpen(false);
+    setShowCategories(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
-      <div className="w-[89%] mx-auto h-auto cursor-pointer flex ">
-        <div className="">
-          <Image
-            src={"/assets/thumb.jpg"}
-            height={200}
-            width={300}
-            className="h-[450px] w-[95%] mr-5 rounded-md object-cover"
-            alt="VideoComponent"
-          />
-          <div className="video details">
-            <div className="text-lg">This is my Video!!!</div>
-            <div className="flex justify-between">
+      <div className="w-full px-2 py-2 mx-auto h-auto cursor-pointer flex justify-center items-start gap-6">
+        <div className="leftContainer w-[70%] flex flex-col gap-3">
+          <div className="videoPlayer w-full rounded-xl overflow-hidden">
+            <Image
+              src={"/assets/thumb.jpg"}
+              height={200}
+              width={300}
+              className="h-[450px] w-[100%] object-cover"
+              alt="VideoComponent"
+            />
+          </div>
+          <div className="videoDetails flex flex-col gap-3">
+            <div className="text-xl font-bold leading-tight">
+              Mitwa - Lyrical Song | KANK | Shahrukh Khan, Rani Mukherjee |
+              Shankar Ehsaan Loy | Romantic Song
+            </div>
+            <div className="flex justify-between border border-black">
               <div className="channel flex gap-5 items-center">
                 <div className="w-[40px] h-[40px]">
                   <Avatar>
@@ -43,8 +56,12 @@ const Videopage = () => {
               </div>
             </div>
           </div>
+          <div className="descriptionSection h-[100px] w-full bg-gray-100 rounded-xl">
+
+          </div>
+          <div className="commentSection h-[1000px] w-full border"></div>
         </div>
-        <div className="w-[30%]">
+        <div className="rightContainer w-[30%] border border-blue-600">
           <SemiNav />
           <SemiVideo />
           <SemiVideo />
@@ -54,6 +71,6 @@ const Videopage = () => {
       </div>
     </>
   );
-}
+};
 
-export default Videopage
+export default Videopage;

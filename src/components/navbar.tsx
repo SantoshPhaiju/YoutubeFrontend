@@ -1,5 +1,7 @@
 "use cient";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { FaYoutube } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -12,24 +14,37 @@ import { Button } from "./ui/button";
 const Navbar = ({
   isSidebarOpen,
   setIsSidebarOpen,
+  showCategories,
+  setShowOverlaySidebar,
 }: {
   isSidebarOpen: boolean;
   setIsSidebarOpen: (value: boolean) => void;
+  showCategories: boolean;
+  setShowOverlaySidebar: (value: boolean) => void;
 }) => {
+  const pathname = usePathname();
+  console.log("pathanem", pathname);
+
   return (
     <>
-      <header className="w-full flex justify-between bg-white items-center fixed top-0 left-0 py-2 px-4 z-50 ">
+      <header className="w-full flex justify-between bg-white items-center fixed top-0 left-0 py-2 px-4 z-50">
         <div className="logo select-none flex justify-center items-center gap-1 text-2xl font-semibold">
           <div
             onClick={() => {
-              setIsSidebarOpen(!isSidebarOpen);
+              if (!pathname.includes("/watch")) {
+                setIsSidebarOpen(!isSidebarOpen);
+              } else {
+                setShowOverlaySidebar(true);
+              }
             }}
             className="hamburger mr-2 cursor-pointer p-3 flex flex-col gap-[3px] justify-center items-center rounded-full hover:bg-gray-200"
           >
             <RxHamburgerMenu />
           </div>
           <FaYoutube className="text-[24px] text-red-700" />
-          <div className="text-[18px]">MyTube</div>
+          <Link href={"/"} className="text-[18px]">
+            MyTube
+          </Link>
         </div>
         <div className="search">
           <Search />
@@ -63,7 +78,7 @@ const Navbar = ({
           }
         )}
       >
-        <SemiNav />
+        {showCategories && <SemiNav />}
       </div>
     </>
   );

@@ -1,18 +1,21 @@
 import Image from "next/image";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import Link from "next/link";
 import { MdVerified } from "react-icons/md";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 const VideoComponent = () => {
   return (
     <div className="w-full h-auto cursor-pointer">
       <div className="thumbnail">
-        <Image
-          src={"/assets/thumb.jpg"}
-          height={200}
-          width={300}
-          className="h-[200px] w-full rounded-md object-cover"
-          alt="VideoComponent"
-        />
+        <Link href="/watch?v=123">
+          <Image
+            src={"/assets/thumb.jpg"}
+            height={200}
+            width={300}
+            className="h-[200px] w-full rounded-md object-cover"
+            alt="VideoComponent"
+          />
+        </Link>
       </div>
 
       <div className="details py-1 pt-2 flex gap-2">
@@ -30,7 +33,6 @@ const VideoComponent = () => {
           <div className="flex flex-col mt-[1px]">
             <div className="channelName text-sm text-gray-600 flex justify-start items-center gap-1">
               Santosh Phaiju <MdVerified />
-
             </div>
             <div className="flex justify-start items-center gap-2 text-gray-600 text-sm">
               <div className="views">99k views</div>
