@@ -1,4 +1,4 @@
-"use cient";
+"use client";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
