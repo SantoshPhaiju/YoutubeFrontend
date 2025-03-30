@@ -23,8 +23,7 @@ const Navbar = ({
   setShowOverlaySidebar: (value: boolean) => void;
 }) => {
   const pathname = usePathname();
-  console.log("pathanem", pathname);
-
+  console.log("pathname", pathname);
   return (
     <>
       <header className="w-full flex justify-between bg-white items-center fixed top-0 left-0 py-2 px-4 z-50">
