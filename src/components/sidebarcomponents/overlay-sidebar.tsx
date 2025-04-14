@@ -64,7 +64,7 @@ const lowerLinks = [
     link: "/",
   },
   {
-    title: "Liked Vidoes",
+    title: "Liked Videos",
     icon: <GrLike />,
     link: "/",
   },
