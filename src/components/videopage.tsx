@@ -1,31 +1,22 @@
 "use client";
 
-import { NavbarContext } from "@/context/navbar-context";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import Image from "next/image";
-import { useContext, useEffect } from "react";
 import SemiNav from "./semi-nav";
 import SemiVideo from "./semiVideoComponent";
 import { Button } from "./ui/button";
 
 const Videopage = () => {
-  const { setIsSidebarOpen, setShowCategories } = useContext(NavbarContext);
-  useEffect(() => {
-    setIsSidebarOpen(false);
-    setShowCategories(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <>
-      <div className="w-full px-2 py-2 mx-auto h-auto cursor-pointer flex justify-center items-start gap-6">
-        <div className="leftContainer w-[70%] flex flex-col gap-3">
+      <div className="w-full px-2 mx-auto h-auto cursor-pointer flex justify-center items-start gap-6">
+        <div className="leftContainer w-full flex flex-col gap-3">
           <div className="videoPlayer w-full rounded-xl overflow-hidden">
             <Image
               src={"/assets/thumb.jpg"}
               height={200}
               width={300}
-              className="h-[450px] w-[100%] object-cover"
+              className="h-[70vh] w-[100%] object-cover"
               alt="VideoComponent"
             />
           </div>
@@ -56,12 +47,10 @@ const Videopage = () => {
               </div>
             </div>
           </div>
-          <div className="descriptionSection h-[100px] w-full bg-gray-100 rounded-xl">
-
-          </div>
+          <div className="descriptionSection h-[100px] w-full bg-gray-100 rounded-xl"></div>
           <div className="commentSection h-[1000px] w-full border"></div>
         </div>
-        <div className="rightContainer w-[30%] border border-blue-600">
+        <div className="rightContainer w-[380px]">
           <SemiNav />
           <SemiVideo />
           <SemiVideo />
