@@ -49,7 +49,7 @@ const lowerLinks = [
     link: "/",
   },
   {
-    title: "Your Vidoes",
+    title: "Your Videos",
     icon: <GoVideo />,
     link: "/",
   },
