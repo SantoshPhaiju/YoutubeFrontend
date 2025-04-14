@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import ClientVideoPageLayout from "@/components/video/client-vidoepage-layout";
 import Image from "next/image";
 import { BiDislike, BiLike } from "react-icons/bi";
+import { FiBookmark } from "react-icons/fi";
 import { PiShareFatLight } from "react-icons/pi";
 
 interface WatchPageProps {
@@ -19,6 +20,10 @@ const Page = async ({ searchParams }: WatchPageProps) => {
   if (!videoId) {
     return <p>Invalid video ID</p>;
   }
+
+  const desc =
+    "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.";
+  const videoDescription = desc.repeat(10);
 
   console.log(`Loading video: ${videoId}`);
 
@@ -74,7 +79,7 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                     <div className="flex justify-between items-center rounded-full bg-gray-100">
                       <div className="flex justify-center border-r items-center rounded-l-full gap-2 p-2 px-4 hover:bg-gray-200">
                         <BiLike size={20} />
-                        <p className="font-sans font-medium text-sm">4K</p>
+                        <p className="font-sans font-semibold text-sm">4K</p>
                       </div>
                       <div className="p-2 px-4 rounded-r-full hover:bg-gray-200">
                         <BiDislike size={20} />
@@ -82,18 +87,37 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                     </div>
                     <div className="flex justify-center bg-gray-100 items-center rounded-full gap-2 p-2 px-4 hover:bg-gray-200">
                       <PiShareFatLight size={20} />
-                      <p className="font-sans font-medium text-md">Share</p>
+                      <p className="font-sans font-semibold text-sm">Share</p>
+                    </div>
+                    <div className="flex justify-center bg-gray-100 items-center rounded-full gap-2 p-2 px-4 hover:bg-gray-200">
+                      <FiBookmark size={20} />
+                      <p className="font-sans font-semibold text-sm">Save</p>
                     </div>
                     <Button className="rounded-full px-3 bg-gray-100 hover:bg-gray-200 flex justify-center gap-[2px] items-center">
-                      <div className="bg-black h-1 w-1 rounded-full"></div>
-                      <div className="bg-black h-1 w-1 rounded-full"></div>
-                      <div className="bg-black h-1 w-1 rounded-full"></div>
+                      <div className="bg-gray-700 h-1 w-1 rounded-full"></div>
+                      <div className="bg-gray-700 h-1 w-1 rounded-full"></div>
+                      <div className="bg-gray-700 h-1 w-1 rounded-full"></div>
                     </Button>
                   </div>
                 </div>
               </div>
-              <div className="descriptionSection h-[100px] w-full bg-gray-100 rounded-xl"></div>
-              <div className="commentSection h-[1000px] w-full border"></div>
+              <div className="descriptionSection flex flex-col gap-2 py-[12px] px-[12px] h-auto w-full bg-gray-100 rounded-xl">
+                <div className="flex justify-start items-center gap-2 font-semibold text-sm font-roboto">
+                  <div>109, 447 views</div>
+                  <div>Feb 6, 2025</div>
+                </div>
+                <div className="description text-[14px] font-normal font-roboto text-gray-800 leading-normal">
+                  {videoDescription.substring(0, 200) + "..."}{" "}
+                  <span className="text-blue-500 underline underline-offset-2 cursor-pointer">
+                    see more
+                  </span>
+                </div>
+              </div>
+              <div className="commentSection h-[1000px] mt-4 w-full">
+                <h1 className="font-semibold text-[24px]">
+                  621 Comments
+                </h1>
+              </div>
             </div>
             <div className="rightContainer w-[380px]">
               <SemiNav />
