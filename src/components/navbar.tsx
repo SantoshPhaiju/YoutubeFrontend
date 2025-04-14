@@ -26,7 +26,7 @@ const Navbar = ({
   console.log("pathname", pathname);
   return (
     <>
-      <header className="w-full flex justify-between bg-white items-center fixed top-0 left-0 py-2 px-4 z-50">
+      <header className="w-full flex justify-between bg-white items-center fixed top-0 left-0 py-2 px-4 z-40">
         <div className="logo select-none flex justify-center items-center gap-1 text-2xl font-semibold">
           <div
             onClick={() => {
@@ -41,7 +41,7 @@ const Navbar = ({
             <RxHamburgerMenu />
           </div>
           <FaYoutube className="text-[24px] text-red-700" />
-          <Link href={"/"} className="text-[18px]">
+          <Link href={"/"} className="text-[24px]">
             MyTube
           </Link>
         </div>
@@ -51,7 +51,7 @@ const Navbar = ({
         <div className="profiles flex justify-center items-center gap-4 ">
           <div className="">
             <Button
-              className="flex justify-center items-center gap-2 text-red-700 text-md rounded-full"
+              className="flex justify-center items-center gap-2 text-red-700 text-md rounded-full bg-gray-50 hover:bg-gray-100"
               variant={"outline"}
             >
               <FaPlus />
@@ -59,26 +59,29 @@ const Navbar = ({
             </Button>
           </div>
           <div>
-            <IoMdNotificationsOutline className="text-[30px] cursor-pointer" />
+            <IoMdNotificationsOutline className="text-[24px] cursor-pointer" />
           </div>
           <div className="cursor-pointer">
-            <Avatar>
+            <Avatar >
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </div>
         </div>
       </header>
-      <div
-        className={cn(
-          `sticky z-50 top-[57px] flex justify-center items-center pt-5 bg-white ml-[250px] left-[250px] transition-all duration-300`,
-          {
-            "ml-0 left-0": isSidebarOpen === false,
-          }
-        )}
-      >
-        {showCategories && <SemiNav />}
-      </div>
+      {showCategories && (
+        <div
+          className={cn(
+            `sticky z-50 top-[57px] flex justify-center items-center pt-5 bg-white ml-[250px] left-[250px] transition-all duration-300 `,
+            {
+              "ml-[90px]": isSidebarOpen === false,
+            }
+          )}
+        >
+          {/* {showCategories && <SemiNav />} */}
+          <SemiNav />
+        </div>
+      )}
     </>
   );
 };

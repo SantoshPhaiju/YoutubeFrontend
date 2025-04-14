@@ -2,15 +2,16 @@
 
 import { NavbarContext } from "@/context/navbar-context";
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import Navbar from "./navbar";
-import Sidebar from "./sidebar";
+import OverlaySidebar from "./sidebarcomponents/overlay-sidebar";
 
 const RootClientLayout = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [showCategories, setShowCategories] = useState(true);
   const [showOverlaySidebar, setShowOverlaySidebar] = useState(false);
+  const pathname = usePathname();
 
   return (
     <>
@@ -30,25 +31,17 @@ const RootClientLayout = ({ children }: { children: React.ReactNode }) => {
         />
         <div>
           <main className="mt-[70px] gap-5">
-            <AnimatePresence>
-              <motion.div
-                animate={{
-                  x: isSidebarOpen ? "0%" : "-100%",
-                }}
-                transition={{
-                  type: "tween",
-                }}
-                className="fixed top-0 left-0"
-              >
-                <Sidebar
-                // isSidebarOpen={isSidebarOpen}
-                // setIsSidebarOpen={setIsSidebarOpen}
-                />
-              </motion.div>
-            </AnimatePresence>
+            <OverlaySidebar
+              setShowOverlaySidebar={setShowOverlaySidebar}
+              showOverlaySidebar={showOverlaySidebar}
+            />
+
             <div
-              className={cn(`pl-[250px] transition-all duration-300`, {
-                "pl-0": isSidebarOpen === false,
+              className={cn(`pl-[250px] `, {
+                "pl-[90px]":
+                  isSidebarOpen === false && !pathname.includes("/watch"),
+                "pl-[0px]":
+                  isSidebarOpen === false && pathname.includes("/watch"),
               })}
             >
               {children}

@@ -1,6 +1,5 @@
 "use client";
 
-
 import SemiNavBadge from "./semi-nav-badge";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 
@@ -69,7 +68,7 @@ const badgeData = [
 
 const SemiNav = () => {
   return (
-    <ScrollArea className="w-[96%] mb-1 ml-3 px-0">
+    <ScrollArea className="w-[98%] mb-1 px-0 z-0">
       <div className="h-auto mb-4 w-full flex justify-start items-center gap-3 whitespace-nowrap">
         {badgeData.map((badge, index) => {
           return (

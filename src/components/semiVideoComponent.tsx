@@ -1,24 +1,21 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
-import Image from 'next/image';
-import React from 'react'
-import { MdVerified } from 'react-icons/md';
+import Image from "next/image";
+import { MdVerified } from "react-icons/md";
 
 const SemiVideo = () => {
   return (
-    <div className="w-[100%] h-auto cursor-pointer flex justify-between items-center mt-3">
-        <Image
-          src={"/assets/thumb.jpg"}
-          height={200}
-          width={300}
-          className="h-full w-[50%] rounded-md object-cover"
-          alt="VideoComponent"
-        />
+    <div className="w-[100%] h-[100px] cursor-pointer flex justify-between items-center gap-2 mt-3">
+      <Image
+        src={"/assets/thumb.jpg"}
+        height={200}
+        width={300}
+        className="h-full w-[44%] rounded-md object-cover"
+        alt="VideoComponent"
+      />
 
-      <div className="details w-[55%] h-full flex gap-2">
+      <div className="details w-[56%] h-full flex gap-2">
         <div className="flex flex-col gap-1 px-1">
-          <div className="title text-[13px] text-black">
-            How to Make Money Using Google Maps in 2025 ($100 - $200 PER DAY)
-            something
+          <div className="title text-[14px] text-black font-medium leading-normal">
+           {" How to Make Money Using Google Maps in 2025 ($100 - $200 PER DAY) something".substring(0, 40) + "..."}
           </div>
           <div className="flex flex-col ">
             <div className="channelName text-[13px] text-gray-600 flex justify-start items-center gap-1">
@@ -35,6 +32,6 @@ const SemiVideo = () => {
       </div>
     </div>
   );
-}
+};
 
-export default SemiVideo
+export default SemiVideo;
