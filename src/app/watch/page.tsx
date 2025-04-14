@@ -4,6 +4,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import ClientVideoPageLayout from "@/components/video/client-vidoepage-layout";
 import Image from "next/image";
+import { BiDislike, BiLike } from "react-icons/bi";
+import { PiShareFatLight } from "react-icons/pi";
 
 interface WatchPageProps {
   searchParams: {
@@ -41,9 +43,9 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                   Mitwa - Lyrical Song | KANK | Shahrukh Khan, Rani Mukherjee |
                   Shankar Ehsaan Loy | Romantic Song
                 </div>
-                <div className="flex justify-between border border-black">
+                <div className="flex justify-between">
                   <div className="channel flex gap-5 items-center">
-                    <div className="w-[40px] h-[40px] border border-black z-0">
+                    <div className="w-[40px] h-[40px] z-0">
                       <Avatar className="">
                         <AvatarImage
                           src="https://github.com/shadcn.png"
@@ -53,13 +55,40 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                         <AvatarFallback>CN</AvatarFallback>
                       </Avatar>
                     </div>
-                    <div className="">SantoshMaster</div>
-                    <Button variant="destructive">Subscribe</Button>
+                    <div className="flex flex-col">
+                      <div className="text-lg font-semibold leading-tight font-roboto">
+                        Santosh Phaiju
+                      </div>
+                      <div className="text-[12px] text-gray-600">
+                        100K subscribers
+                      </div>
+                    </div>
+                    <Button
+                      variant="default"
+                      className="rounded-full font-roboto font-medium"
+                    >
+                      Subscribe
+                    </Button>
                   </div>
-                  <div className="flex justify-end gap-5 items-center mr-10">
-                    <Button variant="default">Like</Button>
-                    <Button variant="default">Share</Button>
-                    <Button variant="default">...</Button>
+                  <div className="flex justify-end gap-2 items-center ">
+                    <div className="flex justify-between items-center rounded-full bg-gray-100">
+                      <div className="flex justify-center border-r items-center rounded-l-full gap-2 p-2 px-4 hover:bg-gray-200">
+                        <BiLike size={20} />
+                        <p className="font-sans font-medium text-sm">4K</p>
+                      </div>
+                      <div className="p-2 px-4 rounded-r-full hover:bg-gray-200">
+                        <BiDislike size={20} />
+                      </div>
+                    </div>
+                    <div className="flex justify-center bg-gray-100 items-center rounded-full gap-2 p-2 px-4 hover:bg-gray-200">
+                      <PiShareFatLight size={20} />
+                      <p className="font-sans font-medium text-md">Share</p>
+                    </div>
+                    <Button className="rounded-full px-3 bg-gray-100 hover:bg-gray-200 flex justify-center gap-[2px] items-center">
+                      <div className="bg-black h-1 w-1 rounded-full"></div>
+                      <div className="bg-black h-1 w-1 rounded-full"></div>
+                      <div className="bg-black h-1 w-1 rounded-full"></div>
+                    </Button>
                   </div>
                 </div>
               </div>

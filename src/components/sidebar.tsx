@@ -70,17 +70,11 @@ const lowerLinks = [
   },
 ];
 
-const Sidebar = ({
-  isSidebarOpen,
-  setIsSidebarOpen,
-}: {
-  isSidebarOpen?: boolean;
-  setIsSidebarOpen?: (value: boolean) => void;
-}) => {
+const Sidebar = ({ isSidebarOpen }: { isSidebarOpen?: boolean }) => {
   return (
     <div className="bg-white z-50">
       {isSidebarOpen && (
-        <ScrollArea className={cn(`h-[94vh] px-4 py-4 mt-[56px] w-auto `)}>
+        <ScrollArea className={cn(`h-[94vh] px-4 py-4 mt-[56px] w-auto`)}>
           <div className="">
             <div className="top flex flex-col gap-2 w-full">
               {topLinks.map((link, index) => {
@@ -133,7 +127,7 @@ const Sidebar = ({
         </ScrollArea>
       )}
       {isSidebarOpen === false && (
-        <ScrollArea className={cn(`h-[94vh] px-1 py-4 mt-[56px] w-auto`)}>
+        <ScrollArea className={cn(`h-[94vh] px-1 py-4 mt-[56px] w-auto pb-12`)}>
           <div className="top flex flex-col gap-2 w-full">
             {topLinks.map((link, index) => {
               return (
@@ -153,7 +147,11 @@ const Sidebar = ({
               {lowerLinks.map((link, index) => {
                 return (
                   <div key={index}>
-                    <IconSidebarItem name={link.title} icon={link.icon} link={link.link} />
+                    <IconSidebarItem
+                      name={link.title}
+                      icon={link.icon}
+                      link={link.link}
+                    />
                   </div>
                 );
               })}

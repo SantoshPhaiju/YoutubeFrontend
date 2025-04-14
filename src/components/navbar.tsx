@@ -41,7 +41,7 @@ const Navbar = ({
             <RxHamburgerMenu />
           </div>
           <FaYoutube className="text-[24px] text-red-700" />
-          <Link href={"/"} className="text-[18px]">
+          <Link href={"/"} className="text-[24px]">
             MyTube
           </Link>
         </div>
@@ -51,7 +51,7 @@ const Navbar = ({
         <div className="profiles flex justify-center items-center gap-4 ">
           <div className="">
             <Button
-              className="flex justify-center items-center gap-2 text-red-700 text-md rounded-full"
+              className="flex justify-center items-center gap-2 text-red-700 text-md rounded-full bg-gray-50 hover:bg-gray-100"
               variant={"outline"}
             >
               <FaPlus />
@@ -59,10 +59,10 @@ const Navbar = ({
             </Button>
           </div>
           <div>
-            <IoMdNotificationsOutline className="text-[30px] cursor-pointer" />
+            <IoMdNotificationsOutline className="text-[24px] cursor-pointer" />
           </div>
           <div className="cursor-pointer">
-            <Avatar>
+            <Avatar >
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>

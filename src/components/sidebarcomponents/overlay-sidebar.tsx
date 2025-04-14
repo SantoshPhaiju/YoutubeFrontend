@@ -125,7 +125,7 @@ const OverlaySidebar = ({
                   <RxHamburgerMenu />
                 </div>
                 <FaYoutube className="text-[24px] text-red-700" />
-                <Link href={"/"} className="text-[18px]">
+                <Link href={"/"} className="text-[24px]">
                   MyTube
                 </Link>
               </div>
