@@ -70,7 +70,12 @@ const lowerLinks = [
   },
 ];
 
-const Sidebar = ({ isSidebarOpen }: { isSidebarOpen?: boolean }) => {
+const Sidebar = ({
+  isSidebarOpen,
+}: {
+  isSidebarOpen?: boolean;
+  setIsSidebarOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   return (
     <div className="bg-white z-50">
       {isSidebarOpen && (

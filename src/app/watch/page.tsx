@@ -38,7 +38,7 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                 <Image
                   src={"/assets/thumb.jpg"}
                   height={200}
-                  width={300}
+                  width={300} 
                   className="h-[70vh] w-[100%] object-cover"
                   alt="VideoComponent"
                 />
@@ -82,7 +82,7 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                         <p className="font-sans font-semibold text-sm">4K</p>
                       </div>
                       <div className="p-2 px-4 rounded-r-full hover:bg-gray-200">
-                        <BiDislike size={20} />
+                        <BiDislike size={20} /> 
                       </div>
                     </div>
                     <div className="flex justify-center bg-gray-100 items-center rounded-full gap-2 p-2 px-4 hover:bg-gray-200">
@@ -113,10 +113,92 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                   </span>
                 </div>
               </div>
-              <div className="commentSection h-[1000px] mt-4 w-full">
-                <h1 className="font-semibold text-[24px]">
-                  621 Comments
-                </h1>
+              <div className="commentSection flex flex-col gap-4 h-[1000px] mt-4 w-full">
+                <h1 className="font-semibold text-[20px]">621 Comments</h1>
+                <div className="addComment flex gap-4 w-full items-start">
+                  <div className="w-[40px] h-[40px] z-0">
+                    <Avatar className="">
+                      <AvatarImage
+                        src="https://github.com/shadcn.png"
+                        alt="@shadcn"
+                        className="rounded-[50%] z-0"
+                      />
+                      <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                  </div>
+                  <div className="w-full flex flex-col gap-2">
+                    <input
+                      type="text"
+                      name="comment"
+                      id="comment"
+                      placeholder="Add a comment..."
+                      className="w-full transition-all duration-300 border-b-2 border-gray-300 text-md py-[4px] outline-none focus:outline-none focus:border-black"
+                    />
+                    <div className="flex justify-end gap-2 items-center">
+                      <Button
+                        variant={"ghost"}
+                        className="text-sm font-semibold rounded-full"
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        variant={"default"}
+                        className="text-sm font-semibold rounded-full bg-gray-200 text-black hover:bg-gray-300"
+                      >
+                        Comment
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+                <div className="comments flex flex-col gap-4 w-full">
+                  <div className="comment flex gap-3 w-full border border-black">
+                    <div className="w-[40px] h-[40px] z-0">
+                      <Avatar className="">
+                        <AvatarImage
+                          src="https://github.com/shadcn.png"
+                          alt="@shadcn"
+                          className="rounded-[50%] z-0"
+                        />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <div>
+                      <div className="flex gap-1 items-center justify-start">
+                        <div className="text-gray-800 text-sm font-semibold">
+                          @santoshphaiju321
+                        </div>
+                        <div className="text-gray-600 text-[12px] font-normal">
+                          3 years ago
+                        </div>
+                      </div>
+                      <div>
+                        Arijit singh my favourite singer❤ A- Aayat B- Binte dil
+                      </div>
+                      <div className="flex justify-start gap-4 items-center mt-2 text-md">
+                        <div className="likes flex justify-start items-center gap-2">
+                          <div className="flex justify-center items-center gap-1">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiLike size={18} className="" />
+                            </div>
+                            <p className="font-sans font-semibold text-sm">
+                              4K
+                            </p>
+                          </div>
+                          <div className="">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiDislike size={18} />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="reply">Reply</div>
+                      </div>
+                      <div className="flex justify-start gap-4 items-center mt-2 text-md">
+                        <div>icon</div>
+                        <div>48 replies</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="rightContainer w-[380px]">
