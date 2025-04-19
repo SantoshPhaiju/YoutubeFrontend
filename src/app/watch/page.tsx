@@ -6,6 +6,7 @@ import ClientVideoPageLayout from "@/components/video/client-vidoepage-layout";
 import Image from "next/image";
 import { BiDislike, BiLike } from "react-icons/bi";
 import { FiBookmark } from "react-icons/fi";
+import { MdKeyboardArrowDown } from "react-icons/md";
 import { PiShareFatLight } from "react-icons/pi";
 
 interface WatchPageProps {
@@ -38,7 +39,7 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                 <Image
                   src={"/assets/thumb.jpg"}
                   height={200}
-                  width={300} 
+                  width={300}
                   className="h-[70vh] w-[100%] object-cover"
                   alt="VideoComponent"
                 />
@@ -82,7 +83,7 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                         <p className="font-sans font-semibold text-sm">4K</p>
                       </div>
                       <div className="p-2 px-4 rounded-r-full hover:bg-gray-200">
-                        <BiDislike size={20} /> 
+                        <BiDislike size={20} />
                       </div>
                     </div>
                     <div className="flex justify-center bg-gray-100 items-center rounded-full gap-2 p-2 px-4 hover:bg-gray-200">
@@ -113,7 +114,7 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                   </span>
                 </div>
               </div>
-              <div className="commentSection flex flex-col gap-4 h-[1000px] mt-4 w-full">
+              <div className="commentSection flex flex-col gap-4 h-auto mb-4 mt-4 w-full">
                 <h1 className="font-semibold text-[20px]">621 Comments</h1>
                 <div className="addComment flex gap-4 w-full items-start">
                   <div className="w-[40px] h-[40px] z-0">
@@ -151,7 +152,56 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                   </div>
                 </div>
                 <div className="comments flex flex-col gap-4 w-full">
-                  <div className="comment flex gap-3 w-full border border-black">
+                  <div className="comment flex gap-3 w-full">
+                    <div className="w-[40px] h-[40px] z-0">
+                      <Avatar className="">
+                        <AvatarImage
+                          src="https://github.com/shadcn.png"
+                          alt="@shadcn"
+                          className="rounded-[50%] z-0"
+                        />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <div>
+                      <div className="flex gap-1 items-center justify-start">
+                        <div className="text-gray-800 text-sm font-[600]">
+                          @santoshphaiju321
+                        </div>
+                        <div className="text-gray-600 text-[12px] font-normal">
+                          3 years ago
+                        </div>
+                      </div>
+                      <div>
+                        Arijit singh my favourite singer❤ A- Aayat B- Binte dil
+                      </div>
+                      <div className="flex justify-start gap-4 items-center mt-2 text-md">
+                        <div className="likes flex justify-start items-center gap-2">
+                          <div className="flex justify-center items-center gap-1">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiLike size={18} className="" />
+                            </div>
+                            <p className="font-sans font-semibold text-sm">
+                              4K
+                            </p>
+                          </div>
+                          <div className="">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiDislike size={18} />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="reply">Reply</div>
+                      </div>
+                      <div className="flex justify-start gap-1 items-center mt-2 text-sm text-blue-600 font-medium cursor-pointer hover:bg-blue-100 transition-all duration-300 py-2 px-2 rounded-full w-[120px] selectnone mb-1 text-center">
+                        <div>
+                          <MdKeyboardArrowDown size={24} />
+                        </div>
+                        <div>48 replies</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="comment flex gap-3 w-full">
                     <div className="w-[40px] h-[40px] z-0">
                       <Avatar className="">
                         <AvatarImage
@@ -192,8 +242,402 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                         </div>
                         <div className="reply">Reply</div>
                       </div>
+                      <div className="flex justify-start gap-1 items-center mt-2 text-sm text-blue-600 font-medium cursor-pointer hover:bg-blue-100 transition-all duration-300 py-2 px-4 rounded-full w-[130px] selectnone mb-1">
+                        <div>
+                          <MdKeyboardArrowDown size={24} />
+                        </div>
+                        <div>48 replies</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="comment flex gap-3 w-full">
+                    <div className="w-[40px] h-[40px] z-0">
+                      <Avatar className="">
+                        <AvatarImage
+                          src="https://github.com/shadcn.png"
+                          alt="@shadcn"
+                          className="rounded-[50%] z-0"
+                        />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <div>
+                      <div className="flex gap-1 items-center justify-start">
+                        <div className="text-gray-800 text-sm font-semibold">
+                          @santoshphaiju321
+                        </div>
+                        <div className="text-gray-600 text-[12px] font-normal">
+                          3 years ago
+                        </div>
+                      </div>
+                      <div>
+                        Arijit singh my favourite singer❤ A- Aayat B- Binte dil
+                      </div>
                       <div className="flex justify-start gap-4 items-center mt-2 text-md">
-                        <div>icon</div>
+                        <div className="likes flex justify-start items-center gap-2">
+                          <div className="flex justify-center items-center gap-1">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiLike size={18} className="" />
+                            </div>
+                            <p className="font-sans font-semibold text-sm">
+                              4K
+                            </p>
+                          </div>
+                          <div className="">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiDislike size={18} />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="reply">Reply</div>
+                      </div>
+                      <div className="flex justify-start gap-1 items-center mt-2 text-sm text-blue-600 font-medium cursor-pointer hover:bg-blue-100 transition-all duration-300 py-2 px-4 rounded-full w-[130px] selectnone mb-1">
+                        <div>
+                          <MdKeyboardArrowDown size={24} />
+                        </div>
+                        <div>48 replies</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="comment flex gap-3 w-full">
+                    <div className="w-[40px] h-[40px] z-0">
+                      <Avatar className="">
+                        <AvatarImage
+                          src="https://github.com/shadcn.png"
+                          alt="@shadcn"
+                          className="rounded-[50%] z-0"
+                        />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <div>
+                      <div className="flex gap-1 items-center justify-start">
+                        <div className="text-gray-800 text-sm font-semibold">
+                          @santoshphaiju321
+                        </div>
+                        <div className="text-gray-600 text-[12px] font-normal">
+                          3 years ago
+                        </div>
+                      </div>
+                      <div>
+                        Arijit singh my favourite singer❤ A- Aayat B- Binte dil
+                      </div>
+                      <div className="flex justify-start gap-4 items-center mt-2 text-md">
+                        <div className="likes flex justify-start items-center gap-2">
+                          <div className="flex justify-center items-center gap-1">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiLike size={18} className="" />
+                            </div>
+                            <p className="font-sans font-semibold text-sm">
+                              4K
+                            </p>
+                          </div>
+                          <div className="">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiDislike size={18} />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="reply">Reply</div>
+                      </div>
+                      <div className="flex justify-start gap-1 items-center mt-2 text-sm text-blue-600 font-medium cursor-pointer hover:bg-blue-100 transition-all duration-300 py-2 px-4 rounded-full w-[130px] selectnone mb-1">
+                        <div>
+                          <MdKeyboardArrowDown size={24} />
+                        </div>
+                        <div>48 replies</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="comment flex gap-3 w-full">
+                    <div className="w-[40px] h-[40px] z-0">
+                      <Avatar className="">
+                        <AvatarImage
+                          src="https://github.com/shadcn.png"
+                          alt="@shadcn"
+                          className="rounded-[50%] z-0"
+                        />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <div>
+                      <div className="flex gap-1 items-center justify-start">
+                        <div className="text-gray-800 text-sm font-semibold">
+                          @santoshphaiju321
+                        </div>
+                        <div className="text-gray-600 text-[12px] font-normal">
+                          3 years ago
+                        </div>
+                      </div>
+                      <div>
+                        Arijit singh my favourite singer❤ A- Aayat B- Binte dil
+                      </div>
+                      <div className="flex justify-start gap-4 items-center mt-2 text-md">
+                        <div className="likes flex justify-start items-center gap-2">
+                          <div className="flex justify-center items-center gap-1">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiLike size={18} className="" />
+                            </div>
+                            <p className="font-sans font-semibold text-sm">
+                              4K
+                            </p>
+                          </div>
+                          <div className="">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiDislike size={18} />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="reply">Reply</div>
+                      </div>
+                      <div className="flex justify-start gap-1 items-center mt-2 text-sm text-blue-600 font-medium cursor-pointer hover:bg-blue-100 transition-all duration-300 py-2 px-4 rounded-full w-[130px] selectnone mb-1">
+                        <div>
+                          <MdKeyboardArrowDown size={24} />
+                        </div>
+                        <div>48 replies</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="comment flex gap-3 w-full">
+                    <div className="w-[40px] h-[40px] z-0">
+                      <Avatar className="">
+                        <AvatarImage
+                          src="https://github.com/shadcn.png"
+                          alt="@shadcn"
+                          className="rounded-[50%] z-0"
+                        />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <div>
+                      <div className="flex gap-1 items-center justify-start">
+                        <div className="text-gray-800 text-sm font-semibold">
+                          @santoshphaiju321
+                        </div>
+                        <div className="text-gray-600 text-[12px] font-normal">
+                          3 years ago
+                        </div>
+                      </div>
+                      <div>
+                        Arijit singh my favourite singer❤ A- Aayat B- Binte dil
+                      </div>
+                      <div className="flex justify-start gap-4 items-center mt-2 text-md">
+                        <div className="likes flex justify-start items-center gap-2">
+                          <div className="flex justify-center items-center gap-1">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiLike size={18} className="" />
+                            </div>
+                            <p className="font-sans font-semibold text-sm">
+                              4K
+                            </p>
+                          </div>
+                          <div className="">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiDislike size={18} />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="reply">Reply</div>
+                      </div>
+                      <div className="flex justify-start gap-1 items-center mt-2 text-sm text-blue-600 font-medium cursor-pointer hover:bg-blue-100 transition-all duration-300 py-2 px-4 rounded-full w-[130px] selectnone mb-1">
+                        <div>
+                          <MdKeyboardArrowDown size={24} />
+                        </div>
+                        <div>48 replies</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="comment flex gap-3 w-full">
+                    <div className="w-[40px] h-[40px] z-0">
+                      <Avatar className="">
+                        <AvatarImage
+                          src="https://github.com/shadcn.png"
+                          alt="@shadcn"
+                          className="rounded-[50%] z-0"
+                        />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <div>
+                      <div className="flex gap-1 items-center justify-start">
+                        <div className="text-gray-800 text-sm font-semibold">
+                          @santoshphaiju321
+                        </div>
+                        <div className="text-gray-600 text-[12px] font-normal">
+                          3 years ago
+                        </div>
+                      </div>
+                      <div>
+                        Arijit singh my favourite singer❤ A- Aayat B- Binte dil
+                      </div>
+                      <div className="flex justify-start gap-4 items-center mt-2 text-md">
+                        <div className="likes flex justify-start items-center gap-2">
+                          <div className="flex justify-center items-center gap-1">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiLike size={18} className="" />
+                            </div>
+                            <p className="font-sans font-semibold text-sm">
+                              4K
+                            </p>
+                          </div>
+                          <div className="">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiDislike size={18} />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="reply">Reply</div>
+                      </div>
+                      <div className="flex justify-start gap-1 items-center mt-2 text-sm text-blue-600 font-medium cursor-pointer hover:bg-blue-100 transition-all duration-300 py-2 px-4 rounded-full w-[130px] selectnone mb-1">
+                        <div>
+                          <MdKeyboardArrowDown size={24} />
+                        </div>
+                        <div>48 replies</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="comment flex gap-3 w-full">
+                    <div className="w-[40px] h-[40px] z-0">
+                      <Avatar className="">
+                        <AvatarImage
+                          src="https://github.com/shadcn.png"
+                          alt="@shadcn"
+                          className="rounded-[50%] z-0"
+                        />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <div>
+                      <div className="flex gap-1 items-center justify-start">
+                        <div className="text-gray-800 text-sm font-semibold">
+                          @santoshphaiju321
+                        </div>
+                        <div className="text-gray-600 text-[12px] font-normal">
+                          3 years ago
+                        </div>
+                      </div>
+                      <div>
+                        Arijit singh my favourite singer❤ A- Aayat B- Binte dil
+                      </div>
+                      <div className="flex justify-start gap-4 items-center mt-2 text-md">
+                        <div className="likes flex justify-start items-center gap-2">
+                          <div className="flex justify-center items-center gap-1">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiLike size={18} className="" />
+                            </div>
+                            <p className="font-sans font-semibold text-sm">
+                              4K
+                            </p>
+                          </div>
+                          <div className="">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiDislike size={18} />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="reply">Reply</div>
+                      </div>
+                      <div className="flex justify-start gap-1 items-center mt-2 text-sm text-blue-600 font-medium cursor-pointer hover:bg-blue-100 transition-all duration-300 py-2 px-4 rounded-full w-[130px] selectnone mb-1">
+                        <div>
+                          <MdKeyboardArrowDown size={24} />
+                        </div>
+                        <div>48 replies</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="comment flex gap-3 w-full">
+                    <div className="w-[40px] h-[40px] z-0">
+                      <Avatar className="">
+                        <AvatarImage
+                          src="https://github.com/shadcn.png"
+                          alt="@shadcn"
+                          className="rounded-[50%] z-0"
+                        />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <div>
+                      <div className="flex gap-1 items-center justify-start">
+                        <div className="text-gray-800 text-sm font-semibold">
+                          @santoshphaiju321
+                        </div>
+                        <div className="text-gray-600 text-[12px] font-normal">
+                          3 years ago
+                        </div>
+                      </div>
+                      <div>
+                        Arijit singh my favourite singer❤ A- Aayat B- Binte dil
+                      </div>
+                      <div className="flex justify-start gap-4 items-center mt-2 text-md">
+                        <div className="likes flex justify-start items-center gap-2">
+                          <div className="flex justify-center items-center gap-1">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiLike size={18} className="" />
+                            </div>
+                            <p className="font-sans font-semibold text-sm">
+                              4K
+                            </p>
+                          </div>
+                          <div className="">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiDislike size={18} />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="reply">Reply</div>
+                      </div>
+                      <div className="flex justify-start gap-1 items-center mt-2 text-sm text-blue-600 font-medium cursor-pointer hover:bg-blue-100 transition-all duration-300 py-2 px-4 rounded-full w-[130px] selectnone mb-1">
+                        <div>
+                          <MdKeyboardArrowDown size={24} />
+                        </div>
+                        <div>48 replies</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="comment flex gap-3 w-full">
+                    <div className="w-[40px] h-[40px] z-0">
+                      <Avatar className="">
+                        <AvatarImage
+                          src="https://github.com/shadcn.png"
+                          alt="@shadcn"
+                          className="rounded-[50%] z-0"
+                        />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <div>
+                      <div className="flex gap-1 items-center justify-start">
+                        <div className="text-gray-800 text-sm font-semibold">
+                          @santoshphaiju321
+                        </div>
+                        <div className="text-gray-600 text-[12px] font-normal">
+                          3 years ago
+                        </div>
+                      </div>
+                      <div>
+                        Arijit singh my favourite singer❤ A- Aayat B- Binte dil
+                      </div>
+                      <div className="flex justify-start gap-4 items-center mt-2 text-md">
+                        <div className="likes flex justify-start items-center gap-2">
+                          <div className="flex justify-center items-center gap-1">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiLike size={18} className="" />
+                            </div>
+                            <p className="font-sans font-semibold text-sm">
+                              4K
+                            </p>
+                          </div>
+                          <div className="">
+                            <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
+                              <BiDislike size={18} />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="reply">Reply</div>
+                      </div>
+                      <div className="flex justify-start gap-1 items-center mt-2 text-sm text-blue-600 font-medium cursor-pointer hover:bg-blue-100 transition-all duration-300 py-2 px-4 rounded-full w-[130px] selectnone mb-1">
+                        <div>
+                          <MdKeyboardArrowDown size={24} />
+                        </div>
                         <div>48 replies</div>
                       </div>
                     </div>
