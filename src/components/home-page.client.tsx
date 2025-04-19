@@ -9,27 +9,38 @@ import Sidebar from "./sidebar";
 const HomePageClient = () => {
   const { setIsSidebarOpen, setShowCategories, isSidebarOpen } =
     useContext(NavbarContext);
+
   useEffect(() => {
-    setIsSidebarOpen(true);
-    setShowCategories(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const handleResize = () => {
+      const isWide = window.innerWidth >= 1024; // Tailwind lg breakpoint
+      setIsSidebarOpen(isWide);
+      setShowCategories(true);
+    };
+
+    // ✅ Initial check on mount
+    handleResize();
+
+    // ✅ Listen to resize event
+    window.addEventListener("resize", handleResize);
+
+    // ✅ Cleanup on unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, [setIsSidebarOpen, setShowCategories]);
+
   return (
-    <>
-      <AnimatePresence>
-        <div
-          className={cn("fixed left-0 top-0 overflow-hidden", {
-            "w-[250px]": isSidebarOpen,
-            "w-[80px]": isSidebarOpen === false,
-          })}
-        >
-          <Sidebar
-            isSidebarOpen={isSidebarOpen}
-            setIsSidebarOpen={setIsSidebarOpen}
-          />
-        </div>
-      </AnimatePresence>
-    </>
+    <AnimatePresence>
+      <div
+        className={cn("fixed left-0 top-0 overflow-hidden hidden md:block", {
+          "w-[250px]": isSidebarOpen,
+          "w-0 md:w-[80px]": isSidebarOpen === false,
+        })}
+      >
+        <Sidebar
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
+        />
+      </div>
+    </AnimatePresence>
   );
 };
 

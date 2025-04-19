@@ -37,11 +37,13 @@ const RootClientLayout = ({ children }: { children: React.ReactNode }) => {
             />
 
             <div
-              className={cn(`pl-[250px] `, {
-                "pl-[90px]":
+              className={cn(` `, {
+                "pl-0 md:pl-[90px]":
                   isSidebarOpen === false && !pathname.includes("/watch"),
                 "pl-[0px]":
                   isSidebarOpen === false && pathname.includes("/watch"),
+                "pl-[250px]":
+                  isSidebarOpen === true && !pathname.includes("/watch"),
               })}
             >
               {children}
