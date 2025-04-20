@@ -68,7 +68,7 @@ const Navbar = ({
   console.log("pathname", pathname);
   return (
     <>
-      <header className="w-full flex justify-between bg-white items-center fixed top-0 left-0 py-2 px-4 z-40 gap-4">
+      <header className="w-full flex justify-between bg-white items-center fixed top-0 left-0 py-2 px-2 md:px-4 z-40 gap-4">
         <div className="logo select-none flex justify-center items-center gap-1 text-2xl font-semibold">
           <div
             // onClick={() => {
@@ -91,7 +91,7 @@ const Navbar = ({
                 setShowOverlaySidebar(true);
               }
             }}
-            className="hamburger mr-2 cursor-pointer p-3 flex flex-col gap-[3px] justify-center items-center rounded-full hover:bg-gray-200"
+            className="hamburger cursor-pointer p-2 sm:p-3 flex flex-col gap-[3px] justify-center items-center rounded-full hover:bg-gray-200"
           >
             <RxHamburgerMenu />
           </div>
@@ -103,14 +103,14 @@ const Navbar = ({
             Santosh
           </Link>
         </div>
-        <div className="flex justify-between gap-4 items-center w-auto sm:w-[90%] md:w-[80%] lg:w-[70%] 2xl:w-[66%]">
+        <div className="flex justify-between gap-2 md:gap-4 items-center w-auto sm:w-[90%] md:w-[80%] lg:w-[70%] 2xl:w-[66%]">
           <div className="search w-full max-w-[600px]">
             <Search />
           </div>
-          <div className="profiles flex justify-center items-center gap-4 ">
+          <div className="profiles flex justify-center items-center gap-2 md:gap-4 ">
             <div className="">
               <Button
-                className="flex justify-center items-center gap-2 text-red-700 text-md rounded-full bg-gray-50 hover:bg-gray-100"
+                className="flex px-3 sm:px-4 justify-center items-center gap-1 md:gap-2 text-red-700 text-sm md:text-md rounded-full bg-gray-50 hover:bg-gray-100"
                 variant={"outline"}
               >
                 <FaPlus />
@@ -123,7 +123,7 @@ const Navbar = ({
             <div className="cursor-pointer">
               <DropdownMenu>
                 <DropdownMenuTrigger>
-                  <Avatar>
+                  <Avatar className="cursor-pointer h-[32px] w-[32px]">
                     <AvatarImage src="https://github.com/shadcn.png" />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
