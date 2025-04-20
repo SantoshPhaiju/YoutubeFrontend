@@ -126,7 +126,7 @@ const OverlaySidebar = ({
                 </div>
                 <FaYoutube className="text-[24px] text-red-700" />
                 <Link href={"/"} className="text-[24px]">
-                  MyTube
+                  Santosh
                 </Link>
               </div>
             </div>

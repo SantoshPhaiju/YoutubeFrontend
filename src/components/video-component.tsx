@@ -12,7 +12,7 @@ const VideoComponent = () => {
             src={"/assets/thumb.jpg"}
             height={200}
             width={300}
-            className="h-[200px] w-full rounded-md object-cover"
+            className="h-auto max-h-[320px] min-h-[220px] w-full rounded-md object-cover"
             alt="VideoComponent"
           />
         </Link>
