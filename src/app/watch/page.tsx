@@ -31,7 +31,7 @@ const Page = async ({ searchParams }: WatchPageProps) => {
   return (
     <>
       <ClientVideoPageLayout>
-        <div className="px-[64px] pb-2 z-0">
+        <div className=" px-4 md:px-[32px] lg:px-[48px] xl:px-[64px] pb-2 z-0">
           {/* <Videopage /> */}
           <div className="w-full px-2 mx-auto h-auto cursor-pointer flex justify-center items-start gap-6">
             <div className="leftContainer w-full flex flex-col gap-3">
@@ -40,7 +40,7 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                   src={"/assets/thumb.jpg"}
                   height={200}
                   width={300}
-                  className="h-[70vh] w-[100%] object-cover"
+                  className="h-auto min-h-[200px] max-h-[480px] xl:h-[70vh] w-[100%] object-cover"
                   alt="VideoComponent"
                 />
               </div>
@@ -49,24 +49,26 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                   Mitwa - Lyrical Song | KANK | Shahrukh Khan, Rani Mukherjee |
                   Shankar Ehsaan Loy | Romantic Song
                 </div>
-                <div className="flex justify-between">
-                  <div className="channel flex gap-5 items-center">
-                    <div className="w-[40px] h-[40px] z-0">
-                      <Avatar className="">
-                        <AvatarImage
-                          src="https://github.com/shadcn.png"
-                          alt="@shadcn"
-                          className="rounded-[50%] z-0"
-                        />
-                        <AvatarFallback>CN</AvatarFallback>
-                      </Avatar>
-                    </div>
-                    <div className="flex flex-col">
-                      <div className="text-lg font-semibold leading-tight font-roboto">
-                        Santosh Phaiju
+                <div className="flex gap-4 flex-col lg:flex-row justify-between">
+                  <div className="channel flex gap-5 items-center justify-between xl:justify-start">
+                    <div className="flex gap-2">
+                      <div className="w-[40px] h-[40px] z-0">
+                        <Avatar className="">
+                          <AvatarImage
+                            src="https://github.com/shadcn.png"
+                            alt="@shadcn"
+                            className="rounded-[50%] z-0"
+                          />
+                          <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
                       </div>
-                      <div className="text-[12px] text-gray-600">
-                        100K subscribers
+                      <div className="flex flex-col">
+                        <div className="text-lg font-semibold leading-tight font-roboto">
+                          Santosh Phaiju
+                        </div>
+                        <div className="text-[12px] text-gray-600">
+                          100K subscribers
+                        </div>
                       </div>
                     </div>
                     <Button
@@ -76,7 +78,7 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                       Subscribe
                     </Button>
                   </div>
-                  <div className="flex justify-end gap-2 items-center ">
+                  <div className="flex justify-start xl:justify-end gap-2 items-center ">
                     <div className="flex justify-between items-center rounded-full bg-gray-100">
                       <div className="flex justify-center border-r items-center rounded-l-full gap-2 p-2 px-4 hover:bg-gray-200">
                         <BiLike size={20} />
@@ -645,7 +647,7 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                 </div>
               </div>
             </div>
-            <div className="rightContainer w-[380px]">
+            <div className="rightContainer hidden xl:block xl:w-[380px]">
               <SemiNav />
               <SemiVideo />
               <SemiVideo />
