@@ -40,12 +40,12 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                   src={"/assets/thumb.jpg"}
                   height={200}
                   width={300}
-                  className="h-auto min-h-[200px] max-h-[480px] xl:h-[70vh] w-[100%] object-cover"
+                  className="h-auto min-h-[200px] xl:h-auto xl:max-h-[70vh] w-[100%] object-cover"
                   alt="VideoComponent"
                 />
               </div>
               <div className="videoDetails flex flex-col gap-3">
-                <div className="text-xl font-bold leading-tight">
+                <div className="text-lg md:text-xl font-bold leading-tight">
                   Mitwa - Lyrical Song | KANK | Shahrukh Khan, Rani Mukherjee |
                   Shankar Ehsaan Loy | Romantic Song
                 </div>
@@ -82,7 +82,7 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                     <div className="flex justify-between items-center rounded-full bg-gray-100">
                       <div className="flex justify-center border-r items-center rounded-l-full gap-2 p-2 px-4 hover:bg-gray-200">
                         <BiLike size={20} />
-                        <p className="font-sans font-semibold text-sm">4K</p>
+                        <p className="font-sans font-semibold text-sm">50B</p>
                       </div>
                       <div className="p-2 px-4 rounded-r-full hover:bg-gray-200">
                         <BiDislike size={20} />
