@@ -27,7 +27,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         className={`${inter.variable} ${robotoCondensed.variable} ${roboto.variable} ${roboto.className} antialiased`}
       >
         <RootClientLayout>{children}</RootClientLayout>
