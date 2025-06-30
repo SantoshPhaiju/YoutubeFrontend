@@ -11,7 +11,7 @@ import { PiShareFatLight } from "react-icons/pi";
 
 interface WatchPageProps {
   searchParams: {
-    v?: string; // Query parameter (optional because it might be missing)
+    v?: string;
   };
 }
 

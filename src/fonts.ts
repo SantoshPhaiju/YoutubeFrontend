@@ -1,4 +1,3 @@
-// src/fonts.ts
 import { Inter, Roboto, Roboto_Condensed } from "next/font/google";
 
 export const roboto = Roboto({
