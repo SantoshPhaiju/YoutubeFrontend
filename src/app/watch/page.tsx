@@ -1,4 +1,5 @@
 import CommentComponent from "@/components/comment/comment-component";
+import SeeMoreComponent from "@/components/seemore/see-more-component";
 import SemiNav from "@/components/semi-nav";
 import SemiVideo from "@/components/semiVideoComponent";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -109,12 +110,7 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                   <div>109, 447 views</div>
                   <div>Feb 6, 2025</div>
                 </div>
-                <div className="description text-[14px] font-normal font-roboto text-gray-800 leading-normal">
-                  {videoDescription.substring(0, 200) + "..."}{" "}
-                  <span className="text-blue-500 underline underline-offset-2 cursor-pointer">
-                    see more
-                  </span>
-                </div>
+                <SeeMoreComponent videoDescription={videoDescription} />
               </div>
               <CommentComponent />
             </div>
