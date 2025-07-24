@@ -19,7 +19,7 @@ const CreateComponent = () => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            className="flex px-3 sm:px-4 justify-center items-center gap-1 md:gap-2 text-red-700 text-sm md:text-md rounded-full bg-gray-50 hover:bg-gray-100"
+            className="flex px-3 sm:px-4 justify-center items-center gap-1 md:gap-2 text-red-700 text-sm md:text-md rounded-full bg-gray-50 hover:bg-gray-100 select-none"
             variant={"outline"}
           >
             <FaPlus />
@@ -29,19 +29,19 @@ const CreateComponent = () => {
 
         <DropdownMenuContent className="px-0 py-2 min-w-[170px] rounded-[8px] mr-4">
           <DropdownMenuGroup>
-            <DropdownMenuItem className=" px-3 cursor-pointer py-2">
+            <DropdownMenuItem className="hover:!bg-gray-300/50 px-3 cursor-pointer py-2">
               <div className="flex justify-start items-center gap-3">
                 <GoVideo size={18} />
                 <span>Upload Video</span>
               </div>
             </DropdownMenuItem>
-            <DropdownMenuItem className=" px-3 cursor-pointer py-2">
+            <DropdownMenuItem className="hover:!bg-gray-300/50 px-3 cursor-pointer py-2">
               <div className="flex justify-start items-center gap-3">
                 <BsBroadcast size={18} />
                 <span>Go Live</span>
               </div>
             </DropdownMenuItem>
-            <DropdownMenuItem className=" px-3 cursor-pointer py-2">
+            <DropdownMenuItem className="hover:!bg-gray-300/50 px-3 cursor-pointer py-2">
               <div className="flex justify-start items-center gap-3">
                 <IoCreateOutline size={18} />
                 <span>Create Post</span>

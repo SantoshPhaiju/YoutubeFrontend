@@ -67,7 +67,7 @@ const Navbar = ({
   console.log("pathname", pathname);
   return (
     <>
-      <header className="w-full flex justify-between bg-white items-center fixed top-0 left-0 py-2 px-2 md:px-4 z-40 gap-4">
+      <header className="w-full select-none flex justify-between bg-white items-center fixed top-0 left-0 py-2 px-2 md:px-4 z-40 gap-4">
         <div className="logo select-none flex justify-center items-center gap-1 text-2xl font-semibold">
           <div
             // onClick={() => {
