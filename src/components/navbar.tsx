@@ -3,7 +3,6 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaYoutube } from "react-icons/fa";
-import { FaPlus } from "react-icons/fa6";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import {
   MdOutlineSwitchAccount,
@@ -24,10 +23,10 @@ import {
   MdOutlineShield,
 } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
+import CreateComponent from "./create/create-component";
 import Search from "./search";
 import SemiNav from "./semi-nav";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -108,15 +107,7 @@ const Navbar = ({
             <Search />
           </div>
           <div className="profiles flex justify-center items-center gap-2 md:gap-4 ">
-            <div className="">
-              <Button
-                className="flex px-3 sm:px-4 justify-center items-center gap-1 md:gap-2 text-red-700 text-sm md:text-md rounded-full bg-gray-50 hover:bg-gray-100"
-                variant={"outline"}
-              >
-                <FaPlus />
-                Create
-              </Button>
-            </div>
+            <CreateComponent />
             <div>
               <IoMdNotificationsOutline className="text-[24px] cursor-pointer" />
             </div>
