@@ -8,12 +8,16 @@ const ChannelPageClientLayout = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const { setIsSidebarOpen, isSidebarOpen } = useContext(NavbarContext);
+  const { setIsSidebarOpen, isSidebarOpen, setShowCategories, showCategories } =
+    useContext(NavbarContext);
   useEffect(() => {
     if (isSidebarOpen === false) {
       setIsSidebarOpen(true);
     }
-  }, [isSidebarOpen, setIsSidebarOpen]);
+    if (showCategories === true) {
+      setShowCategories(false);
+    }
+  }, [isSidebarOpen, setIsSidebarOpen, showCategories, setShowCategories]);
   return <div>{children}</div>;
 };
 

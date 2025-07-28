@@ -43,7 +43,7 @@ const RootClientLayout = ({ children }: { children: React.ReactNode }) => {
                   isSidebarOpen === false && !pathname.includes("/watch"),
                 "pl-[0px]":
                   isSidebarOpen === false && pathname.includes("/watch"),
-                "pl-[250px]":
+                "pl-0 md:pl-[250px]":
                   isSidebarOpen === true && !pathname.includes("/watch"),
               })}
             >
