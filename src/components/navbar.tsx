@@ -10,6 +10,7 @@ import {
   MdOutlineVisibilityOff,
 } from "react-icons/md";
 
+import { useState } from "react";
 import {
   MdOutlineAccountCircle,
   MdOutlineDarkMode,
@@ -65,6 +66,7 @@ const Navbar = ({
 }) => {
   const pathname = usePathname();
   console.log("pathname", pathname);
+  const [openDropdown, setOpenDropdown] = useState(false);
   return (
     <>
       <header className="w-full select-none flex justify-between bg-white items-center fixed top-0 left-0 py-2 px-2 md:px-4 z-40 gap-4">
@@ -112,7 +114,7 @@ const Navbar = ({
               <IoMdNotificationsOutline className="text-[24px] cursor-pointer" />
             </div>
             <div className="cursor-pointer">
-              <DropdownMenu>
+              <DropdownMenu open={openDropdown} onOpenChange={setOpenDropdown}>
                 <DropdownMenuTrigger>
                   <Avatar className="cursor-pointer h-[32px] w-[32px]">
                     <AvatarImage src="https://github.com/shadcn.png" />
@@ -135,7 +137,8 @@ const Navbar = ({
                         @santoshphaiju212
                       </div>
                       <Link
-                        href={"/"}
+                        href={"/channel-page"}
+                        onClick={() => setOpenDropdown(false)}
                         className="text-blue-600 hover:underline underline-offset-4 font-normal mt-[4px]"
                       >
                         View your channel

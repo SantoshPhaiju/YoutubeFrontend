@@ -4,7 +4,7 @@ import SemiNav from "@/components/semi-nav";
 import SemiVideo from "@/components/semiVideoComponent";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import ClientVideoPageLayout from "@/components/video/client-vidoepage-layout";
+import ClientVideoPageLayout from "@/components/video/client-vidoepage-layout.client";
 import Image from "next/image";
 import { BiDislike, BiLike } from "react-icons/bi";
 import { FiBookmark } from "react-icons/fi";
@@ -32,7 +32,7 @@ const Page = async ({ searchParams }: WatchPageProps) => {
   return (
     <>
       <ClientVideoPageLayout>
-        <div className=" px-4 md:px-[32px] lg:px-[48px] xl:px-[64px] pb-2 z-0">
+        <div className="px-4 md:px-[32px] lg:px-[48px] xl:px-[64px] pb-2 z-0">
           {/* <Videopage /> */}
           <div className="w-full px-2 mx-auto h-auto cursor-pointer flex flex-col xl:flex-row xl:justify-center xl:items-start gap-6">
             <div className="leftContainer w-full flex flex-col gap-3">

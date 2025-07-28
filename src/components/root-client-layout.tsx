@@ -5,11 +5,12 @@ import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import Navbar from "./navbar";
+import Sidebar from "./sidebar";
 import OverlaySidebar from "./sidebarcomponents/overlay-sidebar";
 
 const RootClientLayout = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [showCategories, setShowCategories] = useState(true);
+  const [showCategories, setShowCategories] = useState(false);
   const [showOverlaySidebar, setShowOverlaySidebar] = useState(false);
   const pathname = usePathname();
 
@@ -46,6 +47,22 @@ const RootClientLayout = ({ children }: { children: React.ReactNode }) => {
                   isSidebarOpen === true && !pathname.includes("/watch"),
               })}
             >
+              {!pathname.includes("/watch") && (
+                <div
+                  className={cn(
+                    "fixed left-0 top-0 overflow-hidden hidden md:block",
+                    {
+                      "w-[250px]": isSidebarOpen,
+                      "w-0 md:w-[80px]": isSidebarOpen === false,
+                    }
+                  )}
+                >
+                  <Sidebar
+                    isSidebarOpen={isSidebarOpen}
+                    setIsSidebarOpen={setIsSidebarOpen}
+                  />
+                </div>
+              )}
               {children}
             </div>
           </main>
