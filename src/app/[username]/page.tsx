@@ -85,12 +85,6 @@ const Page = () => {
                     Videos
                   </TabsTrigger>
                   <TabsTrigger
-                    value="shorts"
-                    className="text-gray-600 data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-2 text-sm font-medium transition-colors !shadow-none rounded-[0px]"
-                  >
-                    Shorts
-                  </TabsTrigger>
-                  <TabsTrigger
                     value="playlists"
                     className="text-gray-600 data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-2 text-sm font-medium transition-colors !shadow-none rounded-[0px]"
                   >
@@ -110,9 +104,6 @@ const Page = () => {
                 </TabsContent>
                 <TabsContent value="videos" className="mt-4">
                   <p>All uploaded videos will appear here.</p>
-                </TabsContent>
-                <TabsContent value="shorts" className="mt-4">
-                  <p>All shorts will appear here.</p>
                 </TabsContent>
                 <TabsContent value="playlists" className="mt-4">
                   <p>Your playlists will appear here.</p>
