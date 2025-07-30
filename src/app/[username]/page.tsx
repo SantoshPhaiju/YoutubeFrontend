@@ -63,7 +63,7 @@ const Page = () => {
                   </span>
                 </div>
                 <div>
-                  <Button variant={"default"} className="rounded-full ">
+                  <Button variant={"default"} className="rounded-full">
                     Subscribe
                   </Button>
                 </div>
