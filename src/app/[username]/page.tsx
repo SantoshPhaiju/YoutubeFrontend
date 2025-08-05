@@ -59,6 +59,7 @@ const Page = () => {
                 </div>
                 <div>
                   <span className="text-gray-700 text-[14px]">
+                    
                     Joined on January 1, 2020
                   </span>
                 </div>
