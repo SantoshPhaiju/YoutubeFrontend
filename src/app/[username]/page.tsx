@@ -20,46 +20,47 @@ const Page = () => {
                 alt="Channel Cover"
               />
             </div>
-            <div className="flex gap-4 items-start">
-              <div className="left">
+            <div className="flex gap-2 sm:gap-4 items-start mt-2 sm:mt-0">
+              <div className="left w-[20%]">
                 <Image
                   src={"/assets/thumb.jpg"}
                   height={400}
                   width={400}
-                  className="h-[180px] w-[180px] object-cover rounded-full"
+                  className="h-[100px] w-[100px] md:w-[120px] md:h-[120px] xl:h-[180px] xl:w-[180px] object-cover rounded-full"
                   alt="Channel Avatar"
                 />
               </div>
-              <div className="right flex flex-col gap-2">
-                <h2 className="text-[40px] font-semibold text-black leading-none">
+              <div className="right flex flex-col gap-1 sm:gap-2 w-[80%]">
+                <h2 className="text-[24px] sm:text-[40px] font-semibold text-black leading-none">
                   Santosh Phaiju
                 </h2>
                 <div className="flex gap-1">
-                  <span className="font-medium text-black text-[14px]">
+                  <span className="font-medium text-black text-[12px] sm:text-[14px]">
                     @santoshphaiju321
                   </span>
                   <span>.</span>
-                  <span className="text-gray-700 text-[14px]">
+                  <span className="text-gray-700 text-[12px] sm:text-[14px]">
                     103 subscribers
                   </span>
                   <span>.</span>
-                  <span className="text-gray-700 text-[14px]">6 videos</span>
+                  <span className="text-gray-700 text-[12px] sm:text-[14px]">
+                    6 videos
+                  </span>
                 </div>
                 <div>
-                  <span className="text-gray-600">
+                  <span className="text-gray-600 text-[12px] sm:text-[14px]">
                     {"Channel description goes here. This is a brief introduction about the channel, its content, and what viewers can expect.".slice(
                       0,
                       100
                     )}
                   </span>
                   <span> </span>
-                  <span className="text-black font-medium cursor-pointer">
+                  <span className="text-black font-medium cursor-pointer text-[12px] sm:text-[14px]">
                     ...more
                   </span>
                 </div>
                 <div>
-                  <span className="text-gray-700 text-[14px]">
-                    
+                  <span className="text-gray-700 text-[12px] sm:text-[14px]">
                     Joined on January 1, 2020
                   </span>
                 </div>
@@ -71,7 +72,10 @@ const Page = () => {
               </div>
             </div>
             <div className="tabs flex gap-2 md:gap-4 min-h-[400px]">
-              <Tabs defaultValue="home" className="w-full flex justify-start flex-col items-start">
+              <Tabs
+                defaultValue="home"
+                className="w-full flex justify-start flex-col items-start"
+              >
                 <TabsList className="flex gap-4 bg-transparent z-10">
                   <TabsTrigger
                     value="home"
