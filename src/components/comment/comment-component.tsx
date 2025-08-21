@@ -11,7 +11,7 @@ import { Button } from "../ui/button";
 
 const CommentComponent = () => {
   const [showCommentModal, setShowCommentModal] = useState(false);
-  console.log("something is cooking");
+  
   return (
     <>
       <div className="commentSection ">
