@@ -79,7 +79,7 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                       Subscribe
                     </Button>
                   </div>
-                  <div className="flex justify-start xl:justify-end gap-2 items-center ">
+                  <div className="flex justify-start xl:justify-end gap-2 flex-wrap items-center ">
                     <div className="flex justify-between items-center rounded-full bg-gray-100">
                       <div className="flex justify-center border-r items-center rounded-l-full gap-2 p-2 px-4 hover:bg-gray-200">
                         <BiLike size={20} />

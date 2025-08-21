@@ -8,7 +8,7 @@ const SemiVideo = () => {
         src={"/assets/thumb.jpg"}
         height={200}
         width={300}
-        className="h-full w-[200px] xl:w-[44%] rounded-md object-cover"
+        className="h-full min-w-[100px] w-auto xl:w-[44%] rounded-md object-cover"
         alt="VideoComponent"
       />
 
