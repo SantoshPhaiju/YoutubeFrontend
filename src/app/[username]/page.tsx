@@ -21,33 +21,33 @@ const Page = () => {
               />
             </div>
             <div className="flex gap-2 sm:gap-4 items-start mt-2 sm:mt-0">
-              <div className="left w-[20%]">
+              <div className="left min-w-[100px] sm:min-w-[140px] md:min-w-[180px]">
                 <Image
                   src={"/assets/thumb.jpg"}
                   height={400}
                   width={400}
-                  className="h-[100px] w-[100px] md:w-[120px] md:h-[120px] xl:h-[180px] xl:w-[180px] object-cover rounded-full"
+                  className="h-[100px] w-[100px]  sm:h-[140px] sm:w-[140px] md:w-[180px] md:h-[180px] object-cover rounded-full"
                   alt="Channel Avatar"
                 />
               </div>
-              <div className="right flex flex-col gap-1 sm:gap-2 w-[80%]">
-                <h2 className="text-[24px] sm:text-[40px] font-semibold text-black leading-none">
+              <div className="right flex flex-col justify-center h-[100px] sm:h-[140px] md:h-[180px] gap-2 w-auto">
+                <h2 className="text-[24px] sm:text-[32px] md:text-[40px] font-semibold text-black leading-none">
                   Santosh Phaiju
                 </h2>
-                <div className="flex gap-1">
-                  <span className="font-medium text-black text-[12px] sm:text-[14px]">
+                <div className="flex flex-wrap gap-1 items-center">
+                  <span className="font-medium text-black text-[14px]">
                     @santoshphaiju321
                   </span>
-                  <span>.</span>
-                  <span className="text-gray-700 text-[12px] sm:text-[14px]">
+                  <div className="h-0.5 w-0.5 bg-black rounded-full"></div>
+                  <span className="text-gray-700 text-[14px]">
                     103 subscribers
                   </span>
-                  <span>.</span>
-                  <span className="text-gray-700 text-[12px] sm:text-[14px]">
+                  <div className="h-0.5 w-0.5 bg-black rounded-full"></div>
+                  <span className="text-gray-700 text-[14px]">
                     6 videos
                   </span>
                 </div>
-                <div>
+                <div className="hidden sm:block">
                   <span className="text-gray-600 text-[12px] sm:text-[14px]">
                     {"Channel description goes here. This is a brief introduction about the channel, its content, and what viewers can expect.".slice(
                       0,
@@ -59,17 +59,34 @@ const Page = () => {
                     ...more
                   </span>
                 </div>
-                <div>
+                {/* <div className="hidden md:block">
                   <span className="text-gray-700 text-[12px] sm:text-[14px]">
                     Joined on January 1, 2020
                   </span>
-                </div>
-                <div>
+                </div> */}
+                <div className="hidden md:block">
                   <Button variant={"default"} className="rounded-full">
                     Subscribe
                   </Button>
                 </div>
               </div>
+            </div>
+            <div className="block sm:hidden w-full">
+              <span className="text-gray-600 text-[12px] sm:text-[14px]">
+                {"Channel description goes here. This is a brief introduction about the channel, its content, and what viewers can expect.".slice(
+                  0,
+                  100
+                )}
+              </span>
+              <span> </span>
+              <span className="text-black font-medium cursor-pointer text-[12px] sm:text-[14px]">
+                ...more
+              </span>
+            </div>
+            <div className="block md:hidden w-full">
+              <Button variant={"default"} className="rounded-full w-full my-2">
+                Subscribe
+              </Button>
             </div>
             <div className="tabs flex gap-2 md:gap-4 min-h-[400px]">
               <Tabs
