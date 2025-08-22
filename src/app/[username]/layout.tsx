@@ -11,7 +11,7 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="px-4 md:px-[32px] lg:px-[48px] xl:px-[64px] pb-2 z-0">
+    <div className="px-6 sm:px-16 md:px-[32px] lg:px-[48px] xl:px-[64px] pb-2 z-0">
       {children}
     </div>
   );
