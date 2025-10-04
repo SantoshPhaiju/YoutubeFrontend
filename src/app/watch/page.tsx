@@ -79,29 +79,29 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                       Subscribe
                     </Button>
                   </div>
-                  <div className="flex justify-start xl:justify-end gap-2 flex-wrap items-center ">
+                  <div className="flex justify-start xl:justify-end gap-1 md:gap-2 flex-wrap items-center ">
                     <div className="flex justify-between items-center rounded-full bg-gray-100">
-                      <div className="flex justify-center border-r items-center rounded-l-full gap-2 p-2 px-4 hover:bg-gray-200">
-                        <BiLike size={20} />
-                        <p className="font-sans font-semibold text-sm">50B</p>
+                      <div className="flex justify-center border-r items-center rounded-l-full gap-1 md:gap-2 p-1.5 px-3 md:p-2 md:px-4 hover:bg-gray-200">
+                        <BiLike className={"text-[16px] md:text-[20px]"} />
+                        <p className="font-sans font-semibold text-[12px] md:text-sm">50B</p>
                       </div>
-                      <div className="p-2 px-4 rounded-r-full hover:bg-gray-200">
-                        <BiDislike size={20} />
+                      <div className="p-1.5 px-3 md:p-2 md:px-4 rounded-r-full hover:bg-gray-200">
+                        <BiDislike className={"text-[16px] md:text-[20px]"} />
                       </div>
                     </div>
-                    <div className="flex justify-center bg-gray-100 items-center rounded-full gap-2 p-2 px-4 hover:bg-gray-200">
-                      <PiShareFatLight size={20} />
-                      <p className="font-sans font-semibold text-sm">Share</p>
+                    <div className="flex justify-center bg-gray-100 items-center rounded-full gap-1 md:gap-2 p-1.5 px-3 md:p-2 md:px-4 hover:bg-gray-200">
+                      <PiShareFatLight className={"text-[16px] md:text-[20px]"} />
+                      <p className="font-sans font-semibold text-[12px] md:text-sm">Share</p>
                     </div>
-                    <div className="flex justify-center bg-gray-100 items-center rounded-full gap-2 p-2 px-4 hover:bg-gray-200">
-                      <FiBookmark size={20} />
-                      <p className="font-sans font-semibold text-sm">Save</p>
+                    <div className="flex justify-center bg-gray-100 items-center rounded-full gap-1 md:gap-2 p-1.5 px-3 md:p-2 md:px-4 hover:bg-gray-200">
+                      <FiBookmark className={"text-[16px] md:text-[20px]"} />
+                      <p className="font-sans font-semibold text-[12px] md:text-sm">Save</p>
                     </div>
-                    <Button className="rounded-full px-3 bg-gray-100 hover:bg-gray-200 flex justify-center gap-[2px] items-center">
-                      <div className="bg-gray-700 h-1 w-1 rounded-full"></div>
-                      <div className="bg-gray-700 h-1 w-1 rounded-full"></div>
-                      <div className="bg-gray-700 h-1 w-1 rounded-full"></div>
-                    </Button>
+                    <div className="rounded-full h-auto py-3.5 px-2 md:py-[18px] md:px-3 bg-gray-100 hover:bg-gray-200 flex justify-center gap-[2px] items-center">
+                      <div className="bg-gray-700 h-[3px] w-[3px] md:h-1 md:w-1 rounded-full"></div>
+                      <div className="bg-gray-700 h-[3px] w-[3px] md:h-1 md:w-1 rounded-full"></div>
+                      <div className="bg-gray-700 h-[3px] w-[3px] md:h-1 md:w-1 rounded-full"></div>
+                    </div>
                   </div>
                 </div>
               </div>
