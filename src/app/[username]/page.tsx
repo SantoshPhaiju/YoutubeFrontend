@@ -2,6 +2,9 @@ import ChannelPageClientLayout from "@/components/channel/channel-page-client-la
 import {Button} from "@/components/ui/button";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import Image from "next/image";
+import SemiVideoComponent from "@/components/semiVideoComponent";
+import VideoComponent from "@/components/video-component";
+import SmallVideoComponent from "@/components/SmallVideoComponent";
 
 const Page = () => {
     return (
@@ -118,10 +121,26 @@ const Page = () => {
                                 <div className="w-[100%] border -mt-[3px] z-0"></div>
 
                                 <TabsContent value="home" className="mt-4">
-                                    <p>All home page content will be here.</p>
+
+                                    <div className={"font-bold text-xl mb-2 "}>
+                                        Videos
+                                    </div>
+
+                                    <div className="videos flex gap-2">
+                                        <SmallVideoComponent />
+                                        <SmallVideoComponent />
+                                        <SmallVideoComponent />
+                                        <SmallVideoComponent />
+                                    </div>
+
                                 </TabsContent>
                                 <TabsContent value="videos" className="mt-4">
-                                    <p>All uploaded videos will appear here.</p>
+                                    <div className="videos flex gap-2">
+                                        <SmallVideoComponent videoSize={"medium"} />
+                                        <SmallVideoComponent videoSize={"medium"} />
+                                        <SmallVideoComponent videoSize={"medium"} />
+                                        <SmallVideoComponent videoSize={"medium"} />
+                                    </div>
                                 </TabsContent>
                                 <TabsContent value="playlists" className="mt-4">
                                     <p>Your playlists will appear here.</p>
