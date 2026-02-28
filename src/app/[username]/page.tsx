@@ -12,7 +12,7 @@ const Page = () => {
             {/* <HomePageClient /> */}
             <div className="">
                 <ChannelPageClientLayout>
-                    <div className="flex flex-col gap-2 md:gap-6">
+                    <div className="flex flex-col gap-3 md:gap-6 px-2 md:px-4 lg:px-8 xl:px-12 2xl:px-20">
                         {/* Channel cover image */}
                         <div>
                             <Image
@@ -92,28 +92,28 @@ const Page = () => {
                                 defaultValue="home"
                                 className="w-full flex justify-start flex-col items-start"
                             >
-                                <TabsList className="flex gap-4 bg-transparent z-10">
+                                <TabsList className="flex gap-8 bg-transparent z-10">
                                     <TabsTrigger
                                         value="home"
-                                        className="data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-2 text-sm font-medium transition-colors !shadow-none rounded-[0px]"
+                                        className="data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors !shadow-none rounded-[0px]"
                                     >
                                         Home
                                     </TabsTrigger>
                                     <TabsTrigger
                                         value="videos"
-                                        className="data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-2 text-sm font-medium transition-colors !shadow-none rounded-[0px]"
+                                        className="data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors !shadow-none rounded-[0px]"
                                     >
                                         Videos
                                     </TabsTrigger>
                                     <TabsTrigger
                                         value="playlists"
-                                        className="text-gray-600 data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-2 text-sm font-medium transition-colors !shadow-none rounded-[0px]"
+                                        className="text-gray-600 data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors !shadow-none rounded-[0px]"
                                     >
                                         Playlists
                                     </TabsTrigger>
                                     <TabsTrigger
                                         value="about"
-                                        className="text-gray-600 data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-2 text-sm font-medium transition-colors !shadow-none rounded-[0px]"
+                                        className="text-gray-600 data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors !shadow-none rounded-[0px]"
                                     >
                                         About
                                     </TabsTrigger>
@@ -135,11 +135,11 @@ const Page = () => {
 
                                 </TabsContent>
                                 <TabsContent value="videos" className="mt-4">
-                                    <div className="videos flex gap-2">
-                                        <SmallVideoComponent videoSize={"medium"} />
-                                        <SmallVideoComponent videoSize={"medium"} />
-                                        <SmallVideoComponent videoSize={"medium"} />
-                                        <SmallVideoComponent videoSize={"medium"} />
+                                    <div className="videos flex flex-wrap gap-4">
+                                        <SmallVideoComponent videoSize={"large"} />
+                                        <SmallVideoComponent videoSize={"large"} />
+                                        <SmallVideoComponent videoSize={"large"} />
+                                        <SmallVideoComponent videoSize={"large"} />
                                     </div>
                                 </TabsContent>
                                 <TabsContent value="playlists" className="mt-4">
