@@ -3,7 +3,7 @@ import { inter, roboto, robotoCondensed } from "@/fonts";
 import type { Metadata } from "next";
 import React from "react";
 import "./globals.css";
-import {TanstackProvider} from "@/components/providers/TanstackProvider";
+import {TanstackProvider} from "@/providers/TanstackProvider";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -31,7 +31,6 @@ export default function RootLayout({
         className={`${inter.variable} ${robotoCondensed.variable} ${roboto.variable} ${roboto.className} antialiased`}
       >
       <TanstackProvider>
-
         <RootClientLayout>{children}</RootClientLayout>
       </TanstackProvider>
       </body>

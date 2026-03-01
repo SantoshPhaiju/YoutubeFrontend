@@ -2,8 +2,6 @@ import ChannelPageClientLayout from "@/components/channel/channel-page-client-la
 import {Button} from "@/components/ui/button";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import Image from "next/image";
-import SemiVideoComponent from "@/components/semiVideoComponent";
-import VideoComponent from "@/components/video-component";
 import SmallVideoComponent from "@/components/SmallVideoComponent";
 
 const Page = () => {
@@ -136,10 +134,10 @@ const Page = () => {
                                 </TabsContent>
                                 <TabsContent value="videos" className="mt-4">
                                     <div className="videos flex flex-wrap gap-4">
-                                        <SmallVideoComponent videoSize={"large"} />
-                                        <SmallVideoComponent videoSize={"large"} />
-                                        <SmallVideoComponent videoSize={"large"} />
-                                        <SmallVideoComponent videoSize={"large"} />
+                                        <SmallVideoComponent videoSize={"medium"} />
+                                        <SmallVideoComponent videoSize={"medium"} />
+                                        <SmallVideoComponent videoSize={"medium"} />
+                                        <SmallVideoComponent videoSize={"medium"} />
                                     </div>
                                 </TabsContent>
                                 <TabsContent value="playlists" className="mt-4">
