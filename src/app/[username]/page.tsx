@@ -93,30 +93,30 @@ const Page = () => {
                                 <TabsList className="flex gap-8 bg-transparent z-10">
                                     <TabsTrigger
                                         value="home"
-                                        className="data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors !shadow-none rounded-[0px]"
+                                        className="data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors shadow-none! rounded-none"
                                     >
                                         Home
                                     </TabsTrigger>
                                     <TabsTrigger
                                         value="videos"
-                                        className="data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors !shadow-none rounded-[0px]"
+                                        className="data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors shadow-none! rounded-none"
                                     >
                                         Videos
                                     </TabsTrigger>
                                     <TabsTrigger
                                         value="playlists"
-                                        className="text-gray-600 data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors !shadow-none rounded-[0px]"
+                                        className="text-gray-600 data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors shadow-none! rounded-none"
                                     >
                                         Playlists
                                     </TabsTrigger>
                                     <TabsTrigger
                                         value="about"
-                                        className="text-gray-600 data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors !shadow-none rounded-[0px]"
+                                        className="text-gray-600 data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors shadow-none! rounded-none"
                                     >
                                         About
                                     </TabsTrigger>
                                 </TabsList>
-                                <div className="w-[100%] border -mt-[3px] z-0"></div>
+                                <div className="w-full border -mt-[3px] z-0"></div>
 
                                 <TabsContent value="home" className="mt-4">
 

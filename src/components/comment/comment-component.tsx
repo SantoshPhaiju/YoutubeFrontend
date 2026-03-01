@@ -34,7 +34,7 @@ const CommentComponent = () => {
                 name="comment"
                 id="comment"
                 placeholder="Add a comment..."
-                className="w-full transition-all duration-300 border-b-2 border-gray-300 text-md py-[4px] outline-none focus:outline-none focus:border-black"
+                className="w-full transition-all duration-300 border-b-2 border-gray-300 text-md py-[4px] outline-hidden focus:outline-hidden focus:border-black"
               />
               <div className="flex justify-end gap-2 items-center">
                 <Button
@@ -66,7 +66,7 @@ const CommentComponent = () => {
               </div>
               <div>
                 <div className="flex gap-1 items-center justify-start">
-                  <div className="text-gray-800 text-sm font-[600]">
+                  <div className="text-gray-800 text-sm font-semibold">
                     @santoshphaiju321
                   </div>
                   <div className="text-gray-600 text-[12px] font-normal">
@@ -557,7 +557,7 @@ const CommentComponent = () => {
                       setShowCommentModal(true);
                     }}
                     placeholder="Add a comment..."
-                    className="w-full transition-all duration-300 border-b-2 border-gray-300 text-md py-[4px] outline-none focus:outline-none focus:border-black bg-transparent cursor-default"
+                    className="w-full transition-all duration-300 border-b-2 border-gray-300 text-md py-[4px] outline-hidden focus:outline-hidden focus:border-black bg-transparent cursor-default"
                   />
                 </div>
               </div>
@@ -597,7 +597,7 @@ const CommentComponent = () => {
                         name="comment"
                         id="comment"
                         placeholder="Add a comment..."
-                        className="w-full transition-all duration-300 border-b-2 border-gray-300 text-md py-[4px] outline-none focus:outline-none focus:border-black bg-transparent"
+                        className="w-full transition-all duration-300 border-b-2 border-gray-300 text-md py-[4px] outline-hidden focus:outline-hidden focus:border-black bg-transparent"
                       />
                     </div>
                   </div>
@@ -651,7 +651,7 @@ const CommentComponent = () => {
                     </div>
                     <div>
                       <div className="flex gap-1 items-center justify-start">
-                        <div className="text-gray-800 text-sm font-[600]">
+                        <div className="text-gray-800 text-sm font-semibold">
                           @santoshphaiju321
                         </div>
                         <div className="text-gray-600 text-[12px] font-normal">

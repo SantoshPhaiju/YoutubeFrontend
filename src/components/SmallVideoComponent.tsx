@@ -32,7 +32,7 @@ const SmallVideoComponent = (
                         How to Make Money Using Google Maps in 2025 ($100 - $200 PER DAY)
                         something
                     </div>
-                    <div className="flex flex-col mt-[1px]">
+                    <div className="flex flex-col mt-px">
                         {/*<div className="channelName text-sm text-gray-600 flex justify-start items-center gap-1">*/}
                         {/*    Santosh Phaiju <MdVerified />*/}
                         {/*</div>*/}

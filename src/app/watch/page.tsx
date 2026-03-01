@@ -41,7 +41,7 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                   src={"/assets/thumb.jpg"}
                   height={200}
                   width={300}
-                  className="h-auto min-h-[200px] xl:h-auto xl:max-h-[70vh] w-[100%] object-cover"
+                  className="h-auto min-h-[200px] xl:h-auto xl:max-h-[70vh] w-full object-cover"
                   alt="VideoComponent"
                 />
               </div>
