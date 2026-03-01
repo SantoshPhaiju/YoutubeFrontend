@@ -11,7 +11,14 @@ export default async function Home() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 gap-6 px-4 pr-6">
         {
-          videos.map((video, index: number) => {
+          videos.map((video: {
+              thumbnail: string;
+              title: string;
+              viewCount: string;
+              duration: number;
+              owner: { fullName: string; avatar: string; };
+              createdAt: string;
+              }, index: number) => {
             return (
                 <div key={index} className="col-span-1">
                   <VideoComponent
