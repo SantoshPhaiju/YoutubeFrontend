@@ -2,61 +2,77 @@ import Image from "next/image";
 import Link from "next/link";
 import { MdVerified } from "react-icons/md";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import {IVideoComponentProps} from "@/@types/IVideoComponentProps.types";
-import {timeAgo} from "@/utils/timeAgo";
+import { IVideoComponentProps } from "@/@types/IVideoComponentProps.types";
+import { timeAgo } from "@/utils/timeAgo";
+import {formatDuration} from "@/utils/formatDuration";
 
-const VideoComponent = (
-    {
-      thumbnail,
-      userAvatar,
-      videoTitle,
-      videoViews,
-      videoDuration,
-      videoOwnerName,
-      videoPublishedDate,
-    }: IVideoComponentProps
-) => {
-  return (
-    <div className="w-full h-auto cursor-pointer">
-      <div className="thumbnail">
-        <Link href="/watch?v=123">
-          <Image
-            src={thumbnail || "/assets/thumb.jpg"}
-            height={200}
-            width={300}
-            className="h-auto max-h-[320px] min-h-[220px] w-full rounded-md object-cover"
-            alt="VideoComponent"
-          />
-        </Link>
-      </div>
+const VideoComponent = ({
+                            thumbnail,
+                            userAvatar,
+                            videoTitle,
+                            videoViews,
+                            videoDuration,
+                            videoOwnerName,
+                            videoPublishedDate,
+                        }: IVideoComponentProps) => {
+    return (
+        <div className="w-full cursor-pointer">
 
-      <div className="details py-1 pt-2 flex gap-2">
-        <div>
-          <Avatar>
-            <AvatarImage src={userAvatar || `https://github.com/shadcn.png`} />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-        </div>
-        <div className="flex flex-col gap-1 px-1">
-          <div className="title text-md text-black">
-            {videoTitle || `How to Make Money Using Google Maps in 2025 ($100 - $200 PER DAY)
-              something`}
-          </div>
-          <div className="flex flex-col mt-[1px]">
-            <div className="channelName text-sm text-gray-600 flex justify-start items-center gap-1">
-            {videoOwnerName || "Santosh Phaiju"} <MdVerified />
+            {/* Thumbnail */}
+            <Link href="/watch?v=123">
+                <div className="relative w-full aspect-video rounded-xl overflow-hidden">
+                    <Image
+                        src={thumbnail || "/assets/thumb.jpg"}
+                        alt="Video thumbnail"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+
+                    {/* Duration */}
+                    {videoDuration && (
+                        <div className="absolute bottom-2 right-2 bg-black text-white text-xs px-1.5 py-0.5 rounded">
+                            {formatDuration(videoDuration)}
+                        </div>
+                    )}
+                </div>
+            </Link>
+
+            {/* Details */}
+            <div className="flex gap-3 mt-3">
+
+                {/* Avatar */}
+                <Avatar className="h-9 w-9">
+                    <AvatarImage src={userAvatar || "https://github.com/shadcn.png"} />
+                    <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+
+                {/* Text Content */}
+                <div className="flex flex-col flex-1">
+
+                    {/* Title */}
+                    <h3 className="text-sm font-medium leading-snug line-clamp-2">
+                        {videoTitle ||
+                            "How to Make Money Using Google Maps in 2025 ($100 - $200 PER DAY)"}
+                    </h3>
+
+                    {/* Channel */}
+                    <div className="flex items-center gap-1 text-xs text-gray-600 mt-1">
+                        <span>{videoOwnerName || "Santosh Phaiju"}</span>
+                        <MdVerified className="text-gray-500 text-sm" />
+                    </div>
+
+                    {/* Views + Date */}
+                    <div className="flex items-center gap-2 text-xs text-gray-600">
+                        <span>{videoViews || 0} views</span>
+                        <span>•</span>
+                        <span>{timeAgo(videoPublishedDate)}</span>
+                    </div>
+
+                </div>
             </div>
-            <div className="flex justify-start items-center gap-2 text-gray-600 text-sm">
-              <div className="views">{videoViews || 0} views</div>
-              <div className="dot h-1 w-1 bg-black rounded-full"></div>
-
-              <div className="publishedDate">{timeAgo(videoPublishedDate)}</div>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default VideoComponent;

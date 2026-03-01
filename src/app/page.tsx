@@ -9,16 +9,16 @@ export default async function Home() {
     <div>
       <HomePageClient />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 gap-6 px-4 pr-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 accent-screens-3xl:grid-cols-4 gap-6 px-4 pr-6">
         {
-          videos.map((video, index) => {
+          videos.map((video, index: number) => {
             return (
                 <div key={index} className="col-span-1">
                   <VideoComponent
                       thumbnail={video.thumbnail}
                       videoTitle={video.title}
                       videoViews={video.viewCount}
-                      videoDuration={video.duration * 60 * 60}
+                      videoDuration={video.duration}
                       videoOwnerName={video.owner.fullName}
                       videoPublishedDate={video.createdAt}
                       userAvatar={video.owner.avatar}
