@@ -16,7 +16,7 @@ const Videopage = () => {
               src={"/assets/thumb.jpg"}
               height={200}
               width={300}
-              className="h-[70vh] w-[100%] object-cover"
+              className="h-[70vh] w-full object-cover"
               alt="VideoComponent"
             />
           </div>

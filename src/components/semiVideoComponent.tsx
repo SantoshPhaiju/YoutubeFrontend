@@ -3,7 +3,7 @@ import { MdVerified } from "react-icons/md";
 
 const SemiVideo = () => {
   return (
-    <div className="w-[100%] md:h-[120px] xl:h-[100px] cursor-pointer flex justify-start xl:justify-between items-center gap-2 mt-3">
+    <div className="w-full md:h-[120px] xl:h-[100px] cursor-pointer flex justify-start xl:justify-between items-center gap-2 mt-3">
       <Image
         src={"/assets/thumb.jpg"}
         height={200}
