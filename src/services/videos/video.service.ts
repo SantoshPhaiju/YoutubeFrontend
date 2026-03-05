@@ -29,9 +29,6 @@ export const getVideoById = async (
     try {
         const response: AxiosResponse<GetVideoResponse> =
             await api.get(`/videos/get-video/${id}`);
-
-        console.log("response", response.data);
-
         return response.data.data.video;
     } catch (error) {
         console.log("error", error);

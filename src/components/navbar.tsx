@@ -66,7 +66,7 @@ const Navbar = ({
   setShowOverlaySidebar: (value: boolean) => void;
 }) => {
   const pathname = usePathname();
-  console.log("pathname", pathname);
+
   const [openDropdown, setOpenDropdown] = useState(false);
   return (
     <>
