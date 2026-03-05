@@ -6,8 +6,8 @@ import { useState } from "react";
 import { BiDislike, BiLike } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Button } from "../ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
+import { Button } from "../../ui/button";
 
 const CommentComponent = () => {
   const [showCommentModal, setShowCommentModal] = useState(false);
@@ -54,7 +54,7 @@ const CommentComponent = () => {
           </div>
           <div className="comments flex flex-col gap-4 w-full">
             <div className="comment flex gap-3 w-full">
-              <div className="w-[40px] h-[40px] z-0">
+              <div className="w-10 h-10 z-0">
                 <Avatar className="">
                   <AvatarImage
                     src="https://github.com/shadcn.png"
