@@ -11,14 +11,14 @@ const SeeMoreComponent = ({
   const [isSeeMore, setIsSeeMore] = useState(false);
   return (
     <>
-      <div className="description text-[14px] font-normal font-roboto text-gray-800 leading-normal">
+      <div className="description text-[14px] font-medium font-roboto text-gray-800 leading-normal">
         {isSeeMore
           ? videoDescription
           : videoDescription.substring(0, 200) + "..."}
         <span
           className={cn(" cursor-pointer", {
             "underline underline-offset-2 ml-2 text-blue-500":
-              isSeeMore === false,
+              !isSeeMore,
           })}
           onClick={() => setIsSeeMore(!isSeeMore)}
         >

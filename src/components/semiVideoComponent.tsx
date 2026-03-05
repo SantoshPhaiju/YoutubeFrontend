@@ -3,12 +3,12 @@ import { MdVerified } from "react-icons/md";
 
 const SemiVideo = () => {
   return (
-    <div className="w-full md:h-[120px] xl:h-[100px] cursor-pointer flex justify-start xl:justify-between items-center gap-2 mt-3">
+    <div className="w-full md:h-[150px] lg:h-[180px] xl:h-[110px] 3xl:h-[130px] cursor-pointer flex flex-col md:flex-row justify-start xl:justify-between items-center gap-2 mt-3">
       <Image
         src={"/assets/thumb.jpg"}
         height={200}
         width={300}
-        className="h-[80px] min-w-[140px] md:h-full md:min-w-[100px] w-auto xl:w-[44%] rounded-md object-cover"
+        className="aspect-video w-full md:w-[30%] md:h-full xl:w-[44%] rounded-md object-cover"
         alt="VideoComponent"
       />
 

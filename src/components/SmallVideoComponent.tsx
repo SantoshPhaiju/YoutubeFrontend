@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { GoKebabHorizontal } from "react-icons/go";
-import {cn} from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 const SmallVideoComponent = (
     {

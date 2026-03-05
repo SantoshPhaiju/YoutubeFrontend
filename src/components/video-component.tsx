@@ -6,6 +6,7 @@ import { MdVerified } from "react-icons/md";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 interface IVideoComponentProps {
+  videoId: string;
   thumbnail: string;
   userAvatar: string;
   videoTitle: string;
@@ -16,6 +17,7 @@ interface IVideoComponentProps {
 }
 
 const VideoComponent = ({
+    videoId,
   thumbnail,
   userAvatar,
   videoTitle,
@@ -27,7 +29,7 @@ const VideoComponent = ({
   return (
     <div className="w-full cursor-pointer">
       {/* Thumbnail */}
-      <Link href="/watch?v=123">
+      <Link href={`/watch?v=${videoId}`}>
         <div className="relative w-full aspect-video rounded-xl overflow-hidden">
           <Image
             src={thumbnail || "/assets/thumb.jpg"}
