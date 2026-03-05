@@ -27,7 +27,6 @@ const Page = async ({ searchParams }: WatchPageProps) => {
   }
 
   const video = await getVideoById({ id: videoId });
-  console.log("video", video);
 
   const videoOwner = Array.isArray(video.owner) ? video.owner[0]: video.owner;
 
@@ -35,8 +34,6 @@ const Page = async ({ searchParams }: WatchPageProps) => {
   const desc =
     "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.";
   const videoDescription = desc.repeat(10);
-
-  console.log(`Loading video: ${videoId}`);
 
   return (
     <>
