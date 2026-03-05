@@ -5,7 +5,9 @@ export interface IUser {
     email: string;
     avatar: string;
     coverImage?: string;
+    subscribersCount?: number;
     watchHistory?: IVideo[];
+    isSubscribed?: boolean;
 }
 
 export interface IComment {
@@ -20,7 +22,7 @@ export interface IVideo {
     thumbnail: string;
     title: string;
     description: string;
-    owner: IUser;
+    owner: IUser | IUser[];
     viewCount: number;
     likeCount: number;
     dislikeCount: number;
