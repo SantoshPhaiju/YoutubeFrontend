@@ -16,6 +16,9 @@ export interface IComment {
     commentedBy: IUser;
 }
 
+
+
+
 export interface IVideo {
     _id: string;
     videoFile: string;
