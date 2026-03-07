@@ -9,7 +9,7 @@ import Image from "next/image";
 import { BiDislike, BiLike } from "react-icons/bi";
 import { FiBookmark } from "react-icons/fi";
 import { PiShareFatLight } from "react-icons/pi";
-import {getVideoById} from "@/services/videos/video.service";
+import {getVideoById} from "@/services/api/videos/video.service";
 import {timeAgo} from "@/utils/timeAgo";
 import {formatDate} from "@/utils/formatDate";
 
@@ -27,9 +27,7 @@ const Page = async ({ searchParams }: WatchPageProps) => {
   }
 
   const video = await getVideoById({ id: videoId });
-
   const videoOwner = Array.isArray(video.owner) ? video.owner[0]: video.owner;
-
 
   const desc =
     "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.";

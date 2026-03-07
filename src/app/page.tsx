@@ -1,11 +1,10 @@
 import {IVideo} from "@/@types/videos/videos.type";
 import HomePageClient from "@/components/home-page.client";
 import VideoComponent from "@/components/video-component";
-import {getAllHomePageVideos} from "@/services/videos/video.service";
+import {getAllHomePageVideos} from "@/services/api/videos/video.service";
 
 export default async function Home() {
     const videos: IVideo[] = await getAllHomePageVideos({});
-
 
     return (
         <div>
