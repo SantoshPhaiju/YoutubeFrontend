@@ -234,6 +234,10 @@
   --breakpoint-3xl: 110rem;
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* ---------------------------- */
 /*       BASE STYLES            */
 /* ---------------------------- */
