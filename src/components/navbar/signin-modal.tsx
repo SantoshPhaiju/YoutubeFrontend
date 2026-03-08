@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
-import { FaRegCircleUser } from "react-icons/fa6";
-import { Button } from "@/components/ui/button";
+import React, {useState, useCallback} from "react";
+import {FaRegCircleUser} from "react-icons/fa6";
+import {Button} from "@/components/ui/button";
 import {
     Dialog,
     DialogClose,
@@ -11,31 +11,33 @@ import {
     DialogTitle,
     DialogDescription,
 } from "@/components/ui/dialog";
-import { Controller, useForm } from "react-hook-form";
-import { z } from "zod";
-import { loginFormSchema, signupFormSchema } from "@/schemas/auth.schema";
-import { zodResolver } from "@hookform/resolvers/zod";
+import {Controller, useForm} from "react-hook-form";
+import {z} from "zod";
+import {loginFormSchema, signupFormSchema} from "@/schemas/auth.schema";
+import {zodResolver} from "@hookform/resolvers/zod";
 import {
     Field,
     FieldError,
     FieldGroup,
     FieldLabel,
 } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+import {Input} from "@/components/ui/input";
 import {
     Tabs,
     TabsContent,
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs";
+import FormInput from "@/components/form";
 
 const SigninModal = () => {
     const [open, setOpen] = useState(false);
     const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+    const [tab, setTab] = useState("login");
 
     // Login form
     const loginForm = useForm<z.infer<typeof loginFormSchema>>({
-        defaultValues: { email: "", password: "" },
+        defaultValues: {email: "", password: ""},
         resolver: zodResolver(loginFormSchema),
     });
 
@@ -84,19 +86,20 @@ const SigninModal = () => {
                 variant="outline"
                 className="rounded-full cursor-pointer font-medium text-[16px] px-2 py-2 text-blue-700 hover:text-blue-600 flex justify-center items-center gap-1.5 "
             >
-                <FaRegCircleUser className="h-5! w-5!" />
+                <FaRegCircleUser className="h-5! w-5!"/>
                 Sign in
             </Button>
 
             <Dialog open={open} onOpenChange={setOpen}>
-                <DialogContent className="[&>button]:hidden border border-black overflow-y-auto max-h-[90vh]! no-scrollbar">
+                <DialogContent
+                    className="[&>button]:hidden border border-black overflow-y-auto max-h-[90vh]! no-scrollbar">
                     <DialogHeader className="hidden">
                         <DialogTitle className="hidden"></DialogTitle>
                         <DialogDescription className="hidden">hello</DialogDescription>
                     </DialogHeader>
 
-                    <Tabs defaultValue="login" className="w-full">
-                        <TabsList className="w-full flex gap-2 mb-4!">
+                    <Tabs value={tab} onValueChange={setTab} defaultValue="login" className="w-full">
+                        <TabsList className="w-full flex gap-2 mb-4! hidden">
                             <TabsTrigger value="login" className="w-full cursor-pointer">
                                 Login
                             </TabsTrigger>
@@ -112,27 +115,20 @@ const SigninModal = () => {
                             </div>
                             <form id="form-login" onSubmit={loginForm.handleSubmit(onLogin)}>
                                 <FieldGroup className="gap-4">
-                                    <Controller
+                                    <FormInput
                                         control={loginForm.control}
                                         name="email"
-                                        render={({ field, fieldState }) => (
-                                            <Field data-invalid={fieldState.invalid}>
-                                                <FieldLabel htmlFor={field.name}>Email Address</FieldLabel>
-                                                <Input
-                                                    placeholder="Enter your email"
-                                                    {...field}
-                                                    id={field.name}
-                                                    aria-invalid={fieldState.invalid}
-                                                />
-                                                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-                                            </Field>
-                                        )}
+                                        label={"Email"}
+                                        placeholder={"Enter your email"}
+                                        type="email"
+                                        required={true}
                                     />
+
 
                                     <Controller
                                         control={loginForm.control}
                                         name="password"
-                                        render={({ field, fieldState }) => (
+                                        render={({field, fieldState}) => (
                                             <Field data-invalid={fieldState.invalid}>
                                                 <FieldLabel htmlFor={field.name}>Password</FieldLabel>
                                                 <Input
@@ -142,7 +138,7 @@ const SigninModal = () => {
                                                     id={field.name}
                                                     aria-invalid={fieldState.invalid}
                                                 />
-                                                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                                                {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}
                                             </Field>
                                         )}
                                     />
@@ -151,12 +147,18 @@ const SigninModal = () => {
                             <div className="flex flex-col! gap-2 font-inter mt-4">
                                 <div className="flex gap-2 w-full">
                                     <DialogClose className="w-full cursor-pointer text-sm">
-                                            Cancel
+                                        Cancel
                                     </DialogClose>
                                     <Button form="form-login" type="submit" className="cursor-pointer w-full">
                                         Login
                                     </Button>
                                 </div>
+                            </div>
+                            <div className={"text-sm text-gray-600 text-center mt-4"}>
+                                Need an account? <span onClick={() => setTab("signup")}
+                                                       className={"text-black font-medium hover:underline hover:underline-offset-2 cursor-pointer"}>
+                                Sign up
+                            </span>
                             </div>
                         </TabsContent>
 
@@ -175,16 +177,17 @@ const SigninModal = () => {
                                     <Controller
                                         control={signupForm.control}
                                         name="username"
-                                        render={({ field, fieldState }) => (
+                                        render={({field, fieldState}) => (
                                             <Field data-invalid={fieldState.invalid}>
-                                                <FieldLabel htmlFor={field.name} className={"flex gap-0"}>Username<span className={"text-red-700"}>*</span></FieldLabel>
+                                                <FieldLabel htmlFor={field.name} className={"flex gap-0"}>Username<span
+                                                    className={"text-red-700"}>*</span></FieldLabel>
                                                 <Input
                                                     placeholder="Enter your username"
                                                     {...field}
                                                     id={field.name}
                                                     aria-invalid={fieldState.invalid}
                                                 />
-                                                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                                                {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}
                                             </Field>
                                         )}
                                     />
@@ -193,7 +196,7 @@ const SigninModal = () => {
                                     <Controller
                                         control={signupForm.control}
                                         name="fullname"
-                                        render={({ field, fieldState }) => (
+                                        render={({field, fieldState}) => (
                                             <Field data-invalid={fieldState.invalid}>
                                                 <FieldLabel htmlFor={field.name}>Full Name</FieldLabel>
                                                 <Input
@@ -202,7 +205,7 @@ const SigninModal = () => {
                                                     id={field.name}
                                                     aria-invalid={fieldState.invalid}
                                                 />
-                                                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                                                {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}
                                             </Field>
                                         )}
                                     />
@@ -211,7 +214,7 @@ const SigninModal = () => {
                                     <Controller
                                         control={signupForm.control}
                                         name="email"
-                                        render={({ field, fieldState }) => (
+                                        render={({field, fieldState}) => (
                                             <Field data-invalid={fieldState.invalid}>
                                                 <FieldLabel htmlFor={field.name}>Email Address</FieldLabel>
                                                 <Input
@@ -220,7 +223,7 @@ const SigninModal = () => {
                                                     id={field.name}
                                                     aria-invalid={fieldState.invalid}
                                                 />
-                                                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                                                {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}
                                             </Field>
                                         )}
                                     />
@@ -229,7 +232,7 @@ const SigninModal = () => {
                                     <Controller
                                         control={signupForm.control}
                                         name="password"
-                                        render={({ field, fieldState }) => (
+                                        render={({field, fieldState}) => (
                                             <Field data-invalid={fieldState.invalid}>
                                                 <FieldLabel htmlFor={field.name}>Password</FieldLabel>
                                                 <Input
@@ -239,7 +242,7 @@ const SigninModal = () => {
                                                     id={field.name}
                                                     aria-invalid={fieldState.invalid}
                                                 />
-                                                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                                                {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}
                                             </Field>
                                         )}
                                     />
@@ -248,7 +251,7 @@ const SigninModal = () => {
                                     <Controller
                                         control={signupForm.control}
                                         name="confirmPassword"
-                                        render={({ field, fieldState }) => (
+                                        render={({field, fieldState}) => (
                                             <Field data-invalid={fieldState.invalid}>
                                                 <FieldLabel htmlFor={field.name}>Confirm Password</FieldLabel>
                                                 <Input
@@ -258,7 +261,7 @@ const SigninModal = () => {
                                                     id={field.name}
                                                     aria-invalid={fieldState.invalid}
                                                 />
-                                                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                                                {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}
                                             </Field>
                                         )}
                                     />
@@ -269,7 +272,7 @@ const SigninModal = () => {
                                         <Controller
                                             control={signupForm.control}
                                             name="avatar"
-                                            render={({ field }) => (
+                                            render={({field}) => (
                                                 <div
                                                     onDragOver={(e) => e.preventDefault()}
                                                     onDrop={(e) => {
@@ -327,6 +330,12 @@ const SigninModal = () => {
                                         Signup
                                     </Button>
                                 </div>
+                            </div>
+                            <div className={"text-sm text-gray-600 text-center mt-4"}>
+                                Already have an account? <span onClick={() => setTab("login")}
+                                                               className={"text-black font-medium hover:underline hover:underline-offset-2 cursor-pointer"}>
+                                Sign in
+                            </span>
                             </div>
                         </TabsContent>
                     </Tabs>
