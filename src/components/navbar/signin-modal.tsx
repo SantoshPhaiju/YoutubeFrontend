@@ -1,7 +1,9 @@
 "use client";
 
-import React, {useState, useCallback} from "react";
+import React, {useState} from "react";
 import {FaRegCircleUser} from "react-icons/fa6";
+import {BsUpload} from "react-icons/bs";
+import {IoIosCloseCircleOutline} from "react-icons/io";
 import {Button} from "@/components/ui/button";
 import {
     Dialog,
@@ -11,29 +13,24 @@ import {
     DialogTitle,
     DialogDescription,
 } from "@/components/ui/dialog";
-import {Controller, useForm} from "react-hook-form";
-import {z} from "zod";
-import {loginFormSchema, signupFormSchema} from "@/schemas/auth.schema";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {
-    Field,
-    FieldError,
-    FieldGroup,
-    FieldLabel,
-} from "@/components/ui/field";
-import {Input} from "@/components/ui/input";
 import {
     Tabs,
     TabsContent,
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs";
+import {Field, FieldLabel, FieldGroup} from "@/components/ui/field";
 import FormInput from "@/components/form";
+import {useForm, Controller} from "react-hook-form";
+import {z} from "zod";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {loginFormSchema, signupFormSchema} from "@/schemas/auth.schema";
+import {Input} from "@/components/ui/input";
 
 const SigninModal = () => {
     const [open, setOpen] = useState(false);
-    const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
     const [tab, setTab] = useState("login");
+    const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
 
     // Login form
     const loginForm = useForm<z.infer<typeof loginFormSchema>>({
@@ -54,30 +51,14 @@ const SigninModal = () => {
         resolver: zodResolver(signupFormSchema),
     });
 
-    // Login submit
     const onLogin = (values: z.infer<typeof loginFormSchema>) => {
         console.log("Login values:", values);
     };
 
-    // Signup submit
     const onSignup = (values: z.infer<typeof signupFormSchema>) => {
+        console.log("Hello world");
         console.log("Signup values:", values);
     };
-
-    // Handle avatar file drop
-    const handleAvatarChange = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            const file = e.target.files?.[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = () => {
-                setAvatarPreview(reader.result as string);
-                signupForm.setValue("avatar", reader.result as string); // set base64 in form
-            };
-            reader.readAsDataURL(file);
-        },
-        [signupForm]
-    );
 
     return (
         <div>
@@ -86,7 +67,7 @@ const SigninModal = () => {
                 variant="outline"
                 className="rounded-full cursor-pointer font-medium text-[16px] px-2 py-2 text-blue-700 hover:text-blue-600 flex justify-center items-center gap-1.5 "
             >
-                <FaRegCircleUser className="h-5! w-5!"/>
+                <FaRegCircleUser className="h-5 w-5"/>
                 Sign in
             </Button>
 
@@ -110,7 +91,7 @@ const SigninModal = () => {
 
                         {/* Login Form */}
                         <TabsContent value="login">
-                            <div className={"mb-4 text-lg text-center font-inter font-semibold "}>
+                            <div className="mb-4 text-lg text-center font-inter font-semibold">
                                 Login to your account
                             </div>
                             <form id="form-login" onSubmit={loginForm.handleSubmit(onLogin)}>
@@ -118,224 +99,157 @@ const SigninModal = () => {
                                     <FormInput
                                         control={loginForm.control}
                                         name="email"
-                                        label={"Email"}
-                                        placeholder={"Enter your email"}
+                                        label="Email"
+                                        placeholder="Enter your email"
                                         type="email"
-                                        required={true}
+                                        required
                                     />
-
-
-                                    <Controller
+                                    <FormInput
                                         control={loginForm.control}
                                         name="password"
-                                        render={({field, fieldState}) => (
-                                            <Field data-invalid={fieldState.invalid}>
-                                                <FieldLabel htmlFor={field.name}>Password</FieldLabel>
-                                                <Input
-                                                    placeholder="Enter your password"
-                                                    type="password"
-                                                    {...field}
-                                                    id={field.name}
-                                                    aria-invalid={fieldState.invalid}
-                                                />
-                                                {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}
-                                            </Field>
-                                        )}
+                                        label="Password"
+                                        placeholder="Password"
+                                        type="password"
+                                        required
                                     />
                                 </FieldGroup>
                             </form>
-                            <div className="flex flex-col! gap-2 font-inter mt-4">
+                            <div className="flex flex-col gap-2 font-inter mt-4">
                                 <div className="flex gap-2 w-full">
-                                    <DialogClose className="w-full cursor-pointer text-sm">
-                                        Cancel
-                                    </DialogClose>
+                                    <DialogClose className="w-full cursor-pointer text-sm">Cancel</DialogClose>
                                     <Button form="form-login" type="submit" className="cursor-pointer w-full">
                                         Login
                                     </Button>
                                 </div>
                             </div>
-                            <div className={"text-sm text-gray-600 text-center mt-4"}>
-                                Need an account? <span onClick={() => setTab("signup")}
-                                                       className={"text-black font-medium hover:underline hover:underline-offset-2 cursor-pointer"}>
-                                Sign up
+                            <div className="text-sm text-gray-600 text-center mt-4">
+                                Need an account?{" "}
+                                <span
+                                    onClick={() => setTab("signup")}
+                                    className="text-black font-medium hover:underline hover:underline-offset-2 cursor-pointer"
+                                >
+                              Sign up
                             </span>
                             </div>
                         </TabsContent>
 
                         {/* Signup Form */}
                         <TabsContent value="signup">
-                            <div className={"mb-4 text-lg text-center font-inter font-semibold "}>
+                            <div className="mb-4 text-lg text-center font-inter font-semibold">
                                 Create New Account
                             </div>
-                            <form
-                                id="form-signup"
-                                onSubmit={signupForm.handleSubmit(onSignup)}
-                                className="flex flex-col gap-4"
-                            >
+                            <form id="form-signup" onSubmit={signupForm.handleSubmit(onSignup)}
+                                  className="flex flex-col gap-4">
                                 <FieldGroup className="gap-4">
                                     {/* Username */}
-                                    <Controller
+                                    <FormInput
+                                        placeholder="Enter your username"
                                         control={signupForm.control}
                                         name="username"
-                                        render={({field, fieldState}) => (
-                                            <Field data-invalid={fieldState.invalid}>
-                                                <FieldLabel htmlFor={field.name} className={"flex gap-0"}>Username<span
-                                                    className={"text-red-700"}>*</span></FieldLabel>
-                                                <Input
-                                                    placeholder="Enter your username"
-                                                    {...field}
-                                                    id={field.name}
-                                                    aria-invalid={fieldState.invalid}
-                                                />
-                                                {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}
-                                            </Field>
-                                        )}
+                                        label="Username"
+                                        required
                                     />
 
                                     {/* Full Name */}
-                                    <Controller
+                                    <FormInput
+                                        placeholder="Enter your full name"
                                         control={signupForm.control}
                                         name="fullname"
-                                        render={({field, fieldState}) => (
-                                            <Field data-invalid={fieldState.invalid}>
-                                                <FieldLabel htmlFor={field.name}>Full Name</FieldLabel>
-                                                <Input
-                                                    placeholder="Enter your full name"
-                                                    {...field}
-                                                    id={field.name}
-                                                    aria-invalid={fieldState.invalid}
-                                                />
-                                                {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}
-                                            </Field>
-                                        )}
+                                        label="Full Name"
+                                        required
                                     />
 
                                     {/* Email */}
-                                    <Controller
+                                    <FormInput
+                                        placeholder="Enter your email"
                                         control={signupForm.control}
                                         name="email"
-                                        render={({field, fieldState}) => (
-                                            <Field data-invalid={fieldState.invalid}>
-                                                <FieldLabel htmlFor={field.name}>Email Address</FieldLabel>
-                                                <Input
-                                                    placeholder="Enter your email"
-                                                    {...field}
-                                                    id={field.name}
-                                                    aria-invalid={fieldState.invalid}
-                                                />
-                                                {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}
-                                            </Field>
-                                        )}
+                                        label="Email"
+                                        type="email"
+                                        required
                                     />
 
                                     {/* Password */}
-                                    <Controller
+                                    <FormInput
+                                        placeholder="Enter your password"
                                         control={signupForm.control}
                                         name="password"
-                                        render={({field, fieldState}) => (
-                                            <Field data-invalid={fieldState.invalid}>
-                                                <FieldLabel htmlFor={field.name}>Password</FieldLabel>
-                                                <Input
-                                                    placeholder="Enter your password"
-                                                    type="password"
-                                                    {...field}
-                                                    id={field.name}
-                                                    aria-invalid={fieldState.invalid}
-                                                />
-                                                {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}
-                                            </Field>
-                                        )}
+                                        label="Password"
+                                        type="password"
+                                        required
                                     />
 
                                     {/* Confirm Password */}
-                                    <Controller
+                                    <FormInput
+                                        placeholder="Confirm your password"
                                         control={signupForm.control}
                                         name="confirmPassword"
-                                        render={({field, fieldState}) => (
-                                            <Field data-invalid={fieldState.invalid}>
-                                                <FieldLabel htmlFor={field.name}>Confirm Password</FieldLabel>
-                                                <Input
-                                                    placeholder="Confirm your password"
-                                                    type="password"
-                                                    {...field}
-                                                    id={field.name}
-                                                    aria-invalid={fieldState.invalid}
-                                                />
-                                                {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}
-                                            </Field>
-                                        )}
+                                        label="Confirm Password"
+                                        type="password"
+                                        required
                                     />
 
-                                    {/* Avatar Upload with Drag & Drop */}
-                                    <Field>
-                                        <FieldLabel>Avatar</FieldLabel>
-                                        <Controller
-                                            control={signupForm.control}
-                                            name="avatar"
-                                            render={({field}) => (
-                                                <div
-                                                    onDragOver={(e) => e.preventDefault()}
-                                                    onDrop={(e) => {
-                                                        e.preventDefault();
-                                                        const file = e.dataTransfer.files[0];
-                                                        if (!file) return;
-                                                        const reader = new FileReader();
-                                                        reader.onload = () => {
-                                                            setAvatarPreview(reader.result as string);
-                                                            field.onChange(reader.result as string); // update form value
-                                                        };
-                                                        reader.readAsDataURL(file);
-                                                    }}
-                                                    onClick={() => document.getElementById("avatarInput")?.click()}
-                                                    className="border border-dashed border-gray-400 p-4 rounded cursor-pointer flex flex-col items-center justify-center hover:bg-gray-50"
-                                                >
-                                                    {avatarPreview ? (
-                                                        <img
-                                                            src={avatarPreview}
-                                                            alt="Avatar Preview"
-                                                            className="h-24 w-24 object-cover rounded-full"
-                                                        />
-                                                    ) : (
-                                                        <span>Drag & drop or click to upload</span>
-                                                    )}
-                                                    <input
-                                                        type="file"
-                                                        id="avatarInput"
-                                                        accept="image/*"
-                                                        className="hidden"
-                                                        onChange={(e) => {
-                                                            const file = e.target.files?.[0];
-                                                            if (!file) return;
-                                                            const reader = new FileReader();
-                                                            reader.onload = () => {
-                                                                setAvatarPreview(reader.result as string);
-                                                                field.onChange(reader.result as string);
-                                                            };
-                                                            reader.readAsDataURL(file);
-                                                        }}
-                                                    />
-                                                </div>
-                                            )}
-                                        />
-                                    </Field>
+                                    {/* Avatar Upload */}
+                                    {/*            <div*/}
+                                    {/*                onDragOver={(e) => e.preventDefault()}*/}
+                                    {/*                onDrop={(e) => {*/}
+                                    {/*                    e.preventDefault();*/}
+                                    {/*                    const droppedFile = e.dataTransfer.files[0];*/}
+                                    {/*                    if (droppedFile) {*/}
+                                    {/*                        setAvatarPreview(URL.createObjectURL(droppedFile)); // local preview*/}
+                                    {/*                    }*/}
+                                    {/*                }}*/}
+                                    {/*                onClick={() => document.getElementById("avatar")?.click()}*/}
+                                    {/*                className="border border-dashed border-gray-400 p-4 rounded cursor-pointer flex flex-col items-center justify-center hover:bg-gray-50"*/}
+                                    {/*            >*/}
+                                    {/*                {avatarPreview ? (*/}
+                                    {/*                    <div className="relative">*/}
+                                    {/*                        <img*/}
+                                    {/*                            src={avatarPreview}*/}
+                                    {/*                            alt="Avatar Preview"*/}
+                                    {/*                            className="h-24 w-24 object-cover rounded-full"*/}
+                                    {/*                        />*/}
+                                    {/*                        <div*/}
+                                    {/*                            onClick={(e) => {*/}
+                                    {/*                                e.stopPropagation();*/}
+                                    {/*                                field.onChange(null); // clear RHF value*/}
+                                    {/*                                setAvatarPreview(null);*/}
+                                    {/*                            }}*/}
+                                    {/*                            className="absolute top-1 right-1 bg-black text-white rounded-full cursor-pointer"*/}
+                                    {/*                        >*/}
+                                    {/*                            <IoIosCloseCircleOutline className="text-xl"/>*/}
+                                    {/*                        </div>*/}
+                                    {/*                    </div>*/}
+                                    {/*                ) : (*/}
+                                    {/*                    <div*/}
+                                    {/*                        className="flex justify-center items-center flex-col gap-4 w-full">*/}
+                                    {/*                        <BsUpload className="text-4xl text-gray-700"/>*/}
+                                    {/*                        <span>Drag & drop or click to upload</span>*/}
+                                    {/*                    </div>*/}
+                                    {/*                )}*/}
+                                    {/*            </div>*/}
+                                    <FormInput type={"file"} control={signupForm.control} name={"avatar"}
+                                               label={"Avatar Image"} required={true}/>
+
                                 </FieldGroup>
                             </form>
 
-                            <div className="flex flex-col! gap-2 font-inter mt-4">
+                            <div className="flex flex-col gap-2 font-inter mt-4">
                                 <div className="flex gap-2 w-full">
-                                    <DialogClose className="w-full cursor-pointer text-sm">
-                                        Cancel
-                                    </DialogClose>
+                                    <DialogClose className="w-full cursor-pointer text-sm">Cancel</DialogClose>
                                     <Button form="form-signup" type="submit" className="cursor-pointer w-full">
                                         Signup
                                     </Button>
                                 </div>
                             </div>
-                            <div className={"text-sm text-gray-600 text-center mt-4"}>
-                                Already have an account? <span onClick={() => setTab("login")}
-                                                               className={"text-black font-medium hover:underline hover:underline-offset-2 cursor-pointer"}>
-                                Sign in
-                            </span>
+                            <div className="text-sm text-gray-600 text-center mt-4">
+                                Already have an account?{" "}
+                                <span
+                                    onClick={() => setTab("login")}
+                                    className="text-black font-medium hover:underline hover:underline-offset-2 cursor-pointer"
+                                >
+                                  Sign in
+                                </span>
                             </div>
                         </TabsContent>
                     </Tabs>

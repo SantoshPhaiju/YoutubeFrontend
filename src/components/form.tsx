@@ -18,7 +18,7 @@ function FormInput<T extends FieldValues>({
                                               label,
                                               placeholder,
                                               type = "text",
-                                              required
+                                              required,
                                           }: FormInputProps<T>) {
     return (
         <Controller
