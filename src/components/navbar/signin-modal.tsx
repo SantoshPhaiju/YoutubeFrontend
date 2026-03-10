@@ -26,11 +26,17 @@ import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {loginFormSchema, signupFormSchema} from "@/schemas/auth.schema";
 import {Input} from "@/components/ui/input";
+import {signIn} from "@/services/api/auth/auth.service";
+import useAuthStore from "@/store/authStore";
 
 const SigninModal = () => {
     const [open, setOpen] = useState(false);
     const [tab, setTab] = useState("login");
     const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+    const { setAccessToken, setRefreshToken } = useAuthStore((state) => ({
+        accessToken: state.setAccessToken,
+        refreshToken: state.setRefreshToken,
+    }))
 
     // Login form
     const loginForm = useForm<z.infer<typeof loginFormSchema>>({
@@ -51,8 +57,21 @@ const SigninModal = () => {
         resolver: zodResolver(signupFormSchema),
     });
 
-    const onLogin = (values: z.infer<typeof loginFormSchema>) => {
+    const onLogin = async (values: z.infer<typeof loginFormSchema>) => {
         console.log("Login values:", values);
+        const {email, password} = values;
+        const data = await signIn({
+            email, password
+        });
+        console.log("Login response:", data);
+        if (data.status === 200) {
+            setAccessToken(data.data.token);
+            setRefreshToken(data.data.refreshToken);
+            // window.location.href = "/";
+        } else {
+            console.error("Login failed:", data.message);
+        }
+
     };
 
     const onSignup = (values: z.infer<typeof signupFormSchema>) => {

@@ -1,6 +1,4 @@
 import {createStore} from "zustand/vanilla";
-import {devtools} from "zustand/middleware/devtools";
-import {persist} from "zustand/middleware/persist";
 
 type AuthState = {
     accessToken: string | null;
@@ -26,11 +24,7 @@ const authStore = (set: (fn: Partial<AuthStore>) => void): AuthStore => ({
 })
 
 const useAuthStore = createStore(
-    devtools(
-        persist(authStore, {
-            name: "auth-storage",
-        })
-    )
+       authStore
 )
 
 export default useAuthStore;
