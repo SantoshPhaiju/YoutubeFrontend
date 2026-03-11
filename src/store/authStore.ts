@@ -1,4 +1,7 @@
 import {createStore} from "zustand/vanilla";
+import {create} from "zustand/react";
+import {devtools} from "zustand/middleware";
+import {persist} from "zustand/middleware";
 
 type AuthState = {
     accessToken: string | null;
@@ -18,13 +21,19 @@ const authStore = (set: (fn: Partial<AuthStore>) => void): AuthStore => ({
     accessToken: null,
     refreshToken: null,
 
-    setAccessToken: (token: string) => set({accessToken: token}),
+    setAccessToken: (token: string)=> {
+        set({accessToken: token});
+    },
     setRefreshToken: (token: string) => set({refreshToken: token}),
     logout: () => set({accessToken: null, refreshToken: null}),
 })
 
-const useAuthStore = createStore(
-       authStore
+const useAuthStore = create(
+    devtools(
+        persist(authStore, {
+            name: "auth-storage",
+        })
+    )
 )
 
 export default useAuthStore;

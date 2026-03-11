@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import React from "react";
 import "./globals.css";
 import { TanstackProvider } from "@/providers/TanstackProvider";
+import {Toaster} from "sonner";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -30,8 +31,10 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${robotoCondensed.variable} ${roboto.variable} ${roboto.className} antialiased`}
       >
+
       <TanstackProvider>
         <RootClientLayout>{children}</RootClientLayout>
+          <Toaster />
       </TanstackProvider>
       </body>
     </html>

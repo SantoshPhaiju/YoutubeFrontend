@@ -28,15 +28,16 @@ import {loginFormSchema, signupFormSchema} from "@/schemas/auth.schema";
 import {Input} from "@/components/ui/input";
 import {signIn} from "@/services/api/auth/auth.service";
 import useAuthStore from "@/store/authStore";
+import {useLoginUser} from "@/services/mutations/authMutation";
+import {toast} from "sonner";
 
 const SigninModal = () => {
     const [open, setOpen] = useState(false);
     const [tab, setTab] = useState("login");
     const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
-    const { setAccessToken, setRefreshToken } = useAuthStore((state) => ({
-        accessToken: state.setAccessToken,
-        refreshToken: state.setRefreshToken,
-    }))
+    const setAccessToken = useAuthStore((state) => state.setAccessToken);
+    const setRefreshToken = useAuthStore((state) => state.setRefreshToken);
+    const loginMutation = useLoginUser();
 
     // Login form
     const loginForm = useForm<z.infer<typeof loginFormSchema>>({
@@ -58,15 +59,17 @@ const SigninModal = () => {
     });
 
     const onLogin = async (values: z.infer<typeof loginFormSchema>) => {
+
         console.log("Login values:", values);
         const {email, password} = values;
-        const data = await signIn({
-            email, password
-        });
+        const data = await loginMutation.mutateAsync({ email, password });
         console.log("Login response:", data);
-        if (data.status === 200) {
+        if (data.statusCode === 200) {
             setAccessToken(data.data.token);
             setRefreshToken(data.data.refreshToken);
+            toast.success("Login successful");
+            setOpen(false);
+
             // window.location.href = "/";
         } else {
             console.error("Login failed:", data.message);
