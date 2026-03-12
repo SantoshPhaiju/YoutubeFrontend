@@ -32,6 +32,7 @@ import AvatarComponent from "@/components/navbar/avatar-component";
 import {Button} from "@/components/ui/button";
 import {FaRegCircleUser} from "react-icons/fa6";
 import SigninModal from "@/components/navbar/signin-modal";
+import useAuthStore from "@/store/authStore";
 
 const menuItems = [
     {icon: MdOutlineAccountCircle, label: "Google Account"},
@@ -63,6 +64,7 @@ const Navbar = ({
     const pathname = usePathname();
 
     const [openDropdown, setOpenDropdown] = useState(false);
+    const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
     return (
         <>
             <header
@@ -103,25 +105,28 @@ const Navbar = ({
                 </div>
                 <div
                     className="flex justify-between gap-2 md:gap-4 items-center w-auto sm:w-[90%] md:w-[80%] lg:w-[70%] 2xl:w-[66%]">
-                    <div className="search w-full max-w-[600px]">
+                    <div className="search w-full max-w-150">
                         <Search/>
                     </div>
-                    {/*<div className="profiles flex justify-center items-center gap-2 md:gap-4 ">*/}
-                    {/*  <CreateComponent />*/}
-                    {/*  <div>*/}
-                    {/*    <IoMdNotificationsOutline className="text-[24px] cursor-pointer" />*/}
-                    {/*  </div>*/}
-                    {/*  <div className="cursor-pointer">*/}
-                    {/*    <AvatarComponent*/}
-                    {/*      menuItems={menuItems}*/}
-                    {/*      openDropdown={openDropdown}*/}
-                    {/*      setOpenDropdown={setOpenDropdown}*/}
-                    {/*    />*/}
-                    {/*  </div>*/}
-                    {/*</div>*/}
-                    <div className="profiles flex justify-center items-center gap-2 md:gap-4 ">
-                            <SigninModal />
-                    </div>
+                    {isLoggedIn ? (
+                        <div className="profiles flex justify-center items-center gap-2 md:gap-4 ">
+                            <CreateComponent/>
+                            <div>
+                                <IoMdNotificationsOutline className="text-[24px] cursor-pointer"/>
+                            </div>
+                            <div className="cursor-pointer">
+                                <AvatarComponent
+                                    menuItems={menuItems}
+                                    openDropdown={openDropdown}
+                                    setOpenDropdown={setOpenDropdown}
+                                />
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="profiles flex justify-center items-center gap-2 md:gap-4 ">
+                            <SigninModal/>
+                        </div>
+                    )}
                 </div>
             </header>
             {showCategories && (

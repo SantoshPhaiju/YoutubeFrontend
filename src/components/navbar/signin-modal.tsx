@@ -2,8 +2,6 @@
 
 import React, {useState} from "react";
 import {FaRegCircleUser} from "react-icons/fa6";
-import {BsUpload} from "react-icons/bs";
-import {IoIosCloseCircleOutline} from "react-icons/io";
 import {Button} from "@/components/ui/button";
 import {
     Dialog,
@@ -19,22 +17,23 @@ import {
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs";
-import {Field, FieldLabel, FieldGroup} from "@/components/ui/field";
+import {FieldGroup} from "@/components/ui/field";
 import FormInput from "@/components/form";
 import {useForm, Controller} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {loginFormSchema, signupFormSchema} from "@/schemas/auth.schema";
-import {Input} from "@/components/ui/input";
-import {signIn} from "@/services/api/auth/auth.service";
 import useAuthStore from "@/store/authStore";
 import {useLoginUser} from "@/services/mutations/authMutation";
 import {toast} from "sonner";
+import {shallow} from "zustand/vanilla/shallow";
 
 const SigninModal = () => {
     const [open, setOpen] = useState(false);
     const [tab, setTab] = useState("login");
     const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+
+    const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
     const setAccessToken = useAuthStore((state) => state.setAccessToken);
     const setRefreshToken = useAuthStore((state) => state.setRefreshToken);
     const loginMutation = useLoginUser();
@@ -60,20 +59,20 @@ const SigninModal = () => {
 
     const onLogin = async (values: z.infer<typeof loginFormSchema>) => {
 
-        console.log("Login values:", values);
-        const {email, password} = values;
-        const data = await loginMutation.mutateAsync({ email, password });
-        console.log("Login response:", data);
-        if (data.statusCode === 200) {
-            setAccessToken(data.data.token);
-            setRefreshToken(data.data.refreshToken);
-            toast.success("Login successful");
-            setOpen(false);
-
-            // window.location.href = "/";
-        } else {
-            console.error("Login failed:", data.message);
-        }
+        // console.log("Login values:", values);
+            const {email, password} = values;
+            const data = await loginMutation.mutateAsync({email, password});
+            console.log("Login response:", data);
+            if (data.statusCode === 200) {
+                setAccessToken(data.data.token);
+                setRefreshToken(data.data.refreshToken);
+                setIsLoggedIn(true);
+                toast.success("Login successful");
+                setOpen(false);
+                // window.location.href = "/";
+            } else {
+                console.error("Login failed:", data.message);
+            }
 
     };
 

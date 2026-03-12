@@ -9,10 +9,13 @@ export const signIn = async ({
     email: string;
     password: string;
 }) => {
-        console.log("email", email);
+    try {
         const response = await api.post("/users/login", {
             email,
             password,
         });
         return response.data;
+    } catch (error) {
+        throw error;
+    }
 }
