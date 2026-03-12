@@ -1,5 +1,5 @@
 import {useMutation} from "@tanstack/react-query";
-import {signIn} from "@/services/api/auth/auth.service";
+import {logout, signIn} from "@/services/api/auth/auth.service";
 import axios from "axios";
 import { toast } from "sonner";
 
@@ -16,6 +16,20 @@ export function useLoginUser() {
         },
         onError: (error) => {
             console.log(error);
+            if(axios.isAxiosError(error)) {
+                toast.error(error.response?.data.message || "Something went wrong")
+            }
+        }
+    })
+}
+
+export function useLogoutUser() {
+    return useMutation({
+        mutationFn: async () => {
+            return logout();
+        },
+        onError: (error) => {
+            console.log(error)
             if(axios.isAxiosError(error)) {
                 toast.error(error.response?.data.message || "Something went wrong")
             }
