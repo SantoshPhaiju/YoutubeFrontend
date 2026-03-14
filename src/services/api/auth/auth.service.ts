@@ -21,6 +21,24 @@ export const signIn = async ({
     }
 }
 
+export const signUp = async ({
+                                 formData
+                             }: {
+    formData: FormData;
+}) => {
+    try {
+        const response = await api.post("/users/register", {
+            formData,
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
 export const logout = async (): Promise<IApiResponse<null>> => {
     try {
         const response = await api.post("/users/logout");
