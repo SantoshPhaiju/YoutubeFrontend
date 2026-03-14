@@ -37,7 +37,7 @@ const AvatarComponent = ({
         <div>
             <DropdownMenu open={openDropdown} onOpenChange={setOpenDropdown}>
                 <DropdownMenuTrigger>
-                    <Avatar className="cursor-pointer h-[32px] w-[32px]">
+                    <Avatar className="cursor-pointer h-8 w-8">
                         <AvatarImage src="https://github.com/shadcn.png"/>
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>

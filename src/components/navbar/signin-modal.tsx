@@ -114,7 +114,7 @@ const SigninModal = () => {
                         </DialogHeader>
 
                         <Tabs value={tab} onValueChange={setTab} defaultValue="login" className="w-full">
-                            <TabsList className="w-full flex gap-2 mb-4! hidden">
+                            <TabsList className="w-full gap-2 mb-4! hidden">
                                 <TabsTrigger value="login" className="w-full cursor-pointer">
                                     Login
                                 </TabsTrigger>
