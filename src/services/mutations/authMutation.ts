@@ -5,14 +5,11 @@ import { toast } from "sonner";
 
 export function useLoginUser() {
     return useMutation({
-        mutationFn: async ({
-            email,
-            password,
-        }: {
-            email: string;
+        mutationFn: async (payload: {
+            usernameoremail: string;
             password: string;
         }) => {
-            return signIn({email, password})
+            return signIn(payload);
         },
         onError: (error) => {
             console.log(error);
