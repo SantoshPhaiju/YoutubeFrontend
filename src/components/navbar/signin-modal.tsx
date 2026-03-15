@@ -19,27 +19,31 @@ import {
 } from "@/components/ui/tabs";
 import {FieldGroup} from "@/components/ui/field";
 import FormInput from "@/components/form";
-import {useForm, Controller} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {loginFormSchema, signupFormSchema} from "@/schemas/auth.schema";
 import useAuthStore from "@/store/authStore";
-import {useLoginUser} from "@/services/mutations/authMutation";
+import {useLoginUser, useRegisterUser} from "@/services/mutations/authMutation";
 import {toast} from "sonner";
+import {cn} from "@/lib/utils";
 
 const SigninModal = () => {
     const [open, setOpen] = useState(false);
     const [tab, setTab] = useState("login");
-    const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
 
     const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
     const setAccessToken = useAuthStore((state) => state.setAccessToken);
     const setRefreshToken = useAuthStore((state) => state.setRefreshToken);
     const loginMutation = useLoginUser();
+    const signupMutation = useRegisterUser();
 
     // Login form
     const loginForm = useForm<z.infer<typeof loginFormSchema>>({
-        defaultValues: {email: "", password: ""},
+        defaultValues: {
+            usernameoremail: "",
+            password: ""
+        },
         resolver: zodResolver(loginFormSchema),
     });
 
@@ -51,17 +55,15 @@ const SigninModal = () => {
             email: "",
             password: "",
             confirmPassword: "",
-            avatar: "",
+            avatar: null,
         },
         resolver: zodResolver(signupFormSchema),
     });
 
     const onLogin = async (values: z.infer<typeof loginFormSchema>) => {
+        const payload = values;
+        const data = await loginMutation.mutateAsync(payload);
 
-        // console.log("Login values:", values);
-        const {email, password} = values;
-        const data = await loginMutation.mutateAsync({email, password});
-        console.log("Login response:", data);
         if (data.statusCode === 200) {
             setAccessToken(data.data.token);
             setRefreshToken(data.data.refreshToken);
@@ -75,7 +77,7 @@ const SigninModal = () => {
 
     };
 
-    const onSignup = (values: z.infer<typeof signupFormSchema>) => {
+    const onSignup = async (values: z.infer<typeof signupFormSchema>) => {
         if (values.password !== values.confirmPassword) {
             toast.error("Passwords do not match");
             return;
@@ -86,11 +88,25 @@ const SigninModal = () => {
         formData.append("fullname", values.fullname);
         formData.append("email", values.email);
         formData.append("password", values.password);
-        if(values.avatar){
+        if (values.avatar) {
             formData.append("avatar", values.avatar);
         }
-        console.log("Hello world");
-        console.log("Signup values:", values);
+
+        // for (const [key, value] of formData.entries()) {
+        //     console.log(key, value);
+        // }
+
+        try {
+            const response = await signupMutation.mutateAsync(formData);
+            if (response.statusCode === 201) {
+                toast.success("Signup successful! Now you can login.");
+                setTab("login")
+            } else {
+                toast.error("Signup failed" + response.message);
+            }
+        } catch (error) {
+            console.error("Signup failed:", error);
+        }
     };
 
     return (
@@ -100,8 +116,7 @@ const SigninModal = () => {
                 variant="outline"
                 className="rounded-full cursor-pointer font-medium text-[16px] px-2 py-2 text-blue-700 hover:text-blue-600 flex justify-center items-center gap-1.5 "
             >
-                <FaRegCircleUser className="h-5 w-5"/>
-                Sign in
+                <FaRegCircleUser className="h-5 w-5"/> <span>Sign in</span>
             </Button>
 
             <div className={""}>
@@ -132,10 +147,10 @@ const SigninModal = () => {
                                     <FieldGroup className="gap-4">
                                         <FormInput
                                             control={loginForm.control}
-                                            name="email"
-                                            label="Email"
-                                            placeholder="Enter your email"
-                                            type="email"
+                                            name="usernameoremail"
+                                            label="Username/Email"
+                                            placeholder="Enter your username or email"
+                                            type="text"
                                             required
                                         />
                                         <FormInput
@@ -172,7 +187,8 @@ const SigninModal = () => {
                                 <div className="mb-4 text-lg text-center font-inter font-semibold">
                                     Create New Account
                                 </div>
-                                <form id="form-signup" onSubmit={signupForm.handleSubmit(onSignup)}
+                                <form encType={"multipart/form-data"} id="form-signup"
+                                      onSubmit={signupForm.handleSubmit(onSignup)}
                                       className="flex flex-col gap-4">
                                     <FieldGroup className="gap-4">
                                         {/* Username */}
@@ -223,45 +239,6 @@ const SigninModal = () => {
                                             required
                                         />
 
-                                        {/* Avatar Upload */}
-                                        {/*            <div*/}
-                                        {/*                onDragOver={(e) => e.preventDefault()}*/}
-                                        {/*                onDrop={(e) => {*/}
-                                        {/*                    e.preventDefault();*/}
-                                        {/*                    const droppedFile = e.dataTransfer.files[0];*/}
-                                        {/*                    if (droppedFile) {*/}
-                                        {/*                        setAvatarPreview(URL.createObjectURL(droppedFile)); // local preview*/}
-                                        {/*                    }*/}
-                                        {/*                }}*/}
-                                        {/*                onClick={() => document.getElementById("avatar")?.click()}*/}
-                                        {/*                className="border border-dashed border-gray-400 p-4 rounded cursor-pointer flex flex-col items-center justify-center hover:bg-gray-50"*/}
-                                        {/*            >*/}
-                                        {/*                {avatarPreview ? (*/}
-                                        {/*                    <div className="relative">*/}
-                                        {/*                        <img*/}
-                                        {/*                            src={avatarPreview}*/}
-                                        {/*                            alt="Avatar Preview"*/}
-                                        {/*                            className="h-24 w-24 object-cover rounded-full"*/}
-                                        {/*                        />*/}
-                                        {/*                        <div*/}
-                                        {/*                            onClick={(e) => {*/}
-                                        {/*                                e.stopPropagation();*/}
-                                        {/*                                field.onChange(null); // clear RHF value*/}
-                                        {/*                                setAvatarPreview(null);*/}
-                                        {/*                            }}*/}
-                                        {/*                            className="absolute top-1 right-1 bg-black text-white rounded-full cursor-pointer"*/}
-                                        {/*                        >*/}
-                                        {/*                            <IoIosCloseCircleOutline className="text-xl"/>*/}
-                                        {/*                        </div>*/}
-                                        {/*                    </div>*/}
-                                        {/*                ) : (*/}
-                                        {/*                    <div*/}
-                                        {/*                        className="flex justify-center items-center flex-col gap-4 w-full">*/}
-                                        {/*                        <BsUpload className="text-4xl text-gray-700"/>*/}
-                                        {/*                        <span>Drag & drop or click to upload</span>*/}
-                                        {/*                    </div>*/}
-                                        {/*                )}*/}
-                                        {/*            </div>*/}
                                         <FormInput type={"file"} control={signupForm.control} name={"avatar"}
                                                    label={"Avatar Image"} required={false}/>
 
@@ -271,8 +248,11 @@ const SigninModal = () => {
                                 <div className="flex flex-col gap-2 font-inter mt-4">
                                     <div className="flex gap-2 w-full">
                                         <DialogClose className="w-full cursor-pointer text-sm">Cancel</DialogClose>
-                                        <Button form="form-signup" type="submit" className="cursor-pointer w-full">
-                                            Signup
+                                        <Button disabled={signupMutation.isPending} form="form-signup" type="submit"
+                                                className={cn(`cursor-pointer w-full`, {
+                                                    "cursor-not-allowed": signupMutation.isPending,
+                                                })}>
+                                            {signupMutation.isPending ? "Loading..." : "Signup"}
                                         </Button>
                                     </div>
                                 </div>

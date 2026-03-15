@@ -26,15 +26,58 @@ function FormInput<T extends FieldValues>({
             name={name}
             render={({field, fieldState}) => (
                 <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor={field.name}>{label}{required && <span className={"text-red-800 -ml-2"}>*</span>}</FieldLabel>
-                    <Input
-                        {...field}
-                        id={field.name}
-                        type={type}
-                        placeholder={placeholder}
-                        aria-invalid={fieldState.invalid}
-                        required={required}
-                    />
+                    <FieldLabel htmlFor={field.name}>{label}{required &&
+                        <span className={"text-red-800 -ml-2"}>*</span>}</FieldLabel>
+                    {
+                        type === "file" ? (
+                            <Input
+                                {...field}
+                                id={field.name}
+                                type={type}
+                                placeholder={placeholder}
+                                aria-invalid={fieldState.invalid}
+                                required={required}
+                                // value={type === "file" ? undefined : field.value}
+                                value={type === "file" ? undefined : field.value ?? ""}
+                                onChange={(e) => {
+                                    if (type === "file") {
+                                        field.onChange(e.target.files?.[0]); // send File
+                                    } else {
+                                        field.onChange(e.target.value);
+                                    }
+                                }
+                                }
+                            />
+                        ) : (
+                            <Input
+                                {...field}
+                                id={field.name}
+                                type={type}
+                                placeholder={placeholder}
+                                aria-invalid={fieldState.invalid}
+                                required={required}
+                            />
+                        )
+                    }
+                    {/*<Input*/}
+                    {/*    {...field}*/}
+                    {/*    id={field.name}*/}
+                    {/*    type={type}*/}
+                    {/*    placeholder={placeholder}*/}
+                    {/*    aria-invalid={fieldState.invalid}*/}
+                    {/*    required={required}*/}
+                    {/*    // value={type === "file" ? undefined : field.value}*/}
+                    {/*    value={type === "file" ? undefined : field.value ?? ""}*/}
+                    {/*    onChange={(e) => {*/}
+                    {/*        if (type === "file") {*/}
+                    {/*            field.onChange(e.target.files?.[0]); // send File*/}
+                    {/*        } else {*/}
+                    {/*            field.onChange(e.target.value);*/}
+                    {/*        }*/}
+                    {/*    }*/}
+                    {/*    }*/}
+                    {/*/>*/}
+
 
                     {fieldState.error && (
                         <FieldError errors={[fieldState.error]}/>

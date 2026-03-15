@@ -29,8 +29,6 @@ import CreateComponent from "./create/create-component";
 import Search from "./search";
 import SemiNav from "./semi-nav";
 import AvatarComponent from "@/components/navbar/avatar-component";
-import {Button} from "@/components/ui/button";
-import {FaRegCircleUser} from "react-icons/fa6";
 import SigninModal from "@/components/navbar/signin-modal";
 import useAuthStore from "@/store/authStore";
 
