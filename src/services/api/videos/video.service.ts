@@ -7,10 +7,9 @@ import {AxiosResponse} from "axios";
 export const getAllHomePageVideos = async ({}) => {
     try {
         const response = await api.get("/videos/get-home-page-videos");
-        console.log("hello", response.data);
         return response.data.data.videos;
     } catch (e) {
-        console.log("error", e);
+        console.error("error", e);
     }
 }
 
@@ -32,7 +31,7 @@ export const getVideoById = async (
             await api.get(`/videos/get-video/${id}`);
         return response.data.data.video;
     } catch (error) {
-        console.log("error", error);
+        console.error("error", error);
         throw error;
     }
 };
