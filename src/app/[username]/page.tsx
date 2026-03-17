@@ -116,15 +116,25 @@ const Page = () => {
                                         About
                                     </TabsTrigger>
                                 </TabsList>
-                                <div className="w-full border -mt-[3px] z-0"></div>
+                                <div className="w-full border border-border -mt-[3px] z-0"></div>
 
-                                <TabsContent value="home" className="mt-4">
+                                <TabsContent value="home" className="mt-4 w-full">
 
                                     <div className={"font-bold text-xl mb-2 "}>
                                         Videos
                                     </div>
 
-                                    <div className="videos flex gap-2">
+                                    <div className="videos flex gap-4 overflow-x-auto w-full">
+                                        <SmallVideoComponent />
+                                        <SmallVideoComponent />
+                                        <SmallVideoComponent />
+                                        <SmallVideoComponent />
+                                        <SmallVideoComponent />
+                                        <SmallVideoComponent />
+                                        <SmallVideoComponent />
+                                        <SmallVideoComponent />
+                                        <SmallVideoComponent />
+                                        <SmallVideoComponent />
                                         <SmallVideoComponent />
                                         <SmallVideoComponent />
                                         <SmallVideoComponent />

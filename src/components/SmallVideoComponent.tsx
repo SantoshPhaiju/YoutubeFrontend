@@ -10,9 +10,9 @@ const SmallVideoComponent = (
 ) => {
     return (
         <div className={cn(`w-[250px] h-auto cursor-pointer`, {
-            "min-h-[140px] w-[250px]": videoSize === "small",
-            "min-h-[180px] w-[280px]": videoSize === "medium",
-            "min-h-[250px] w-[320px]": videoSize === "large",
+            "min-h-[140px] min-w-[250px]": videoSize === "small",
+            "min-h-[180px] min-w-[280px]": videoSize === "medium",
+            "min-h-[250px] min-w-[320px]": videoSize === "large",
         })}>
             <div className="thumbnail">
                 <Link href="/watch?v=123">
