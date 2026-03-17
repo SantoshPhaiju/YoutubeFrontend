@@ -39,3 +39,12 @@ export const logout = async (): Promise<IApiResponse<null>> => {
         throw error;
     }
 }
+
+export const getLoggedInUserData = async () => {
+    try {
+        const response = await api.get("/users/me");
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
