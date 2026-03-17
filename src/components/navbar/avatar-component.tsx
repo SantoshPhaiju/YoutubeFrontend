@@ -9,12 +9,13 @@ import {
     DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
-import React from "react";
+import React, {useEffect} from "react";
 import Link from "next/link";
 import {IconType} from "react-icons";
 import useAuthStore from "@/store/authStore";
 import {useLogoutUser} from "@/services/mutations/authMutation";
 import {toast} from "sonner";
+import {useUserDataQuery} from "@/services/queries/authQuery";
 
 interface IAvatarComponentProps {
     menuItems: {
@@ -33,13 +34,18 @@ const AvatarComponent = ({
     const logoutUser = useLogoutUser();
     const logout = useAuthStore((state) => state.logout);
     const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
+    const { data: user, isLoading } = useUserDataQuery();
+    useEffect(() => {
+        console.log("User data:", user);
+    }, [user]);
+
     return (
         <div>
             <DropdownMenu open={openDropdown} onOpenChange={setOpenDropdown}>
                 <DropdownMenuTrigger>
                     <Avatar className="cursor-pointer h-8 w-8">
-                        <AvatarImage src="https://github.com/shadcn.png"/>
-                        <AvatarFallback>CN</AvatarFallback>
+                        <AvatarImage src={isLoading ? `https://github.com/shadcn.png`: user?.data?.avatar} />
+                        <AvatarFallback>{user?.data?.fullname || "CN"}</AvatarFallback>
                     </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="bg-white h-auto max-h-[90vh] mr-8 mt-2 px-0 rounded-xl w-[290px] py-0">
@@ -47,21 +53,21 @@ const AvatarComponent = ({
                         className="sticky top-0 left-0 z-50 gap-3 w-full flex justify-start items-start px-4 py-3 pt-4 bg-white">
                         <div className="">
                             <Avatar>
-                                <AvatarImage src="https://github.com/shadcn.png"/>
+                                <AvatarImage src={isLoading ? `https://github.com/shadcn.png`: user?.data?.avatar} />
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
                         </div>
                         <div className="flex flex-col gap-[4px]">
                             <div className="text-[18px] font-roboto font-medium">
-                                Santosh Phaiju
+                                {user?.data?.fullname}
                             </div>
                             <div className="text-[14px] font-normal font-sans">
-                                @santoshphaiju212
+                                @{user?.data?.username}
                             </div>
                             <Link
-                                href={"/channel-page"}
+                                href={`/${user?.data?.username}`}
                                 onClick={() => setOpenDropdown(false)}
-                                className="text-blue-600 hover:underline underline-offset-4 font-normal mt-[4px]"
+                                className="text-blue-600 hover:underline underline-offset-4 font-normal mt-1"
                             >
                                 View your channel
                             </Link>

@@ -19,7 +19,7 @@ const CreateComponent = () => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            className="flex px-3 sm:px-4 justify-center items-center gap-1 md:gap-2 text-red-700 text-sm md:text-md rounded-full bg-gray-50 hover:bg-gray-100 select-none"
+            className="flex px-3 sm:px-4 justify-center items-center gap-1 md:gap-2 text-red-700 text-sm md:text-md rounded-full bg-gray-50 hover:bg-gray-100 select-none cursor-pointer"
             variant={"outline"}
           >
             <FaPlus />

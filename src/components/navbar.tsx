@@ -11,7 +11,7 @@ import {
     MdOutlineVisibilityOff,
 } from "react-icons/md";
 
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {
     MdOutlineAccountCircle,
     MdOutlineDarkMode,
@@ -31,17 +31,18 @@ import SemiNav from "./semi-nav";
 import AvatarComponent from "@/components/navbar/avatar-component";
 import SigninModal from "@/components/navbar/signin-modal";
 import useAuthStore from "@/store/authStore";
+import {useUserDataQuery} from "@/services/queries/authQuery";
 
 const menuItems = [
-    {icon: MdOutlineAccountCircle, label: "Google Account"},
-    {icon: MdOutlineSwitchAccount, label: "Switch account"},
+    {icon: MdOutlineDarkMode, label: "Appearance: Light"},
+    {icon: MdOutlineLanguage, label: "Language: English"},
     {icon: MdOutlineLogout, label: "Sign out"},
+    {icon: MdOutlineSwitchAccount, label: "Switch account"},
     {icon: MdOutlineVideoSettings, label: "YouTube Studio"},
     {icon: MdOutlinePayments, label: "Purchases and memberships"},
     {icon: MdOutlineShield, label: "Your data in YouTube"},
-    {icon: MdOutlineDarkMode, label: "Appearance: Light"},
-    {icon: MdOutlineLanguage, label: "Language: English"},
     {icon: MdOutlineVisibilityOff, label: "Restricted Mode: Off"},
+    {icon: MdOutlineAccountCircle, label: "Google Account"},
     {icon: MdOutlineLocationOn, label: "Location: Nepal"},
     {icon: MdOutlineKeyboard, label: "Keyboard shortcuts"},
     {icon: MdOutlineSettings, label: "Settings"},
@@ -63,6 +64,7 @@ const Navbar = ({
 
     const [openDropdown, setOpenDropdown] = useState(false);
     const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+
     return (
         <>
             <header

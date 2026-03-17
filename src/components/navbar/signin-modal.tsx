@@ -240,7 +240,7 @@ const SigninModal = () => {
                                         />
 
                                         <FormInput type={"file"} control={signupForm.control} name={"avatar"}
-                                                   label={"Avatar Image"} required={false}/>
+                                                   label={"Avatar Image"} required={true}/>
 
                                     </FieldGroup>
                                 </form>

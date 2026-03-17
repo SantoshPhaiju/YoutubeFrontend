@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import Navbar from "./navbar";
 import Sidebar from "./sidebar";
 import OverlaySidebar from "./sidebarcomponents/overlay-sidebar";
+import {useUserDataQuery} from "@/services/queries/authQuery";
 
 const RootClientLayout = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
