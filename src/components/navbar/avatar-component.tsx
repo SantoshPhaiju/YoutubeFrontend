@@ -35,9 +35,6 @@ const AvatarComponent = ({
     const logout = useAuthStore((state) => state.logout);
     const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
     const { data: user, isLoading } = useUserDataQuery();
-    useEffect(() => {
-        console.log("User data:", user);
-    }, [user]);
 
     return (
         <div>
@@ -48,7 +45,7 @@ const AvatarComponent = ({
                         <AvatarFallback>{user?.data?.fullname || "CN"}</AvatarFallback>
                     </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-white h-auto max-h-[90vh] mr-8 mt-2 px-0 rounded-xl w-[290px] py-0">
+                <DropdownMenuContent className="bg-white h-auto max-h-[90vh] mr-8 mt-2 px-0 rounded-xl w-[290px] py-0 border border-gray-300 ">
                     <DropdownMenuLabel
                         className="sticky top-0 left-0 z-50 gap-3 w-full flex justify-start items-start px-4 py-3 pt-4 bg-white">
                         <div className="">
