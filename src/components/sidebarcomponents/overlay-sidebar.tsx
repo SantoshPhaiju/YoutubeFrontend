@@ -145,7 +145,7 @@ const OverlaySidebar = ({
                     );
                   })}
                 </div>
-                <hr />
+                <hr className={"bg-gray-300 border-none h-px w-full "} />
                 <div className="py-4">
                   <div className="flex justify-start items-center px-4 py-2 gap-1 cursor-pointer hover:bg-gray-200 rounded-lg text-lg text-gray-700">
                     <div>You</div>
@@ -168,7 +168,7 @@ const OverlaySidebar = ({
                     })}
                   </div>
 
-                  <hr />
+                  <hr className={"bg-gray-300 border-none h-px w-full "} />
 
                   <div className="py-4 px-2 text-sm">
                     About Press Copyright Contact us Creators Advertise

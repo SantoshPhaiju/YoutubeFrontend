@@ -31,7 +31,6 @@ import SemiNav from "./semi-nav";
 import AvatarComponent from "@/components/navbar/avatar-component";
 import SigninModal from "@/components/navbar/signin-modal";
 import useAuthStore from "@/store/authStore";
-import {useUserDataQuery} from "@/services/queries/authQuery";
 
 const menuItems = [
     {icon: MdOutlineDarkMode, label: "Appearance: Light"},

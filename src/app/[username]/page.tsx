@@ -23,7 +23,7 @@ const Page = async ({params}: { params: { username: string } }) => {
                 {/* <HomePageClient /> */}
                 <div className="">
                     <ChannelPageClientLayout>
-                        <div className="flex flex-col gap-3 md:gap-6 px-2 md:px-4 lg:px-8 xl:px-12 2xl:px-20">
+                        <div className="flex flex-col gap-3 md:gap-6 px-0 md:px-16 sm:px-4 lg:px-8 xl:px-12 2xl:px-20">
                             {/* Channel cover image */}
                             <div>
                                 <Image
@@ -157,7 +157,8 @@ const Page = async ({params}: { params: { username: string } }) => {
 
                                     </TabsContent>
                                     <TabsContent value="videos" className="mt-4">
-                                        <div className="videos flex flex-wrap gap-4">
+                                        <div
+                                            className="videos grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 3xl:grid-cols-4 gap-4">
                                             <SmallVideoComponent videoSize={"medium"}/>
                                             <SmallVideoComponent videoSize={"medium"}/>
                                             <SmallVideoComponent videoSize={"medium"}/>

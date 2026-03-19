@@ -9,10 +9,10 @@ const SmallVideoComponent = (
     }: { videoSize?: "small" | "medium" | "large" }
 ) => {
     return (
-        <div className={cn(`w-[250px] h-auto cursor-pointer`, {
-            "min-h-[140px] min-w-[250px]": videoSize === "small",
-            "min-h-[180px] min-w-[280px]": videoSize === "medium",
-            "min-h-[250px] min-w-[320px]": videoSize === "large",
+        <div className={cn(`h-auto aspect-video cursor-pointer col-span-1`, {
+            "min-h-[140px] w-auto": videoSize === "small",
+            "aspect-video": videoSize === "medium",
+            "min-h-[250px] w-[320px]": videoSize === "large",
         })}>
             <div className="thumbnail">
                 <Link href="/watch?v=123">
@@ -20,7 +20,7 @@ const SmallVideoComponent = (
                         src={"/assets/thumb.jpg"}
                         height={200}
                         width={300}
-                        className={cn(`h-auto max-h-[200px] min-h-[140px] w-full rounded-md object-cover`)}
+                        className={cn(`h-auto min-h-[140px] w-full rounded-md object-cover`)}
                         alt="VideoComponent"
                     />
                 </Link>
