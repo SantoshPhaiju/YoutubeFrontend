@@ -18,6 +18,7 @@ const Page = async ({params}: { params: { username: string } }) => {
             return <p>Channel not found</p>;
         }
 
+        console.log("channelData : ", channelData)
         return (
             <>
                 {/* <HomePageClient /> */}

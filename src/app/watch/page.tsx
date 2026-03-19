@@ -12,6 +12,7 @@ import { PiShareFatLight } from "react-icons/pi";
 import {getVideoById} from "@/services/api/videos/video.service";
 import {timeAgo} from "@/utils/timeAgo";
 import {formatDate} from "@/utils/formatDate";
+import {notFound} from "next/navigation";
 
 interface WatchPageProps {
   searchParams: {
@@ -26,7 +27,14 @@ const Page = async ({ searchParams }: WatchPageProps) => {
     return <p>Invalid video ID</p>;
   }
 
-  const video = await getVideoById({ id: videoId });
+  // const video = await getVideoById({ id: videoId });
+  const video = await (async () => {
+    try {
+      return await getVideoById({ id: videoId });
+    } catch (error) {
+      notFound();
+    }
+  })();
   const videoOwner = Array.isArray(video.owner) ? video.owner[0]: video.owner;
 
   const desc =

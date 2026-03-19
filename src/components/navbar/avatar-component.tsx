@@ -16,6 +16,7 @@ import useAuthStore from "@/store/authStore";
 import {useLogoutUser} from "@/services/mutations/authMutation";
 import {toast} from "sonner";
 import {useUserDataQuery} from "@/services/queries/authQuery";
+import {useRouter} from "next/navigation";
 
 interface IAvatarComponentProps {
     menuItems: {
@@ -35,6 +36,7 @@ const AvatarComponent = ({
     const logout = useAuthStore((state) => state.logout);
     const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
     const { data: user, isLoading } = useUserDataQuery();
+    const router = useRouter();
 
     return (
         <div>
@@ -82,7 +84,9 @@ const AvatarComponent = ({
                                         if (logoutRes.success) {
                                             toast.success('Logged out successfully');
                                             logout();
+                                            router.push('/');
                                             setIsLoggedIn(false);
+
                                         }
                                     }
                                 }}
