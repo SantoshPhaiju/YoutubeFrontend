@@ -5,15 +5,25 @@ import Image from "next/image";
 import SmallVideoComponent from "@/components/SmallVideoComponent";
 import {redirect} from "next/navigation";
 import {getUserChannel} from "@/services/api/channel/channel.service";
+import {cookies} from "next/headers";
 
 const Page = async ({params}: { params: { username: string } }) => {
+    const cookieStore = await cookies();
+    const userData = JSON.parse(cookieStore.get("user")?.value || "{}");
+    // console.log("userData : ", userData)
+    // console.log(
+    //     "params : ",
+    //     params
+    // )
     try {
         const username = (await params).username;
+        console.log("username === userData.username: ", username === userData.username);
+        const isOwner = username === userData.username;
         if (!username) {
             redirect('/');
         }
 
-        const channelData = await getUserChannel(username);
+        const channelData = await getUserChannel(username, isOwner);
         if (!channelData) {
             return <p>Channel not found</p>;
         }
