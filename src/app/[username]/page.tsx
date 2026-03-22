@@ -118,25 +118,25 @@ const Page = async ({params}: { params: { username: string } }) => {
                                     <TabsList className="flex gap-8 bg-transparent z-10">
                                         <TabsTrigger
                                             value="home"
-                                            className="data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors shadow-none! rounded-none"
+                                            className="data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors shadow-none! rounded-none cursor-pointer"
                                         >
                                             Home
                                         </TabsTrigger>
                                         <TabsTrigger
                                             value="videos"
-                                            className="data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors shadow-none! rounded-none"
+                                            className="data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors shadow-none! rounded-none cursor-pointer"
                                         >
                                             Videos
                                         </TabsTrigger>
                                         <TabsTrigger
                                             value="playlists"
-                                            className="text-gray-600 data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors shadow-none! rounded-none"
+                                            className="text-gray-600 data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors shadow-none! rounded-none cursor-pointer"
                                         >
                                             Playlists
                                         </TabsTrigger>
                                         <TabsTrigger
                                             value="about"
-                                            className="text-gray-600 data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors shadow-none! rounded-none"
+                                            className="text-gray-600 data-[state=active]:text-black data-[state=active]:border-b-2 data-[state=active]:border-black pb-1 text-base  px-0 font-medium transition-colors shadow-none! rounded-none cursor-pointer"
                                         >
                                             About
                                         </TabsTrigger>

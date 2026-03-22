@@ -27,10 +27,15 @@ import useAuthStore from "@/store/authStore";
 import {useLoginUser, useRegisterUser} from "@/services/mutations/authMutation";
 import {toast} from "sonner";
 import {cn} from "@/lib/utils";
+import ImageCropModal from "@/components/ImageCropModal";
+import Image from "next/image";
 
 const SigninModal = () => {
     const [open, setOpen] = useState(false);
     const [tab, setTab] = useState("login");
+    const [cropImage, setCropImage] = useState<string | null>(null);
+    const [cropOpen, setCropOpen] = useState(false);
+
 
     const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
     const setAccessToken = useAuthStore((state) => state.setAccessToken);
@@ -109,6 +114,25 @@ const SigninModal = () => {
         }
     };
 
+    const avatar = signupForm.watch("avatar");
+
+    const handleAvatarSelect = (e: any) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const imageUrl = URL.createObjectURL(file);
+        setCropImage(imageUrl);
+        setCropOpen(true);
+    };
+
+    const handleCropComplete = (blob: Blob) => {
+        const file = new File([blob], "avatar.jpg", {
+            type: "image/jpeg",
+        });
+
+        signupForm.setValue("avatar", file); // 🔥 inject into RHF
+    };
+
     return (
         <div>
             <Button
@@ -121,6 +145,7 @@ const SigninModal = () => {
 
             <div className={""}>
                 <Dialog open={open} onOpenChange={setOpen}>
+
                     <DialogContent
                         className="[&>button]:hidden border border-black overflow-y-auto max-h-[90vh]! no-scrollbar rounded-md w-[90%]">
                         <DialogHeader className="hidden">
@@ -239,8 +264,24 @@ const SigninModal = () => {
                                             required
                                         />
 
-                                        <FormInput type={"file"} control={signupForm.control} name={"avatar"}
-                                                   label={"Avatar Image"} required={true}/>
+                                        {/*<FormInput type={"file"} control={signupForm.control} name={"avatar"}*/}
+                                        {/*           label={"Avatar Image"} required={true}*/}
+                                        {/*/>*/}
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={(e) => handleAvatarSelect(e)}
+                                        />
+
+                                        {avatar && (
+                                            <Image
+                                                src={URL.createObjectURL(avatar)}
+                                                width={100}
+                                                height={100}
+                                                alt="Avatar"
+                                                className="w-20 h-20 rounded-full object-cover"
+                                            />
+                                        )}
 
                                     </FieldGroup>
                                 </form>
@@ -270,6 +311,14 @@ const SigninModal = () => {
                     </DialogContent>
 
                 </Dialog>
+                {cropImage && (
+                    <ImageCropModal
+                        open={cropOpen}
+                        setOpen={setCropOpen}
+                        image={cropImage}
+                        onCropComplete={handleCropComplete}
+                    />
+                )}
             </div>
         </div>
     );
