@@ -10,6 +10,7 @@ type FormInputProps<T extends FieldValues> = {
     placeholder?: string;
     type?: React.HTMLInputTypeAttribute;
     required: boolean;
+    onChange?: (value: any) => void;
 };
 
 function FormInput<T extends FieldValues>({
@@ -19,6 +20,7 @@ function FormInput<T extends FieldValues>({
                                               placeholder,
                                               type = "text",
                                               required,
+                                              onChange,
                                           }: FormInputProps<T>) {
     return (
         <Controller
@@ -39,14 +41,7 @@ function FormInput<T extends FieldValues>({
                                 required={required}
                                 // value={type === "file" ? undefined : field.value}
                                 value={type === "file" ? undefined : field.value ?? ""}
-                                onChange={(e) => {
-                                    if (type === "file") {
-                                        field.onChange(e.target.files?.[0]); // send File
-                                    } else {
-                                        field.onChange(e.target.value);
-                                    }
-                                }
-                                }
+                                onChange={onChange ? onChange : field.onChange}
                             />
                         ) : (
                             <Input

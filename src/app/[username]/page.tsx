@@ -34,21 +34,34 @@ const Page = async ({params}: { params: { username: string } }) => {
                 {/* <HomePageClient /> */}
                 <div className="">
                     <ChannelPageClientLayout>
-                        <div className="flex flex-col gap-3 md:gap-6 px-0 md:px-16 sm:px-4 lg:px-8 xl:px-12 2xl:px-20">
+                        <div className="flex flex-col gap-3 md:gap-6 px-0 md:px-4 medium:px-14 sm:px-4 lg:px-8 xl:px-12 2xl:px-20">
                             {/* Channel cover image */}
-                            <div>
+                            {/*{channelData?.data?.coverImage !== null ? <div>*/}
+                            {/*    <Image*/}
+                            {/*        src={"/assets/thumb.jpg"}*/}
+                            {/*        height={900}*/}
+                            {/*        width={900}*/}
+                            {/*        className="h-auto max-h-[180px] w-full object-cover rounded-2xl"*/}
+                            {/*        alt="Channel Cover"*/}
+                            {/*    />*/}
+                            {/*</div> : (*/}
+                            {/*    <div className={"border cursor-pointer border-border h-[180px] w-full object-cover rounded-2xl"}>*/}
+                            {/*        */}
+                            {/*    </div>*/}
+                            {/*)}*/}
+                            {channelData?.data?.coverImage !== null && <div>
                                 <Image
-                                    src={"/assets/thumb.jpg"}
+                                    src={channelData?.data?.coverImage || "/assets/thumb.jpg"}
                                     height={900}
                                     width={900}
-                                    className="h-auto max-h-[180px] w-full object-cover rounded-2xl"
+                                    className="h-auto max-h-[180px] w-full object-cover object-center rounded-2xl"
                                     alt="Channel Cover"
                                 />
-                            </div>
+                            </div>}
                             <div className="flex gap-2 sm:gap-4 items-start mt-2 sm:mt-0">
                                 <div className="left min-w-[100px] sm:min-w-[140px] md:min-w-[180px]">
                                     <Image
-                                        src={"/assets/thumb.jpg"}
+                                        src={channelData?.data?.avatar || "/assets/thumb.jpg"}
                                         height={400}
                                         width={400}
                                         className="h-[100px] w-[100px]  sm:h-[140px] sm:w-[140px] md:w-[180px] md:h-[180px] object-cover rounded-full"
@@ -57,20 +70,20 @@ const Page = async ({params}: { params: { username: string } }) => {
                                 </div>
                                 <div
                                     className="right flex flex-col justify-center h-[100px] sm:h-[140px] md:h-[180px] gap-2 w-auto">
-                                    <h2 className="text-[24px] sm:text-[32px] md:text-[40px] font-semibold text-black leading-none">
-                                        Santosh Phaiju
+                                    <h2 className="text-[20px] sm:text-[24px] md:text-[32px] lg:text-[40px] font-semibold text-black leading-none">
+                                        {channelData?.data?.fullname || "Channel Name"}
                                     </h2>
                                     <div className="flex flex-wrap gap-1 items-center">
                                       <span className="font-medium text-black text-[14px]">
-                                        @santoshphaiju321
+                                        @{channelData?.data?.username || "username"}
                                       </span>
                                         <div className="h-0.5 w-0.5 bg-black rounded-full"></div>
                                         <span className="text-gray-700 text-[14px]">
-                                        103 subscribers
+                                        {channelData?.data?.subscribersCount || 0} subscribers
                                     </span>
                                         <div className="h-0.5 w-0.5 bg-black rounded-full"></div>
                                         <span className="text-gray-700 text-[14px]">
-                                    6 videos
+                                    {channelData?.data?.videos.length || 0} videos
                                   </span>
                                     </div>
                                     <div className="hidden sm:block">
@@ -86,11 +99,17 @@ const Page = async ({params}: { params: { username: string } }) => {
                                         ...more
                                       </span>
                                     </div>
-                                    <div className="hidden md:block">
+                                    {!isOwner ? <div className="hidden md:block">
                                         <Button variant={"default"} className="rounded-full">
                                             Subscribe
                                         </Button>
-                                    </div>
+                                    </div> : (
+                                        <div className="hidden md:block">
+                                            <Button variant={"outline"} className="rounded-full cursor-pointer">
+                                                Update Channel Details
+                                            </Button>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             <div className="block sm:hidden w-full">

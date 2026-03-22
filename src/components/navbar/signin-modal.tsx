@@ -264,23 +264,26 @@ const SigninModal = () => {
                                             required
                                         />
 
-                                        {/*<FormInput type={"file"} control={signupForm.control} name={"avatar"}*/}
-                                        {/*           label={"Avatar Image"} required={true}*/}
-                                        {/*/>*/}
-                                        <input
-                                            type="file"
-                                            accept="image/*"
-                                            onChange={(e) => handleAvatarSelect(e)}
+                                        <FormInput type={"file"} control={signupForm.control} name={"avatar"}
+                                                   label={"Avatar Image"} required={true} onChange={(e) => handleAvatarSelect(e)}
                                         />
+                                        {/*<input*/}
+                                        {/*    type="file"*/}
+                                        {/*    accept="image/*"*/}
+                                        {/*    onChange={(e) => handleAvatarSelect(e)}*/}
+                                        {/*/>*/}
 
                                         {avatar && (
+                                            <div className={"flex justify-center items-center"}>
+
                                             <Image
                                                 src={URL.createObjectURL(avatar)}
                                                 width={100}
                                                 height={100}
                                                 alt="Avatar"
-                                                className="w-20 h-20 rounded-full object-cover"
+                                                className="w-30 h-30 rounded-full object-cover"
                                             />
+                                            </div>
                                         )}
 
                                     </FieldGroup>

@@ -24,6 +24,7 @@ export default async function Home() {
                                 videoOwnerName={videoOwner.fullname}
                                 videoPublishedDate={video.createdAt}
                                 userAvatar={videoOwner.avatar}
+                                username={videoOwner.username}
                             />
                         </div>
                     );

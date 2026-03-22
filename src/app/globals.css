@@ -110,6 +110,8 @@
   --color-ring: hsl(var(--ring));
 
   --radius: var(--radius);
+  --screens-3xl: 110rem;
+  --screens-medium: 54rem;
 }
 
 @theme {
@@ -117,6 +119,7 @@
   --font-roboto: var(--font-roboto);
   --font-roboto-condensed: var(--font-roboto-condensed);
   --breakpoint-3xl: 110rem;
+  --breakpoint-medium: 54rem;
 }
 
 
