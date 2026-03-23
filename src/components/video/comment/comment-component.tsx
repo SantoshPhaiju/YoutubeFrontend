@@ -12,8 +12,6 @@ import {Button} from "../../ui/button";
 const CommentComponent = ({userData}: { userData: any }) => {
     const [showCommentModal, setShowCommentModal] = useState(false);
 
-    console.log("userData in commment", userData.avatar);
-
     return (
         <>
             <div className="commentSection ">

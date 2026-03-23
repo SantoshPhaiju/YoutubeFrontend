@@ -112,6 +112,7 @@
   --radius: var(--radius);
   --screens-3xl: 110rem;
   --screens-medium: 54rem;
+  --screens-small: 32rem;
 }
 
 @theme {
@@ -120,6 +121,7 @@
   --font-roboto-condensed: var(--font-roboto-condensed);
   --breakpoint-3xl: 110rem;
   --breakpoint-medium: 54rem;
+  --breakpoint-small: 30rem;
 }
 
 
