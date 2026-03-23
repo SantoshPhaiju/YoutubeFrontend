@@ -6,6 +6,9 @@ import SmallVideoComponent from "@/components/SmallVideoComponent";
 import {redirect} from "next/navigation";
 import {getUserChannel} from "@/services/api/channel/channel.service";
 import {cookies} from "next/headers";
+import {cn} from "@/lib/utils";
+import Link from "next/link";
+import {GoKebabHorizontal} from "react-icons/go";
 
 const Page = async ({params}: { params: { username: string } }) => {
     const cookieStore = await cookies();
@@ -168,21 +171,43 @@ const Page = async ({params}: { params: { username: string } }) => {
                                             Videos
                                         </div>
 
-                                        <div className="videos flex gap-4 overflow-x-auto w-full">
-                                            <SmallVideoComponent/>
-                                            <SmallVideoComponent/>
-                                            <SmallVideoComponent/>
-                                            <SmallVideoComponent/>
-                                            <SmallVideoComponent/>
-                                            <SmallVideoComponent/>
-                                            <SmallVideoComponent/>
-                                            <SmallVideoComponent/>
-                                            <SmallVideoComponent/>
-                                            <SmallVideoComponent/>
-                                            <SmallVideoComponent/>
-                                            <SmallVideoComponent/>
-                                            <SmallVideoComponent/>
-                                            <SmallVideoComponent/>
+                                        <div className="videos flex gap-4 overflow-x-auto p-1">
+                                            <div className={cn(`h-auto w-[25%] aspect-video cursor-pointer`)}>
+                                                <div className="thumbnail">
+                                                    <Link href="/watch?v=123">
+                                                        <Image
+                                                            src={"/assets/thumb.jpg"}
+                                                            height={200}
+                                                            width={300}
+                                                            className={cn(`h-auto min-h-[140px] w-full rounded-md object-cover`)}
+                                                            alt="VideoComponent"
+                                                        />
+                                                    </Link>
+                                                </div>
+
+                                                <div className="details py-1 pt-2 flex">
+                                                    <div className="flex flex-col gap-1 px-1">
+                                                        <div className="title text-sm text-black line-clamp-2">
+                                                            How to Make Money Using Google Maps in 2025 ($100 - $200 PER DAY)
+                                                            something
+                                                        </div>
+                                                        <div className="flex flex-col mt-px">
+                                                            {/*<div className="channelName text-sm text-gray-600 flex justify-start items-center gap-1">*/}
+                                                            {/*    Santosh Phaiju <MdVerified />*/}
+                                                            {/*</div>*/}
+                                                            <div className="flex justify-start items-center gap-2 text-gray-600 text-sm">
+                                                                <div className="views">99k views</div>
+                                                                <div className="dot h-1 w-1 bg-black rounded-full"></div>
+
+                                                                <div className="publishedDate">3 days ago</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="threeDot h-full">
+                                                        <GoKebabHorizontal className={"rotate-90 text-xl"} />
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                     </TabsContent>

@@ -9,7 +9,7 @@ const SmallVideoComponent = (
     }: { videoSize?: "small" | "medium" | "large" }
 ) => {
     return (
-        <div className={cn(`h-auto aspect-video cursor-pointer col-span-1`, {
+        <div className={cn(`h-auto aspect-video cursor-pointer`, {
             "min-h-[140px] w-auto": videoSize === "small",
             "aspect-video": videoSize === "medium",
             "min-h-[250px] w-[320px]": videoSize === "large",
