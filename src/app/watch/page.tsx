@@ -5,15 +5,14 @@ import SemiVideo from "@/components/semiVideoComponent";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
 import ClientVideoPageLayout from "@/components/video/client-vidoepage-layout.client";
-import Image from "next/image";
 import {BiDislike, BiLike} from "react-icons/bi";
 import {FiBookmark} from "react-icons/fi";
 import {PiShareFatLight} from "react-icons/pi";
 import {getVideoById} from "@/services/api/videos/video.service";
-import {timeAgo} from "@/utils/timeAgo";
 import {formatDate} from "@/utils/formatDate";
 import {notFound} from "next/navigation";
 import Link from "next/link";
+import {cookies} from "next/headers";
 
 interface WatchPageProps {
     searchParams: {
@@ -23,6 +22,9 @@ interface WatchPageProps {
 
 const Page = async ({searchParams}: WatchPageProps) => {
     const videoId = (await searchParams).v;
+
+    const cookieStore = await cookies();
+    const userData = JSON.parse(cookieStore.get("user")?.value || "{}");
 
     if (!videoId) {
         return <p>Invalid video ID</p>;
@@ -113,7 +115,7 @@ const Page = async ({searchParams}: WatchPageProps) => {
                                         className="flex justify-start xl:justify-end gap-1 md:gap-2 flex-wrap items-center ">
                                         <div className="flex justify-between items-center rounded-full bg-gray-100">
                                             <div
-                                                className="flex justify-center border-r items-center rounded-l-full gap-1 md:gap-2 p-1.5 px-3 md:p-2 md:px-4 hover:bg-gray-200">
+                                                className="flex justify-center border-r border-border items-center rounded-l-full gap-1 md:gap-2 p-1.5 px-3 md:p-2 md:px-4 hover:bg-gray-200">
                                                 <BiLike className={"text-[16px] md:text-[20px]"}/>
                                                 <p className="font-sans font-semibold text-[12px] md:text-sm">{
                                                     video.likeCount
@@ -156,7 +158,7 @@ const Page = async ({searchParams}: WatchPageProps) => {
                                 </div>
                                 <SeeMoreComponent videoDescription={video.description}/>
                             </div>
-                            <CommentComponent/>
+                            <CommentComponent userData={userData} />
                         </div>
                         <div className="rightContainer w-full xl:block xl:w-[30%] ">
                             <SemiNav/>
