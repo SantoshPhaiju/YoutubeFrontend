@@ -23,12 +23,12 @@ const authStore = (set: (fn: Partial<AuthStore>) => void): AuthStore => ({
     accessToken: null,
     refreshToken: null,
     isLoggedIn: false,
-    setAccessToken: (token: string)=> {
+    setAccessToken: (token: string) => {
         set({accessToken: token});
     },
     setRefreshToken: (token: string) => set({refreshToken: token}),
     setIsLoggedIn: (isLoggedIn: boolean) => set({isLoggedIn}),
-    logout: () => set({accessToken: null, refreshToken: null}),
+    logout: () => set({accessToken: null, refreshToken: null, isLoggedIn: false}),
 })
 
 const useAuthStore = create(

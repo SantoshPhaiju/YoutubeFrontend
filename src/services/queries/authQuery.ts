@@ -5,5 +5,6 @@ export function useUserDataQuery() {
     return useQuery({
         queryKey: ["userData"],
         queryFn: getLoggedInUserData,
+        staleTime: 0,
     })
 }

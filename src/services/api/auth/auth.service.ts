@@ -20,9 +20,9 @@ export const signUp = async ({
                              }: {
     formData: FormData;
 }): Promise<IApiResponse<any>> => {
-    for (const [key, value] of formData.entries()) {
-        console.log(`${key}: ${value} in formData`);
-    }
+    // for (const [key, value] of formData.entries()) {
+    //     console.log(`${key}: ${value} in formData`);
+    // }
     try {
         const response = await api.post("/users/register", formData);
         return response.data;
