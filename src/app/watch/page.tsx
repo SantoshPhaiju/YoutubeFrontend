@@ -33,12 +33,13 @@ const Page = async ({searchParams}: WatchPageProps) => {
     // const video = await getVideoById({ id: videoId });
     const video = await (async () => {
         try {
-            return await getVideoById({id: videoId});
+            return await getVideoById({ id: videoId });
         } catch (error) {
             notFound();
         }
     })();
     const videoOwner = Array.isArray(video.owner) ? video.owner[0] : video.owner;
+    const isOwner = userData?.username === videoOwner.username;
 
     const desc =
         "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.";
@@ -97,18 +98,20 @@ const Page = async ({searchParams}: WatchPageProps) => {
                                                 </div>
                                             </div>
                                         </div>
-                                        {!videoOwner.isSubscribed ? <Button
-                                            variant="default"
-                                            className="rounded-full font-roboto font-medium"
-                                        >
-                                            Subscribe
-                                        </Button> : (
-                                            <Button
-                                                variant="ghost"
+                                        {!isOwner && (
+                                            !videoOwner.isSubscribed ? <Button
+                                                variant="default"
                                                 className="rounded-full font-roboto font-medium"
                                             >
-                                                Subscribed
-                                            </Button>
+                                                Subscribe
+                                            </Button> : (
+                                                <Button
+                                                    variant="ghost"
+                                                    className="rounded-full font-roboto font-medium"
+                                                >
+                                                    Subscribed
+                                                </Button>
+                                            )
                                         )}
                                     </div>
                                     <div

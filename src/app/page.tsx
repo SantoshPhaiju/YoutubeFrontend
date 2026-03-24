@@ -10,7 +10,7 @@ export default async function Home() {
         <div>
             <HomePageClient />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 gap-6 px-4 pr-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 gap-6 px-4 pr-6 mb-8">
                 {videos?.map((video, index: number) => {
                     const videoOwner = Array.isArray(video.owner) ? video.owner[0] : video.owner;
                     return (
