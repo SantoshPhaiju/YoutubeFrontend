@@ -2,7 +2,8 @@
 
 import api from "@/services/axios";
 import {IVideo} from "@/@types/videos/videos.type";
-import {AxiosResponse} from "axios";
+import axios, {AxiosResponse} from "axios";
+import {cookies} from "next/headers";
 
 export const getAllHomePageVideos = async ({}) => {
     try {
@@ -27,8 +28,14 @@ export const getVideoById = async (
     { id }: GetVideoParams
 ): Promise<IVideo> => {
     try {
+        const cookieStore = await cookies();
+        const token = cookieStore.get("accessToken")?.value;
         const response: AxiosResponse<GetVideoResponse> =
-            await api.get(`/videos/get-video/${id}`);
+            await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/videos/get-video/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
         return response.data.data.video;
     } catch (error) {
         console.error("error", error);

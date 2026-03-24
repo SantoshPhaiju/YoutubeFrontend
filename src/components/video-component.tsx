@@ -64,15 +64,15 @@ const VideoComponent = ({
                 {/* Text Content */}
                 <div className="flex flex-col flex-1">
                     {/* Title */}
-                    <h3 className="text-sm font-medium leading-snug line-clamp-2">
+                    <h3 className="text-sm text-black font-medium leading-snug line-clamp-2">
                         {videoTitle ||
                             "How to Make Money Using Google Maps in 2025 ($100 - $200 PER DAY)"}
                     </h3>
 
                     {/* Channel */}
-                    <div className="flex items-center gap-1 text-xs text-gray-600 mt-1">
+                    <div className="flex items-center gap-1 font-normal text-xs text-gray-800 mt-0.5">
                         <span>{videoOwnerName || "Santosh Phaiju"}</span>
-                        <MdVerified className="text-gray-500 text-sm"/>
+                        <MdVerified className="text-gray-800 text-sm"/>
                     </div>
 
                     {/* Views + Date */}
