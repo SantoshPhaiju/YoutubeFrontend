@@ -9,6 +9,13 @@ import {cookies} from "next/headers";
 import {cn} from "@/lib/utils";
 import Link from "next/link";
 import {GoKebabHorizontal} from "react-icons/go";
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel"
 
 const Page = async ({params}: { params: { username: string } }) => {
     const cookieStore = await cookies();
@@ -29,6 +36,8 @@ const Page = async ({params}: { params: { username: string } }) => {
         if (!channelData) {
             return <p>Channel not found</p>;
         }
+
+        console.log("channeldata: ", channelData);
 
         return (
             <>
@@ -169,79 +178,126 @@ const Page = async ({params}: { params: { username: string } }) => {
                                             Videos
                                         </div>
 
-                                        <div className="videos flex w-full gap-4 overflow-x-auto p-1">
-                                            <div className={cn(`video h-auto w-full small:w-[50%] sm:w-[44%] md:w-[38%] medium:w-[33%] xl:w-[25%] aspect-video cursor-pointer`)}>
-                                                <div className="thumbnail">
-                                                    <Link href="/watch?v=123">
-                                                        <Image
-                                                            src={"/assets/thumb.jpg"}
-                                                            height={200}
-                                                            width={300}
-                                                            className={cn(`h-auto min-h-[140px] w-full rounded-md object-cover`)}
-                                                            alt="VideoComponent"
-                                                        />
-                                                    </Link>
-                                                </div>
+                                        <div className="videos flex w-full gap-2">
+                                            <Carousel className={"w-full"}>
+                                                <CarouselContent className={"w-full px-0"}>
+                                                    {
+                                                        channelData?.data?.videos.map((video: any, index: number) => (
+                                                            <CarouselItem key={index} className={"md:basis-1/2 lg:basis-1/3 2xl:basis-1/4 3xl:basis-1/5 w-full"}>
+                                                                <div className={cn(`video h-auto w-full aspect-video cursor-pointer`)}>
+                                                                    <div className="thumbnail">
+                                                                        <Link href={`/watch?v=${video._id}`}>
+                                                                            <Image
+                                                                                src={video?.thumbnail || `/assets/thumb.jpg`}
+                                                                                height={200}
+                                                                                width={300}
+                                                                                className={cn(`aspect-video rounded-md object-cover`)}
+                                                                                alt="VideoComponent"
+                                                                            />
+                                                                        </Link>
+                                                                    </div>
 
-                                                <div className="details py-1 pt-2 flex">
-                                                    <div className="flex flex-col gap-1 px-1">
-                                                        <div className="title text-sm text-black line-clamp-2">
-                                                            How to Make Money Using Google Maps in 2025 ($100 - $200 PER DAY)
-                                                            something
-                                                        </div>
-                                                        <div className="flex flex-col mt-px">
-                                                            {/*<div className="channelName text-sm text-gray-600 flex justify-start items-center gap-1">*/}
-                                                            {/*    Santosh Phaiju <MdVerified />*/}
-                                                            {/*</div>*/}
-                                                            <div className="flex justify-start items-center gap-2 text-gray-600 text-sm">
-                                                                <div className="views">99k views</div>
-                                                                <div className="dot h-1 w-1 bg-black rounded-full"></div>
+                                                                    <div className="details py-1 pt-3 flex">
+                                                                        <div className="flex flex-col gap-1 px-1 w-full">
+                                                                            <div className="title text-sm text-black line-clamp-2 w-[98%]">
+                                                                                {video?.title || "Video Title"}
+                                                                            </div>
+                                                                            <div className="flex flex-col mt-px w-[100%]">
+                                                                                {/*<div className="channelName text-sm text-gray-600 flex justify-start items-center gap-1">*/}
+                                                                                {/*    Santosh Phaiju <MdVerified />*/}
+                                                                                {/*</div>*/}
+                                                                                <div className="flex justify-start items-center gap-2 text-gray-600 text-sm">
+                                                                                    <div className="views">{video?.view || 0} views</div>
+                                                                                    <div className="dot h-1 w-1 bg-black rounded-full"></div>
 
-                                                                <div className="publishedDate">3 days ago</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="threeDot h-full">
-                                                        <GoKebabHorizontal className={"rotate-90 text-xl"} />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className={cn(`video h-auto w-full small:w-[50%] sm:w-[44%] md:w-[38%] medium:w-[33%] xl:w-[25%] aspect-video cursor-pointer`)}>
-                                                <div className="thumbnail">
-                                                    <Link href="/watch?v=123">
-                                                        <Image
-                                                            src={"/assets/thumb.jpg"}
-                                                            height={200}
-                                                            width={300}
-                                                            className={cn(`h-auto min-h-[140px] w-full rounded-md object-cover`)}
-                                                            alt="VideoComponent"
-                                                        />
-                                                    </Link>
-                                                </div>
+                                                                                    <div className="publishedDate">3 days ago</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="threeDot h-full">
+                                                                            <GoKebabHorizontal className={"rotate-90 text-xl"} />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </CarouselItem>
+                                                        ))
+                                                    }
+                                                </CarouselContent>
+                                                <CarouselPrevious className={"-left-4! top-[38%] z-50! cursor-pointer"} />
+                                                <CarouselNext className={"-right-4! top-[38%] cursor-pointer z-50!"} />
+                                            </Carousel>
+                                            {/*<div className={cn(`video h-auto w-full small:w-[50%] sm:w-[44%] md:w-[38%] medium:w-[33%] xl:w-[25%] aspect-video cursor-pointer`)}>*/}
+                                            {/*    <div className="thumbnail">*/}
+                                            {/*        <Link href="/watch?v=123">*/}
+                                            {/*            <Image*/}
+                                            {/*                src={"/assets/thumb.jpg"}*/}
+                                            {/*                height={200}*/}
+                                            {/*                width={300}*/}
+                                            {/*                className={cn(`h-auto min-h-[140px] w-full rounded-md object-cover`)}*/}
+                                            {/*                alt="VideoComponent"*/}
+                                            {/*            />*/}
+                                            {/*        </Link>*/}
+                                            {/*    </div>*/}
 
-                                                <div className="details py-1 pt-2 flex">
-                                                    <div className="flex flex-col gap-1 px-1">
-                                                        <div className="title text-sm text-black line-clamp-2">
-                                                            How to Make Money Using Google Maps in 2025 ($100 - $200 PER DAY)
-                                                            something
-                                                        </div>
-                                                        <div className="flex flex-col mt-px">
-                                                            {/*<div className="channelName text-sm text-gray-600 flex justify-start items-center gap-1">*/}
-                                                            {/*    Santosh Phaiju <MdVerified />*/}
-                                                            {/*</div>*/}
-                                                            <div className="flex justify-start items-center gap-2 text-gray-600 text-sm">
-                                                                <div className="views">99k views</div>
-                                                                <div className="dot h-1 w-1 bg-black rounded-full"></div>
+                                            {/*    <div className="details py-1 pt-2 flex">*/}
+                                            {/*        <div className="flex flex-col gap-1 px-1">*/}
+                                            {/*            <div className="title text-sm text-black line-clamp-2">*/}
+                                            {/*                How to Make Money Using Google Maps in 2025 ($100 - $200 PER DAY)*/}
+                                            {/*                something*/}
+                                            {/*            </div>*/}
+                                            {/*            <div className="flex flex-col mt-px">*/}
+                                            {/*                /!*<div className="channelName text-sm text-gray-600 flex justify-start items-center gap-1">*!/*/}
+                                            {/*                /!*    Santosh Phaiju <MdVerified />*!/*/}
+                                            {/*                /!*</div>*!/*/}
+                                            {/*                <div className="flex justify-start items-center gap-2 text-gray-600 text-sm">*/}
+                                            {/*                    <div className="views">99k views</div>*/}
+                                            {/*                    <div className="dot h-1 w-1 bg-black rounded-full"></div>*/}
 
-                                                                <div className="publishedDate">3 days ago</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="threeDot h-full">
-                                                        <GoKebabHorizontal className={"rotate-90 text-xl"} />
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            {/*                    <div className="publishedDate">3 days ago</div>*/}
+                                            {/*                </div>*/}
+                                            {/*            </div>*/}
+                                            {/*        </div>*/}
+                                            {/*        <div className="threeDot h-full">*/}
+                                            {/*            <GoKebabHorizontal className={"rotate-90 text-xl"} />*/}
+                                            {/*        </div>*/}
+                                            {/*    </div>*/}
+                                            {/*</div>*/}
+                                            {/*<div className={cn(`video h-auto w-full small:w-[50%] sm:w-[44%] md:w-[38%] medium:w-[33%] xl:w-[25%] aspect-video cursor-pointer`)}>*/}
+                                            {/*    <div className="thumbnail">*/}
+                                            {/*        <Link href="/watch?v=123">*/}
+                                            {/*            <Image*/}
+                                            {/*                src={"/assets/thumb.jpg"}*/}
+                                            {/*                height={200}*/}
+                                            {/*                width={300}*/}
+                                            {/*                className={cn(`h-auto min-h-[140px] w-full rounded-md object-cover`)}*/}
+                                            {/*                alt="VideoComponent"*/}
+                                            {/*            />*/}
+                                            {/*        </Link>*/}
+                                            {/*    </div>*/}
+
+                                            {/*    <div className="details py-1 pt-2 flex">*/}
+                                            {/*        <div className="flex flex-col gap-1 px-1">*/}
+                                            {/*            <div className="title text-sm text-black line-clamp-2">*/}
+                                            {/*                How to Make Money Using Google Maps in 2025 ($100 - $200 PER DAY)*/}
+                                            {/*                something*/}
+                                            {/*            </div>*/}
+                                            {/*            <div className="flex flex-col mt-px">*/}
+                                            {/*                /!*<div className="channelName text-sm text-gray-600 flex justify-start items-center gap-1">*!/*/}
+                                            {/*                /!*    Santosh Phaiju <MdVerified />*!/*/}
+                                            {/*                /!*</div>*!/*/}
+                                            {/*                <div className="flex justify-start items-center gap-2 text-gray-600 text-sm">*/}
+                                            {/*                    <div className="views">99k views</div>*/}
+                                            {/*                    <div className="dot h-1 w-1 bg-black rounded-full"></div>*/}
+
+                                            {/*                    <div className="publishedDate">3 days ago</div>*/}
+                                            {/*                </div>*/}
+                                            {/*            </div>*/}
+                                            {/*        </div>*/}
+                                            {/*        <div className="threeDot h-full">*/}
+                                            {/*            <GoKebabHorizontal className={"rotate-90 text-xl"} />*/}
+                                            {/*        </div>*/}
+                                            {/*    </div>*/}
+                                            {/*</div>*/}
                                         </div>
 
                                     </TabsContent>
