@@ -21,11 +21,7 @@ import {timeAgo} from "@/utils/timeAgo";
 const Page = async ({params}: { params: { username: string } }) => {
     const cookieStore = await cookies();
     const userData = JSON.parse(cookieStore.get("user")?.value || "{}");
-    // console.log("userData : ", userData)
-    // console.log(
-    //     "params : ",
-    //     params
-    // )
+
     try {
         const username = (await params).username;
         const isOwner = username === userData.username;
@@ -38,14 +34,9 @@ const Page = async ({params}: { params: { username: string } }) => {
             return <p>Channel not found</p>;
         }
 
-        console.log("channeldata: ", channelData);
         const publicVideos = channelData?.data?.videos.filter((video: any) => video.visibility === "public");
         const allVideos = channelData?.data?.videos;
         const channelVideos = isOwner ? allVideos : publicVideos;
-        console.log(
-            "publicVideos: ",
-            publicVideos
-        )
 
         return (
             <>
@@ -102,7 +93,7 @@ const Page = async ({params}: { params: { username: string } }) => {
                                     </span>
                                         <div className="h-0.5 w-0.5 bg-black rounded-full"></div>
                                         <span className="text-gray-700 text-[14px]">
-                                    {channelData?.data?.videos.length || 0} videos
+                                    {channelVideos.length || 0} videos
                                   </span>
                                     </div>
                                     <div className="hidden sm:block">
@@ -183,45 +174,103 @@ const Page = async ({params}: { params: { username: string } }) => {
 
                                     <TabsContent value="home" className="mt-4 w-full">
 
-                                        <div className={"font-bold text-xl mb-2 "}>
-                                            Videos
-                                        </div>
+                                        {channelVideos.length > 0 ? (
+                                            <>
+                                                <div className={"font-bold text-xl mb-2 "}>
+                                                    Videos
+                                                </div>
 
-                                        <div className="videos flex w-full gap-2">
-                                            <Carousel className={"w-full"}>
-                                                <CarouselContent className={"w-full px-0 gap-1"}>
-                                                    {channelVideos.map((video: any, index: number) => (
-                                                        <CarouselItem key={index}
-                                                                      className={"md:basis-1/2 lg:basis-1/3 2xl:basis-1/4 3xl:basis-1/5 w-full"}>
-                                                            <SmallVideoComponent video={video} />
-                                                        </CarouselItem>
+                                                <div className="videos flex w-full gap-2">
+                                                    <Carousel className={"w-full"}>
+                                                        <CarouselContent className={"w-full px-0 gap-1"}>
+                                                            {channelVideos.map((video: any, index: number) => (
+                                                                <CarouselItem key={index}
+                                                                              className={"md:basis-1/2 lg:basis-1/3 2xl:basis-1/4 3xl:basis-1/5 w-full"}>
+                                                                    <SmallVideoComponent video={video}/>
+                                                                </CarouselItem>
+                                                            ))
+                                                            }
+                                                        </CarouselContent>
+                                                        <CarouselPrevious
+                                                            className={"-left-4! top-[38%] z-50! cursor-pointer"}/>
+                                                        <CarouselNext
+                                                            className={"-right-4! top-[38%] cursor-pointer z-50!"}/>
+                                                    </Carousel>
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <div className="w-full rounded-2xl border border-dashed border-border bg-muted/40 px-6 py-12 text-center">
+                                                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-background border border-border text-xl">
+                                                    🎬
+                                                </div>
+                                                <p className="text-lg font-semibold text-foreground">
+                                                    {!isOwner ? "This channel doesn't have any published content yet." : "No Content Yet!"}
+                                                </p>
+                                                <p className="mt-1 text-sm text-muted-foreground">
+                                                    {isOwner
+                                                        ? "You have not uploaded anything yet. Start by sharing your first video."
+                                                        : "This channel has not published any content right now. Check back soon."}
+                                                </p>
+                                            </div>
+                                        )
+                                        }
+
+                                    </TabsContent>
+                                    <TabsContent value="videos" className="mt-4 w-full">
+                                        {channelVideos.length > 0 ? (
+                                            <div
+                                                className="videos grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 3xl:grid-cols-4 gap-4">
+                                                {
+                                                    channelVideos.map((video: any, index: number) => (
+                                                        <div key={index}>
+                                                            <SmallVideoComponent video={video}/>
+                                                        </div>
                                                     ))
-                                                    }
-                                                </CarouselContent>
-                                                <CarouselPrevious
-                                                    className={"-left-4! top-[38%] z-50! cursor-pointer"}/>
-                                                <CarouselNext className={"-right-4! top-[38%] cursor-pointer z-50!"}/>
-                                            </Carousel>
+                                                }
+                                            </div>
+                                        ) : (
+                                            <div className="w-full rounded-2xl border border-dashed border-border bg-muted/40 px-6 py-12 text-center">
+                                                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-background border border-border text-xl">
+                                                    🎥
+                                                </div>
+                                                <p className="text-lg font-semibold text-foreground">
+                                                    No videos yet
+                                                </p>
+                                                <p className="mt-1 text-sm text-muted-foreground">
+                                                    {isOwner
+                                                        ? "You have not uploaded any videos yet. Publish one to get started."
+                                                        : "This channel has no published videos at the moment."}
+                                                </p>
+                                            </div>
+                                        )}
+                                    </TabsContent>
+                                    <TabsContent value="playlists" className="mt-4 w-full">
+                                        <div className="w-full rounded-2xl border border-dashed border-border bg-muted/40 px-6 py-12 text-center">
+                                            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-background border border-border text-xl">
+                                                📂
+                                            </div>
+                                            <p className="text-lg font-semibold text-foreground">
+                                                No playlists yet
+                                            </p>
+                                            <p className="mt-1 text-sm text-muted-foreground">
+                                                {isOwner
+                                                    ? "Create playlists to organize your videos for your audience."
+                                                    : "This channel has not created any public playlists yet."}
+                                            </p>
                                         </div>
-
                                     </TabsContent>
-                                    <TabsContent value="videos" className="mt-4">
-                                        <div
-                                            className="videos grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 3xl:grid-cols-4 gap-4">
-                                            {
-                                                channelVideos.map((video: any, index: number) => (
-                                                    <div key={index}>
-                                                        <SmallVideoComponent video={video} />
-                                                    </div>
-                                                ))
-                                            }
+                                    <TabsContent value="about" className="mt-4 w-full">
+                                        <div className="w-full rounded-2xl border border-dashed border-border bg-muted/40 px-6 py-12 text-center">
+                                            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-background border border-border text-xl">
+                                                🚧
+                                            </div>
+                                            <p className="text-lg font-semibold text-foreground">
+                                                Coming soon
+                                            </p>
+                                            <p className="mt-1 text-sm text-muted-foreground">
+                                                We are working on a richer About section for this channel.
+                                            </p>
                                         </div>
-                                    </TabsContent>
-                                    <TabsContent value="playlists" className="mt-4">
-                                        <p>Your playlists will appear here.</p>
-                                    </TabsContent>
-                                    <TabsContent value="about" className="mt-4">
-                                        <p>Channel description, links, and info.</p>
                                     </TabsContent>
                                 </Tabs>
                             </div>

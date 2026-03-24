@@ -93,8 +93,6 @@ const OverlaySidebar = ({
   return (
     <div
       onClick={(e) => {
-        // console.log("e.target.id", e.target);
-
         setShowOverlaySidebar(false);
       }}
     >
