@@ -6,9 +6,6 @@ import SmallVideoComponent from "@/components/SmallVideoComponent";
 import {redirect} from "next/navigation";
 import {getUserChannel} from "@/services/api/channel/channel.service";
 import {cookies} from "next/headers";
-import {cn} from "@/lib/utils";
-import Link from "next/link";
-import {GoKebabHorizontal} from "react-icons/go";
 import {
     Carousel,
     CarouselContent,
@@ -16,7 +13,6 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel"
-import {timeAgo} from "@/utils/timeAgo";
 
 const Page = async ({params}: { params: { username: string } }) => {
     const cookieStore = await cookies();
@@ -24,15 +20,18 @@ const Page = async ({params}: { params: { username: string } }) => {
 
     try {
         const username = (await params).username;
-        const isOwner = username === userData.username;
         if (!username) {
             redirect('/');
         }
 
-        const channelData = await getUserChannel(username, isOwner);
+        const channelData = await getUserChannel(username);
         if (!channelData) {
             return <p>Channel not found</p>;
         }
+
+        const isOwner = userData?._id === channelData?.data?._id;
+
+        const isSubscribedTo = channelData?.data?.isSubscribed || false;
 
         const publicVideos = channelData?.data?.videos.filter((video: any) => video.visibility === "public");
         const allVideos = channelData?.data?.videos;
@@ -80,7 +79,7 @@ const Page = async ({params}: { params: { username: string } }) => {
                                 </div>
                                 <div
                                     className="right flex flex-col justify-center h-[100px] sm:h-[140px] md:h-[180px] gap-2 w-auto">
-                                    <h2 className="text-[20px] sm:text-[24px] md:text-[32px] lg:text-[40px] font-semibold text-black leading-none">
+                                    <h2 className="text-[20px] sm:text-[24px] md:text-[28px] lg:text-[32px] font-semibold text-black leading-none">
                                         {channelData?.data?.fullname || "Channel Name"}
                                     </h2>
                                     <div className="flex flex-wrap gap-1 items-center">
@@ -100,7 +99,7 @@ const Page = async ({params}: { params: { username: string } }) => {
                                       <span className="text-gray-600 text-[12px] sm:text-[14px]">
                                         {"Channel description goes here. This is a brief introduction about the channel, its content, and what viewers can expect.".slice(
                                             0,
-                                            100
+                                            40
                                         )}
                                       </span>
                                         <span> </span>
@@ -110,9 +109,13 @@ const Page = async ({params}: { params: { username: string } }) => {
                                       </span>
                                     </div>
                                     {!isOwner ? <div className="hidden md:block">
-                                        <Button variant={"default"} className="rounded-full">
+                                        {!isSubscribedTo ? (<Button variant={"default"} className="rounded-full">
                                             Subscribe
-                                        </Button>
+                                        </Button>) : (
+                                            <Button variant={"outline"} className="rounded-full">
+                                                Subscribed
+                                            </Button>
+                                        )}
                                     </div> : (
                                         <div className="hidden md:block">
                                             <Button variant={"outline"} className="rounded-full cursor-pointer">
@@ -126,7 +129,7 @@ const Page = async ({params}: { params: { username: string } }) => {
                               <span className="text-gray-600 text-[12px] sm:text-[14px]">
                                 {"Channel description goes here. This is a brief introduction about the channel, its content, and what viewers can expect.".slice(
                                     0,
-                                    100
+                                    40
                                 )}
                               </span>
                                 <span> </span>
@@ -135,9 +138,18 @@ const Page = async ({params}: { params: { username: string } }) => {
                                 </span>
                             </div>
                             <div className="block md:hidden w-full">
-                                <Button variant={"default"} className="rounded-full w-full my-2">
-                                    Subscribe
-                                </Button>
+                                {!isOwner ? <div className="block md:hidden">
+                                    <Button variant={"default"} className="rounded-full w-full my-2">
+                                        Subscribe
+                                    </Button>
+                                </div> : (
+                                    <div className="block md:hidden w-full">
+                                        <Button variant={"outline"} className="rounded-full cursor-pointer w-full">
+                                            Update Channel Details
+                                        </Button>
+                                    </div>
+                                )}
+
                             </div>
                             <div className="tabs flex gap-2 md:gap-4 min-h-[400px]">
                                 <Tabs
@@ -199,8 +211,10 @@ const Page = async ({params}: { params: { username: string } }) => {
                                                 </div>
                                             </>
                                         ) : (
-                                            <div className="w-full rounded-2xl border border-dashed border-border bg-muted/40 px-6 py-12 text-center">
-                                                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-background border border-border text-xl">
+                                            <div
+                                                className="w-full rounded-2xl border border-dashed border-border bg-muted/40 px-6 py-12 text-center">
+                                                <div
+                                                    className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-background border border-border text-xl">
                                                     🎬
                                                 </div>
                                                 <p className="text-lg font-semibold text-foreground">
@@ -229,8 +243,10 @@ const Page = async ({params}: { params: { username: string } }) => {
                                                 }
                                             </div>
                                         ) : (
-                                            <div className="w-full rounded-2xl border border-dashed border-border bg-muted/40 px-6 py-12 text-center">
-                                                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-background border border-border text-xl">
+                                            <div
+                                                className="w-full rounded-2xl border border-dashed border-border bg-muted/40 px-6 py-12 text-center">
+                                                <div
+                                                    className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-background border border-border text-xl">
                                                     🎥
                                                 </div>
                                                 <p className="text-lg font-semibold text-foreground">
@@ -245,8 +261,10 @@ const Page = async ({params}: { params: { username: string } }) => {
                                         )}
                                     </TabsContent>
                                     <TabsContent value="playlists" className="mt-4 w-full">
-                                        <div className="w-full rounded-2xl border border-dashed border-border bg-muted/40 px-6 py-12 text-center">
-                                            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-background border border-border text-xl">
+                                        <div
+                                            className="w-full rounded-2xl border border-dashed border-border bg-muted/40 px-6 py-12 text-center">
+                                            <div
+                                                className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-background border border-border text-xl">
                                                 📂
                                             </div>
                                             <p className="text-lg font-semibold text-foreground">
@@ -260,8 +278,10 @@ const Page = async ({params}: { params: { username: string } }) => {
                                         </div>
                                     </TabsContent>
                                     <TabsContent value="about" className="mt-4 w-full">
-                                        <div className="w-full rounded-2xl border border-dashed border-border bg-muted/40 px-6 py-12 text-center">
-                                            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-background border border-border text-xl">
+                                        <div
+                                            className="w-full rounded-2xl border border-dashed border-border bg-muted/40 px-6 py-12 text-center">
+                                            <div
+                                                className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-background border border-border text-xl">
                                                 🚧
                                             </div>
                                             <p className="text-lg font-semibold text-foreground">
