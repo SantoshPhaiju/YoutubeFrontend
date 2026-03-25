@@ -29,13 +29,14 @@ import {toast} from "sonner";
 import {cn} from "@/lib/utils";
 import ImageCropModal from "@/components/ImageCropModal";
 import Image from "next/image";
+import {useRouter} from "next/navigation";
 
 const SigninModal = () => {
     const [open, setOpen] = useState(false);
     const [tab, setTab] = useState("login");
     const [cropImage, setCropImage] = useState<string | null>(null);
     const [cropOpen, setCropOpen] = useState(false);
-
+    const router = useRouter();
 
     const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
     const setAccessToken = useAuthStore((state) => state.setAccessToken);
@@ -70,12 +71,12 @@ const SigninModal = () => {
         const data = await loginMutation.mutateAsync(payload);
 
         if (data.statusCode === 200) {
+            router.push("/");
             setAccessToken(data.data.token);
             setRefreshToken(data.data.refreshToken);
             setIsLoggedIn(true);
             toast.success("Login successful");
             setOpen(false);
-            // window.location.href = "/";
         } else {
             console.error("Login failed:", data.message);
         }

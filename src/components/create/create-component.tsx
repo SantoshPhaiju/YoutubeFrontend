@@ -23,7 +23,7 @@ const CreateComponent = () => {
                         variant={"outline"}
                     >
                         <FaPlus/>
-                        <span className="hidden sm:inline">Create</span>
+                        <span className="">Create</span>
                     </Button>
                 </DropdownMenuTrigger>
 

@@ -105,7 +105,7 @@ const Navbar = ({
                 <div
                     className="flex justify-between gap-2 md:gap-4 items-center w-auto sm:w-[90%] md:w-[80%] lg:w-[70%] 2xl:w-[66%]">
                     <div className="search w-full max-w-150">
-                        <Search/>
+                        <Search />
                     </div>
                     {isLoggedIn ? (
                         <div className="profiles flex justify-center items-center gap-2 md:gap-4 ">
