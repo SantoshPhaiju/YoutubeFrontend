@@ -20,56 +20,20 @@ import {GoVideo} from "react-icons/go";
 import {ImageIcon, UploadCloud, X} from "lucide-react";
 import FormInput from "@/components/form";
 import api from "@/services/axios";
-import {toast} from "sonner"; // or your toast library e.g. react-hot-toast
+import {toast} from "sonner";
+import {uploadVideoSchema} from "@/schemas/uploadVideoSchema";
+import {useRouter} from "next/navigation";
 
-// ─── Schema ───────────────────────────────────────────────────────────────────
-
-const uploadVideoSchema = z.object({
-    title: z
-        .string()
-        .min(3, "Title must be at least 3 characters.")
-        .max(100, "Title must be at most 100 characters."),
-    description: z
-        .string()
-        .max(5000, "Description must be at most 5000 characters."),
-    visibility: z.enum(["public", "private"], {
-        required_error: "Please select a visibility option.",
-    }),
-    videoFile: z
-        .any()
-        .refine((file) => file instanceof File, "Please upload a video file.")
-        .refine(
-            (file) => file instanceof File && file.type.startsWith("video/"),
-            "File must be a video."
-        ),
-    thumbnail: z
-        .any()
-        .refine((file) => file instanceof File, "Please upload a thumbnail image.")
-        .refine(
-            (file) => file instanceof File && file.type.startsWith("image/"),
-            "File must be an image."
-        ),
-});
 
 type UploadVideoFormValues = z.infer<typeof uploadVideoSchema>;
 
-// ─── Upload Phase ─────────────────────────────────────────────────────────────
-
-// We split into two phases so the user always sees meaningful progress:
-// Phase 1 — "Uploading"  : 0% → 90%  (file transfer, driven by onUploadProgress)
-// Phase 2 — "Processing" : 90% → 100% (server processing, shown as indeterminate pulse)
-
 type UploadPhase = "idle" | "uploading" | "processing" | "done";
-
-// ─── File Size Formatter ──────────────────────────────────────────────────────
 
 function formatFileSize(bytes: number): string {
     if (bytes < 1024) return `${bytes} B`;
     if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
-
-// ─── Video Uploader ───────────────────────────────────────────────────────────
 
 interface VideoUploaderProps {
     file: File | null;
@@ -137,8 +101,6 @@ function VideoUploader({file, invalid, onChange}: VideoUploaderProps) {
     );
 }
 
-// ─── Thumbnail Uploader ───────────────────────────────────────────────────────
-
 interface ThumbnailUploaderProps {
     file: File | null;
     invalid: boolean;
@@ -205,19 +167,16 @@ function ThumbnailUploader({file, invalid, onChange}: ThumbnailUploaderProps) {
     );
 }
 
-// ─── Props ────────────────────────────────────────────────────────────────────
-
 interface UploadVideoFormProps {
     onClose: () => void;
 }
-
-// ─── Component ────────────────────────────────────────────────────────────────
 
 const UploadVideoForm = ({onClose}: UploadVideoFormProps) => {
     const [uploadProgress, setUploadProgress] = useState<number>(0);
     const [uploadPhase, setUploadPhase] = useState<UploadPhase>("idle");
     const [videoFile, setVideoFile] = useState<File | null>(null);
     const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
+    const router = useRouter();
 
     const form = useForm<UploadVideoFormValues>({
         resolver: zodResolver(uploadVideoSchema),
@@ -238,27 +197,18 @@ const UploadVideoForm = ({onClose}: UploadVideoFormProps) => {
         setUploadPhase("idle");
     };
 
-    // ─── Mutation ─────────────────────────────────────────────────────────────
-
     const uploadVideoMutation = useMutation({
         mutationFn: (formData: FormData) => {
-            // Use raw axios (not your intercepted instance) so onUploadProgress
-            // works reliably — copy base URL and auth headers from your api instance
             return api.post("/videos/upload-video", formData, {
                 headers: {"Content-Type": "multipart/form-data"},
-                // KEY FIX: onUploadProgress only tracks the file transfer (0→90%).
-                // Once it hits 100% here, the server is still processing — we
-                // switch to "processing" phase and animate the bar from 90→99%.
                 onUploadProgress: (progressEvent) => {
                     if (progressEvent.total) {
                         const percent = Math.round(
                             (progressEvent.loaded / progressEvent.total) * 100
                         );
-                        // Cap at 90% — reserve last 10% for server processing
                         const capped = Math.min(Math.round(percent * 0.9), 90);
                         setUploadProgress(capped);
 
-                        // Once file transfer is done, switch phase
                         if (percent >= 100) {
                             setUploadPhase("processing");
                         }
@@ -272,10 +222,12 @@ const UploadVideoForm = ({onClose}: UploadVideoFormProps) => {
             toast.success("Video uploaded successfully!", {
                 description: "Your video is now being processed and will be available shortly.",
             });
+            router.push("/");
+            router.refresh();
             setTimeout(() => {
                 resetState();
                 onClose();
-            }, 800); // brief pause so user sees 100%
+            }, 800);
         },
         onError: (error: any) => {
             setUploadPhase("idle");

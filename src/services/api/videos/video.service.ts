@@ -25,7 +25,7 @@ type GetVideoResponse = {
 };
 
 export const getVideoById = async (
-    { id }: GetVideoParams
+    {id}: GetVideoParams
 ): Promise<IVideo> => {
     try {
         const cookieStore = await cookies();
@@ -42,3 +42,40 @@ export const getVideoById = async (
         throw error;
     }
 };
+
+
+export interface IUploadVideoArgs {
+    formData: FormData;
+    setUploadProgress: (progress: number) => void;
+    setUploadPhase: (phase: "idle" | "uploading" | "processing" | "done") => void;
+}
+
+export const uploadVideo = async ({
+                                      formData,
+                                      setUploadProgress,
+                                      setUploadPhase,
+                                  }: IUploadVideoArgs) => {
+    try {
+
+        const response = await api.post("/videos/upload-video", formData, {
+            headers: {"Content-Type": "multipart/form-data"},
+            onUploadProgress: (progressEvent) => {
+                if (progressEvent.total) {
+                    const percent = Math.round(
+                        (progressEvent.loaded / progressEvent.total) * 100
+                    );
+                    const capped = Math.min(Math.round(percent * 0.9), 90);
+                    setUploadProgress(capped);
+
+                    if (percent >= 100) {
+                        setUploadPhase("processing");
+                    }
+                }
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error("error", error);
+        throw error;
+    }
+}

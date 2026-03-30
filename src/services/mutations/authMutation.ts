@@ -5,6 +5,7 @@ import { toast } from "sonner";
 
 export function useLoginUser() {
     return useMutation({
+        mutationKey: ["loginUser"],
         mutationFn: async (payload: {
             usernameoremail: string;
             password: string;
