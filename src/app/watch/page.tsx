@@ -65,7 +65,7 @@ const Page = async ({searchParams}: WatchPageProps) => {
                                     src={video.videoFile}
                                     controls
                                     autoPlay
-                                    className="w-full h-full object-cover"
+                                    className="w-full h-full object-contain bg-black"
                                     loop
                                 />
                             </div>

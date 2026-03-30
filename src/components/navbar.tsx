@@ -11,7 +11,7 @@ import {
     MdOutlineVisibilityOff,
 } from "react-icons/md";
 
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {
     MdOutlineAccountCircle,
     MdOutlineDarkMode,
