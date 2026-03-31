@@ -23,6 +23,7 @@ import api from "@/services/axios";
 import {toast} from "sonner";
 import {uploadVideoSchema} from "@/schemas/uploadVideoSchema";
 import {useRouter} from "next/navigation";
+import {useUploadVideoMutation} from "@/services/mutations/videoMutation";
 
 
 type UploadVideoFormValues = z.infer<typeof uploadVideoSchema>;
@@ -78,13 +79,14 @@ function VideoUploader({file, invalid, onChange}: VideoUploaderProps) {
                     : "border-border hover:border-primary/50 bg-muted/20 hover:bg-muted/40"
             }`}
         >
-            <div className={`flex items-center justify-center w-12 h-12 rounded-full ${invalid ? "bg-red-100" : "bg-muted"}`}>
+            <div
+                className={`flex items-center justify-center w-12 h-12 rounded-full ${invalid ? "bg-red-100" : "bg-muted"}`}>
                 <UploadCloud size={22} className={invalid ? "text-red-500" : "text-muted-foreground"}/>
             </div>
             <div className="text-center space-y-1">
                 <p className="text-sm font-medium text-foreground">Click to upload a video</p>
                 <p className="text-xs text-muted-foreground">MP4, MOV, AVI, MKV, WEBM</p>
-                <p className="text-xs text-muted-foreground">Up to 2GB</p>
+                {/*<p className="text-xs text-muted-foreground">Up to 2GB</p>*/}
             </div>
             <input
                 id="videoFile"
@@ -144,7 +146,8 @@ function ThumbnailUploader({file, invalid, onChange}: ThumbnailUploaderProps) {
                     : "border-border hover:border-primary/50 bg-muted/20 hover:bg-muted/40"
             }`}
         >
-            <div className={`flex items-center justify-center w-12 h-12 rounded-full ${invalid ? "bg-red-100" : "bg-muted"}`}>
+            <div
+                className={`flex items-center justify-center w-12 h-12 rounded-full ${invalid ? "bg-red-100" : "bg-muted"}`}>
                 <UploadCloud size={22} className={invalid ? "text-red-500" : "text-muted-foreground"}/>
             </div>
             <div className="text-center space-y-1">
@@ -197,39 +200,79 @@ const UploadVideoForm = ({onClose}: UploadVideoFormProps) => {
         setUploadPhase("idle");
     };
 
-    const uploadVideoMutation = useMutation({
-        mutationFn: (formData: FormData) => {
-            return api.post("/videos/upload-video", formData, {
-                headers: {"Content-Type": "multipart/form-data"},
-                onUploadProgress: (progressEvent) => {
-                    if (progressEvent.total) {
-                        const percent = Math.round(
-                            (progressEvent.loaded / progressEvent.total) * 100
-                        );
-                        const capped = Math.min(Math.round(percent * 0.9), 90);
-                        setUploadProgress(capped);
+    // const uploadVideoMutation = useMutation({
+    //     mutationFn: (formData: FormData) => {
+    //         return api.post("/videos/upload-video", formData, {
+    //             headers: {"Content-Type": "multipart/form-data"},
+    //             onUploadProgress: (progressEvent) => {
+    //                 if (progressEvent.total) {
+    //                     const percent = Math.round(
+    //                         (progressEvent.loaded / progressEvent.total) * 100
+    //                     );
+    //                     const capped = Math.min(Math.round(percent * 0.9), 90);
+    //                     setUploadProgress(capped);
+    //
+    //                     if (percent >= 100) {
+    //                         setUploadPhase("processing");
+    //                     }
+    //                 }
+    //             },
+    //         });
+    //     },
+    //     onSuccess: () => {
+    //         setUploadPhase("done");
+    //         setUploadProgress(100);
+    //         toast.success("Video uploaded successfully!", {
+    //             description: "Your video is now being processed and will be available shortly.",
+    //         });
+    //         router.push("/");
+    //         router.refresh();
+    //         setTimeout(() => {
+    //             resetState();
+    //             onClose();
+    //         }, 800);
+    //     },
+    //     onError: (error: any) => {
+    //         setUploadPhase("idle");
+    //         setUploadProgress(0);
+    //         const message =
+    //             error?.response?.data?.message ||
+    //             error?.message ||
+    //             "Something went wrong. Please try again.";
+    //         toast.error("Upload failed", {
+    //             description: message,
+    //         });
+    //     },
+    // });
 
-                        if (percent >= 100) {
-                            setUploadPhase("processing");
-                        }
-                    }
-                },
-            });
-        },
-        onSuccess: () => {
-            setUploadPhase("done");
-            setUploadProgress(100);
-            toast.success("Video uploaded successfully!", {
-                description: "Your video is now being processed and will be available shortly.",
-            });
-            router.push("/");
-            router.refresh();
-            setTimeout(() => {
-                resetState();
-                onClose();
-            }, 800);
-        },
-        onError: (error: any) => {
+    const uploadVideoMutation = useUploadVideoMutation();
+
+    const isUploading = uploadVideoMutation.isPending;
+
+    const onSubmit = async (data: UploadVideoFormValues) => {
+        const formData = new FormData();
+        formData.append("title", data.title);
+        formData.append("description", data.description);
+        formData.append("visibility", data.visibility);
+        formData.append("videoFile", data.videoFile);
+        formData.append("thumbnail", data.thumbnail);
+
+        try {
+            setUploadProgress(0);
+            setUploadPhase("uploading");
+            const response = await uploadVideoMutation.mutateAsync({formData, setUploadProgress, setUploadPhase});
+            if (response.success === true) {
+                toast.success("Video uploaded successfully!", {
+                    description: "Your video is now being processed and will be available shortly.",
+                });
+                router.push("/");
+                router.refresh();
+                setTimeout(() => {
+                    resetState();
+                    onClose();
+                }, 800);
+            }
+        } catch (error: any) {
             setUploadPhase("idle");
             setUploadProgress(0);
             const message =
@@ -239,27 +282,8 @@ const UploadVideoForm = ({onClose}: UploadVideoFormProps) => {
             toast.error("Upload failed", {
                 description: message,
             });
-        },
-    });
-
-    const isUploading = uploadVideoMutation.isPending;
-
-    // ─── Submit ───────────────────────────────────────────────────────────────
-
-    const onSubmit = (data: UploadVideoFormValues) => {
-        const formData = new FormData();
-        formData.append("title", data.title);
-        formData.append("description", data.description);
-        formData.append("visibility", data.visibility);
-        formData.append("videoFile", data.videoFile);
-        formData.append("thumbnail", data.thumbnail);
-
-        setUploadProgress(0);
-        setUploadPhase("uploading");
-        uploadVideoMutation.mutate(formData);
+        }
     };
-
-    // ─── Progress label ───────────────────────────────────────────────────────
 
     const progressLabel = {
         idle: "",
@@ -274,8 +298,6 @@ const UploadVideoForm = ({onClose}: UploadVideoFormProps) => {
         processing: "Almost done",
         done: "100%",
     }[uploadPhase];
-
-    // ─── Render ───────────────────────────────────────────────────────────────
 
     return (
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 pt-1">

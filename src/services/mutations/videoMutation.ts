@@ -1,7 +1,7 @@
 import {useMutation} from "@tanstack/react-query";
-import {IUploadVideoArgs, uploadVideo} from "@/services/api/videos/video.service";
 import {toast} from "sonner";
 import axios from "axios";
+import {IUploadVideoArgs, uploadVideo} from "@/services/api/videos/videoClient.service";
 
 
 const uploadVideoMutationKey = "UploadVideo";
