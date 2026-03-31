@@ -3,6 +3,7 @@ import Link from "next/link";
 import { GoKebabHorizontal } from "react-icons/go";
 import { cn } from "@/lib/utils";
 import {timeAgo} from "@/utils/timeAgo";
+import {formatViews} from "@/utils/formatVideoView";
 
 const SmallVideoComponent = (
     {
@@ -38,7 +39,7 @@ const SmallVideoComponent = (
                         <div
                             className="flex justify-start items-center gap-2 text-gray-600 text-xs">
                             <div
-                                className="views">{video?.viewCount || 0} views
+                                className="views">{formatViews(video?.viewCount) || 0} views
                             </div>
                             <div
                                 className="dot h-1 w-1 bg-black rounded-full"></div>

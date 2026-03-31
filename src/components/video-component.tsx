@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {MdVerified} from "react-icons/md";
 import {Avatar, AvatarFallback, AvatarImage} from "./ui/avatar";
+import {formatViews} from "@/utils/formatVideoView";
 
 interface IVideoComponentProps {
     videoId: string;
@@ -77,7 +78,7 @@ const VideoComponent = ({
 
                     {/* Views + Date */}
                     <div className="flex items-center gap-2 text-xs text-gray-600">
-                        <span>{videoViews || 0} views</span>
+                        <span>{formatViews(videoViews) || 0} views</span>
                         <span>•</span>
                         <span>{timeAgo(videoPublishedDate)}</span>
                     </div>

@@ -13,6 +13,7 @@ import {formatDate} from "@/utils/formatDate";
 import {notFound} from "next/navigation";
 import Link from "next/link";
 import {cookies} from "next/headers";
+import {formatViews} from "@/utils/formatVideoView";
 
 interface WatchPageProps {
     searchParams: {
@@ -121,7 +122,7 @@ const Page = async ({searchParams}: WatchPageProps) => {
                                                 className="flex justify-center border-r border-border items-center rounded-l-full gap-1 md:gap-2 p-1.5 px-3 md:p-2 md:px-4 hover:bg-gray-200">
                                                 <BiLike className={"text-[16px] md:text-[20px]"}/>
                                                 <p className="font-sans font-semibold text-[12px] md:text-sm">{
-                                                    video.likeCount
+                                                    formatViews(video.likeCount)
                                                 }</p>
                                             </div>
                                             <div className="p-1.5 px-3 md:p-2 md:px-4 rounded-r-full hover:bg-gray-200">
@@ -151,9 +152,7 @@ const Page = async ({searchParams}: WatchPageProps) => {
                                 className="descriptionSection flex flex-col gap-2 py-[12px] px-[12px] h-auto w-full bg-gray-100 rounded-xl">
                                 <div
                                     className="flex justify-start items-center gap-2 font-semibold text-[15px] font-roboto">
-                                    <div>{
-                                        video.viewCount
-                                    } views
+                                    <div>{formatViews(video.viewCount) || 0} views
                                     </div>
                                     <div>{
                                         formatDate(video.createdAt)
