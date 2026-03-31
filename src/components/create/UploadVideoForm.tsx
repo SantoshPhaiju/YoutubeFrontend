@@ -4,7 +4,6 @@ import React, {useState} from "react";
 import {useForm, Controller} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import * as z from "zod";
-import {useMutation} from "@tanstack/react-query";
 import {Field, FieldError, FieldLabel, FieldGroup} from "@/components/ui/field";
 import {Textarea} from "@/components/ui/textarea";
 import {Button} from "@/components/ui/button";
@@ -19,7 +18,6 @@ import {
 import {GoVideo} from "react-icons/go";
 import {ImageIcon, UploadCloud, X} from "lucide-react";
 import FormInput from "@/components/form";
-import api from "@/services/axios";
 import {toast} from "sonner";
 import {uploadVideoSchema} from "@/schemas/uploadVideoSchema";
 import {useRouter} from "next/navigation";
@@ -86,7 +84,7 @@ function VideoUploader({file, invalid, onChange}: VideoUploaderProps) {
             <div className="text-center space-y-1">
                 <p className="text-sm font-medium text-foreground">Click to upload a video</p>
                 <p className="text-xs text-muted-foreground">MP4, MOV, AVI, MKV, WEBM</p>
-                {/*<p className="text-xs text-muted-foreground">Up to 2GB</p>*/}
+                <p className="text-xs text-muted-foreground">Up to 100MB</p>
             </div>
             <input
                 id="videoFile"
@@ -154,11 +152,12 @@ function ThumbnailUploader({file, invalid, onChange}: ThumbnailUploaderProps) {
                 <p className="text-sm font-medium text-foreground">Click to upload a thumbnail</p>
                 <p className="text-xs text-muted-foreground">JPG, JPEG, PNG, WEBP</p>
                 <p className="text-xs text-muted-foreground">Recommended: 1280 × 720px</p>
+                <p className="text-xs text-muted-foreground">Up to 5MB</p>
             </div>
             <input
                 id="thumbnail"
                 type="file"
-                accept="image/*"
+                accept="image/png, image/jpeg, image/jpg, image/webp"
                 className="hidden"
                 onChange={(e) => {
                     const f = e.target.files?.[0] ?? null;
@@ -406,8 +405,8 @@ const UploadVideoForm = ({onClose}: UploadVideoFormProps) => {
                                     <SelectValue placeholder="Select visibility"/>
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="public">🌍 Public</SelectItem>
-                                    <SelectItem value="private">🔒 Private</SelectItem>
+                                    <SelectItem value="public">Public</SelectItem>
+                                    <SelectItem value="private">Private</SelectItem>
                                 </SelectContent>
                             </Select>
                             {fieldState.error && (
