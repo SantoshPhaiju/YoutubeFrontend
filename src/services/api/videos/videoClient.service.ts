@@ -6,6 +6,7 @@ export const getAllHomePageVideos = async ({}) => {
         return response.data.data.videos;
     } catch (e) {
         console.error("error", e);
+        throw e;
     }
 }
 
@@ -44,3 +45,5 @@ export const uploadVideo = async ({
         throw error;
     }
 }
+
+
