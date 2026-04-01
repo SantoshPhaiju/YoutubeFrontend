@@ -2,8 +2,6 @@ import CommentComponent from "@/components/video/comment/comment-component";
 import SeeMoreComponent from "@/components/video/seemore/see-more-component";
 import SemiNav from "@/components/semi-nav";
 import SemiVideo from "@/components/semiVideoComponent";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
-import {Button} from "@/components/ui/button";
 import ClientVideoPageLayout from "@/components/video/client-vidoepage-layout.client";
 import {BiDislike, BiLike} from "react-icons/bi";
 import {FiBookmark} from "react-icons/fi";
@@ -11,9 +9,9 @@ import {PiShareFatLight} from "react-icons/pi";
 import {getVideoById} from "@/services/api/videos/video.service";
 import {formatDate} from "@/utils/formatDate";
 import {notFound} from "next/navigation";
-import Link from "next/link";
 import {cookies} from "next/headers";
 import {formatViews} from "@/utils/formatVideoView";
+import ChannelInfo from "@/components/video/ChannelInfo";
 
 interface WatchPageProps {
     searchParams: {
@@ -34,11 +32,12 @@ const Page = async ({searchParams}: WatchPageProps) => {
     // const video = await getVideoById({ id: videoId });
     const video = await (async () => {
         try {
-            return await getVideoById({ id: videoId });
+            return await getVideoById({id: videoId});
         } catch (error) {
             notFound();
         }
     })();
+    console.log(videoId, video);
     const videoOwner = Array.isArray(video.owner) ? video.owner[0] : video.owner;
     const isOwner = userData?.username === videoOwner.username;
 
@@ -76,44 +75,7 @@ const Page = async ({searchParams}: WatchPageProps) => {
                                 </div>
                                 <div className="flex gap-4 flex-col lg:flex-row justify-between">
                                     <div className="channel flex gap-5 items-center justify-between xl:justify-start">
-                                        <div className="flex gap-2">
-                                            <div className="w-10 h-10 z-0">
-                                                <Link href={videoOwner?.username}>
-
-                                                    <Avatar className="">
-                                                        <AvatarImage
-                                                            src={videoOwner.avatar || `https://github.com/shadcn.png`}
-                                                            alt="@shadcn"
-                                                            className="rounded-[50%] z-0"
-                                                        />
-                                                        <AvatarFallback>CN</AvatarFallback>
-                                                    </Avatar>
-                                                </Link>
-                                            </div>
-                                            <div className="flex flex-col">
-                                                <div className="text-lg font-semibold leading-tight font-roboto">
-                                                    {videoOwner.fullname}
-                                                </div>
-                                                <div className="text-[12px] font-medium text-gray-600">
-                                                    {videoOwner.subscribersCount} subscribers
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {!isOwner && (
-                                            !videoOwner.isSubscribed ? <Button
-                                                variant="default"
-                                                className="rounded-full font-roboto font-medium"
-                                            >
-                                                Subscribe
-                                            </Button> : (
-                                                <Button
-                                                    variant="ghost"
-                                                    className="rounded-full font-roboto font-medium"
-                                                >
-                                                    Subscribed
-                                                </Button>
-                                            )
-                                        )}
+                                        <ChannelInfo videoOwner={videoOwner} isOwner={isOwner}/>
                                     </div>
                                     <div
                                         className="flex justify-start xl:justify-end gap-1 md:gap-2 flex-wrap items-center ">
@@ -160,7 +122,7 @@ const Page = async ({searchParams}: WatchPageProps) => {
                                 </div>
                                 <SeeMoreComponent videoDescription={video.description}/>
                             </div>
-                            <CommentComponent userData={userData} />
+                            <CommentComponent userData={userData}/>
                         </div>
                         <div className="rightContainer w-full xl:block xl:w-[30%] ">
                             <SemiNav/>
