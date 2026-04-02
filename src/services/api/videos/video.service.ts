@@ -1,11 +1,8 @@
 // here we will write the backend communication logic, means sending http request to the backend
 
-import api from "@/services/axios";
 import {IVideo} from "@/@types/videos/videos.type";
 import axios, {AxiosResponse} from "axios";
 import {cookies} from "next/headers";
-
-
 
 type GetVideoParams = {
     id: string;

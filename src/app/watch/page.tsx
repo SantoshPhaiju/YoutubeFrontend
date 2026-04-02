@@ -12,6 +12,7 @@ import {notFound} from "next/navigation";
 import {cookies} from "next/headers";
 import {formatViews} from "@/utils/formatVideoView";
 import ChannelInfo from "@/components/video/ChannelInfo";
+import VideoView from "@/components/video/videoView";
 
 interface WatchPageProps {
     searchParams: {
@@ -114,8 +115,7 @@ const Page = async ({searchParams}: WatchPageProps) => {
                                 className="descriptionSection flex flex-col gap-2 py-[12px] px-[12px] h-auto w-full bg-gray-100 rounded-xl">
                                 <div
                                     className="flex justify-start items-center gap-2 font-semibold text-[15px] font-roboto">
-                                    <div>{formatViews(video.viewCount) || 0} views
-                                    </div>
+                                    <VideoView videoDuration={video.duration} videoId={video._id} viewCount={video.viewCount}/>
                                     <div>{
                                         formatDate(video.createdAt)
                                     }</div>

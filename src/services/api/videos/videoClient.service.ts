@@ -22,7 +22,6 @@ export const uploadVideo = async ({
                                       setUploadPhase,
                                   }: IUploadVideoArgs) => {
     try {
-
         const response = await api.post("/videos/upload-video", formData, {
             headers: {"Content-Type": "multipart/form-data"},
             onUploadProgress: (progressEvent) => {
@@ -46,4 +45,13 @@ export const uploadVideo = async ({
     }
 }
 
+export const trackVideoView = async (videoId: string)  => {
+    try {
+        const response = await api.patch(`/videos/track-views/${videoId}`);
+        return response.data;
+    } catch (error) {
+        console.error("error", error);
+        throw error;
+    }
+}
 
