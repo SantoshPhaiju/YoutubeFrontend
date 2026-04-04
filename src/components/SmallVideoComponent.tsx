@@ -4,6 +4,7 @@ import { GoKebabHorizontal } from "react-icons/go";
 import { cn } from "@/lib/utils";
 import {timeAgo} from "@/utils/timeAgo";
 import {formatViews} from "@/utils/formatVideoView";
+import {formatDuration} from "@/utils/formatDuration";
 
 const SmallVideoComponent = (
     {
@@ -12,7 +13,7 @@ const SmallVideoComponent = (
 ) => {
     return (
         <div className={cn(`video w-full cursor-pointer`)}>
-            <div className="thumbnail">
+            <div className="thumbnail relative">
                 <Link href={`/watch?v=${video?._id}`}>
                     <Image
                         src={video?.thumbnail || `/assets/thumb.jpg`}
@@ -22,6 +23,12 @@ const SmallVideoComponent = (
                         alt="VideoComponent"
                     />
                 </Link>
+                {/* Duration */}
+                {video?.duration && (
+                    <div className="absolute bottom-2 right-2 bg-black text-white text-xs px-1.5 py-0.5 rounded">
+                        {formatDuration(video?.duration || 0)}
+                    </div>
+                )}
             </div>
 
             <div className="details py-1 pt-2.5 flex">
