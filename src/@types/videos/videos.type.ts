@@ -20,6 +20,7 @@ export interface IComment {
 
 
 export interface IVideo {
+    isDisliked: boolean;
     isLiked: boolean;
     _id: string;
     videoFile: string;

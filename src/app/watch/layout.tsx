@@ -1,6 +1,4 @@
-import type { Metadata } from "next";
 import React from "react";
-import {getVideoByIdCached} from "@/services/api/videos/video.service";
 
 // export const metadata: Metadata = {
 //   title: "Single Video Page",

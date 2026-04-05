@@ -23,11 +23,14 @@ interface WatchPageProps {
 
 
 export async function generateMetadata({ searchParams }: WatchPageProps): Promise<Metadata> {
+    const cookieStore = await cookies();
+    const user = cookieStore.get("user");
+    const userData = user ? JSON.parse(user.value) : null;
     const videoId = (await searchParams).v;
 
     if (!videoId) return {};
 
-    const video = await getVideoByIdCached(videoId);
+    const video = await getVideoByIdCached(videoId, userData?._id);
     const videoOwner = Array.isArray(video.owner)
         ? video.owner[0]
         : video.owner;
@@ -51,7 +54,8 @@ const Page = async ({searchParams}: WatchPageProps) => {
     // const video = await getVideoById({ id: videoId });
     const video = await (async () => {
         try {
-            return await getVideoByIdCached(videoId);
+
+            return await getVideoByIdCached(videoId, userData?._id);
         } catch (error) {
             notFound();
         }
@@ -60,9 +64,9 @@ const Page = async ({searchParams}: WatchPageProps) => {
     const videoOwner = Array.isArray(video.owner) ? video.owner[0] : video.owner;
     const isOwner = userData?.username === videoOwner.username;
 
-    const desc =
-        "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.";
-    const videoDescription = desc.repeat(10);
+    // const desc =
+    //     "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.";
+    // const videoDescription = desc.repeat(10);
 
     return (
         <>
@@ -98,7 +102,7 @@ const Page = async ({searchParams}: WatchPageProps) => {
                                     </div>
                                     <div
                                         className="flex justify-start xl:justify-end gap-1 md:gap-2 flex-wrap items-center ">
-                                        <LikeComponent isLiked={video?.isLiked || false} likeCount={video?.likeCount} videoId={video?._id} />
+                                        <LikeComponent isDisliked={video?.isDisliked} isLiked={video?.isLiked || false} likeCount={video?.likeCount} videoId={video?._id} />
                                         <div
                                             className="flex justify-center bg-gray-100 items-center rounded-full gap-1 md:gap-2 p-1.5 px-3 md:p-2 md:px-4 hover:bg-gray-200">
                                             <PiShareFatLight className={"text-[16px] md:text-[20px]"}/>

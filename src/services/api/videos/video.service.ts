@@ -7,6 +7,7 @@ import {cache} from "react";
 
 type GetVideoParams = {
     id: string;
+    userId?: string;
 };
 
 type GetVideoResponse = {
@@ -21,6 +22,7 @@ export const getVideoById = async (
     try {
         const cookieStore = await cookies();
         const token = cookieStore.get("accessToken")?.value;
+
         const response: AxiosResponse<GetVideoResponse> =
             await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/videos/get-video/${id}`, {
                 headers: {
@@ -34,8 +36,8 @@ export const getVideoById = async (
     }
 };
 
-export const getVideoByIdCached = cache(async (id: string) => {
-    return await getVideoById({id});
+export const getVideoByIdCached = cache(async (id: string, userId?: string) => {
+    return await getVideoById({id, userId});
 });
 
 

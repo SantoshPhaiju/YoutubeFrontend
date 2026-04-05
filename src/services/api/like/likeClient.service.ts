@@ -1,9 +1,11 @@
 import api from "@/services/axios";
 
 
-export const likeVideo = async (videoId: string) => {
+export const likeVideo = async (videoId: string, type: string) => {
     try {
-        const response = await api.post(`/likes/like-video/${videoId}`);
+        const response = await api.post(`/likes/like-video/${videoId}`, {
+            type,
+        });
         return response.data;
     } catch (error) {
         console.error("error", error);

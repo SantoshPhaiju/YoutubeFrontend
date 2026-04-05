@@ -7,8 +7,8 @@ import {toast} from "sonner";
 export const useVideoLikeMutation = () => {
     return useMutation({
         mutationKey: ["likeVideo"],
-        mutationFn: async (videoId: string) => {
-            return await likeVideo(videoId);
+        mutationFn: async ({videoId, type}: {videoId: string, type: string}) => {
+            return await likeVideo(videoId, type);
         },
         onError: (error) => {
             console.error(error);
