@@ -5,6 +5,8 @@ import {formatViews} from "@/utils/formatVideoView";
 import {useState} from "react";
 import {useVideoLikeMutation} from "@/services/mutations/likeMutation";
 import {cn} from "@/lib/utils";
+import useAuthStore from "@/store/authStore";
+import {toast} from "sonner";
 
 const LikeComponent = ({
                            likeCount,
@@ -22,8 +24,13 @@ const LikeComponent = ({
     const [likeCountClient, setLikeCountClient] = useState(likeCount);
     const {mutateAsync} = useVideoLikeMutation();
     const [loading, setLoading] = useState(false);
+    const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
     const handleLike = async (type: string) => {
+        if (!isLoggedIn) {
+            toast.error("Please sign in to like videos.");
+            return;
+        }
         setLoading(true);
         if (type === 'like') {
             if (isLikedClient) {

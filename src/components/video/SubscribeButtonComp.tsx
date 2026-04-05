@@ -6,6 +6,7 @@ import {toast} from "sonner";
 import {useRouter} from "next/navigation";
 import React, {useState} from "react";
 import {cn} from "@/lib/utils";
+import useAuthStore from "@/store/authStore";
 
 interface ISubscribeButtonCompProps {
     isSubscribed: boolean;
@@ -24,10 +25,14 @@ const SubscribeButtonComp = ({
                              }: ISubscribeButtonCompProps) => {
 
     const subscribeChannelMutation = useSubscriptionMutation();
-    const router = useRouter();
     const [loading, setLoading] = useState<boolean>(false);
+    const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
     const handleSubscribe = async () => {
+        if (!isLoggedIn) {
+            toast.error("Please sign in to subscribe to channels.");
+            return;
+        }
         setLoading(true);
         try {
             const response = await subscribeChannelMutation.mutateAsync(channelId);
