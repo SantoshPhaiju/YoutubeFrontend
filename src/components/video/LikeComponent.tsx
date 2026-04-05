@@ -1,6 +1,6 @@
 'use client';
 
-import {BiDislike, BiLike, BiSolidLike} from "react-icons/bi";
+import {BiDislike, BiLike, BiSolidDislike, BiSolidLike} from "react-icons/bi";
 import {formatViews} from "@/utils/formatVideoView";
 import {useState} from "react";
 import {useVideoLikeMutation} from "@/services/mutations/likeMutation";
@@ -51,7 +51,11 @@ const LikeComponent = ({
                     }</p>
                 </div>
                 <div className="p-1.5 px-3 md:p-2 md:px-4 rounded-r-full hover:bg-gray-200">
-                    <BiDislike className={"text-[16px] md:text-[20px]"}/>
+                    {isLikedClient ? (<BiDislike className={"text-[16px] md:text-[20px]"}/>)
+                        : (
+                            <BiSolidDislike className={"text-[16px] md:text-[20px]"}/>
+                        )
+                    }
                 </div>
             </div>
         </>
