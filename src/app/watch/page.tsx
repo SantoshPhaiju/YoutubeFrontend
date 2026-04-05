@@ -3,21 +3,38 @@ import SeeMoreComponent from "@/components/video/seemore/see-more-component";
 import SemiNav from "@/components/semi-nav";
 import SemiVideo from "@/components/semiVideoComponent";
 import ClientVideoPageLayout from "@/components/video/client-vidoepage-layout.client";
-import {BiDislike, BiLike} from "react-icons/bi";
 import {FiBookmark} from "react-icons/fi";
 import {PiShareFatLight} from "react-icons/pi";
-import {getVideoById} from "@/services/api/videos/video.service";
+import { getVideoByIdCached } from "@/services/api/videos/video.service";
 import {formatDate} from "@/utils/formatDate";
 import {notFound} from "next/navigation";
 import {cookies} from "next/headers";
-import {formatViews} from "@/utils/formatVideoView";
 import ChannelInfo from "@/components/video/ChannelInfo";
 import VideoView from "@/components/video/videoView";
 import LikeComponent from "@/components/video/LikeComponent";
+import React from "react";
+import {Metadata} from "next";
 
 interface WatchPageProps {
     searchParams: {
         v?: string;
+    };
+}
+
+
+export async function generateMetadata({ searchParams }: WatchPageProps): Promise<Metadata> {
+    const videoId = (await searchParams).v;
+
+    if (!videoId) return {};
+
+    const video = await getVideoByIdCached(videoId);
+    const videoOwner = Array.isArray(video.owner)
+        ? video.owner[0]
+        : video.owner;
+
+    return {
+        title: `${video.title} | ${videoOwner?.fullname}`,
+        description: video.description,
     };
 }
 
@@ -34,7 +51,7 @@ const Page = async ({searchParams}: WatchPageProps) => {
     // const video = await getVideoById({ id: videoId });
     const video = await (async () => {
         try {
-            return await getVideoById({id: videoId});
+            return await getVideoByIdCached(videoId);
         } catch (error) {
             notFound();
         }

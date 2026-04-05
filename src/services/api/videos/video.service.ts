@@ -3,6 +3,7 @@
 import {IVideo} from "@/@types/videos/videos.type";
 import axios, {AxiosResponse} from "axios";
 import {cookies} from "next/headers";
+import {cache} from "react";
 
 type GetVideoParams = {
     id: string;
@@ -32,6 +33,10 @@ export const getVideoById = async (
         throw error;
     }
 };
+
+export const getVideoByIdCached = cache(async (id: string) => {
+    return await getVideoById({id});
+});
 
 
 
