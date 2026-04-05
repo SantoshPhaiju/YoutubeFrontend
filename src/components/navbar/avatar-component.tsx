@@ -35,7 +35,7 @@ const AvatarComponent = ({
     const logoutUser = useLogoutUser();
     const logout = useAuthStore((state) => state.logout);
     const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
-    const { data: user, isLoading } = useUserDataQuery();
+    const {data: user, isLoading} = useUserDataQuery();
     const router = useRouter();
 
     return (
@@ -43,16 +43,17 @@ const AvatarComponent = ({
             <DropdownMenu open={openDropdown} onOpenChange={setOpenDropdown}>
                 <DropdownMenuTrigger>
                     <Avatar className="cursor-pointer h-8 w-8">
-                        <AvatarImage src={isLoading ? `https://github.com/shadcn.png`: user?.data?.avatar} />
+                        <AvatarImage src={isLoading ? `https://github.com/shadcn.png` : user?.data?.avatar}/>
                         <AvatarFallback>{user?.data?.fullname || "CN"}</AvatarFallback>
                     </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-white h-auto max-h-[90vh] mr-8 mt-2 px-0 rounded-xl w-[290px] py-0 border border-gray-300 ">
+                <DropdownMenuContent
+                    className="bg-white h-auto max-h-[90vh] mr-8 mt-2 px-0 rounded-xl w-[290px] py-0 border border-gray-300 ">
                     <DropdownMenuLabel
                         className="sticky top-0 left-0 z-50 gap-3 w-full flex justify-start items-start px-4 py-3 pt-4 bg-white">
                         <div className="">
                             <Avatar>
-                                <AvatarImage src={isLoading ? `https://github.com/shadcn.png`: user?.data?.avatar} />
+                                <AvatarImage src={isLoading ? `https://github.com/shadcn.png` : user?.data?.avatar}/>
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
                         </div>
@@ -80,13 +81,12 @@ const AvatarComponent = ({
                                 className="text-md w-full py-3 px-5 flex justify-start items-center gap-3 cursor-pointer"
                                 onClick={async () => {
                                     if (item.label === 'Sign out') {
+                                        router.push('/');
                                         const logoutRes = await logoutUser.mutateAsync();
                                         if (logoutRes.success) {
                                             toast.success('Logged out successfully');
                                             logout();
-                                            router.push('/');
                                             setIsLoggedIn(false);
-
                                         }
                                     }
                                 }}
