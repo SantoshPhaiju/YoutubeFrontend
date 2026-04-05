@@ -13,6 +13,7 @@ import {cookies} from "next/headers";
 import {formatViews} from "@/utils/formatVideoView";
 import ChannelInfo from "@/components/video/ChannelInfo";
 import VideoView from "@/components/video/videoView";
+import LikeComponent from "@/components/video/LikeComponent";
 
 interface WatchPageProps {
     searchParams: {
@@ -38,7 +39,7 @@ const Page = async ({searchParams}: WatchPageProps) => {
             notFound();
         }
     })();
-    console.log(videoId, video);
+
     const videoOwner = Array.isArray(video.owner) ? video.owner[0] : video.owner;
     const isOwner = userData?.username === videoOwner.username;
 
@@ -80,18 +81,7 @@ const Page = async ({searchParams}: WatchPageProps) => {
                                     </div>
                                     <div
                                         className="flex justify-start xl:justify-end gap-1 md:gap-2 flex-wrap items-center ">
-                                        <div className="flex justify-between items-center rounded-full bg-gray-100">
-                                            <div
-                                                className="flex justify-center border-r border-border items-center rounded-l-full gap-1 md:gap-2 p-1.5 px-3 md:p-2 md:px-4 hover:bg-gray-200">
-                                                <BiLike className={"text-[16px] md:text-[20px]"}/>
-                                                <p className="font-sans font-semibold text-[12px] md:text-sm">{
-                                                    formatViews(video.likeCount)
-                                                }</p>
-                                            </div>
-                                            <div className="p-1.5 px-3 md:p-2 md:px-4 rounded-r-full hover:bg-gray-200">
-                                                <BiDislike className={"text-[16px] md:text-[20px]"}/>
-                                            </div>
-                                        </div>
+                                        <LikeComponent isLiked={video?.isLiked || false} likeCount={video?.likeCount} videoId={video?._id} />
                                         <div
                                             className="flex justify-center bg-gray-100 items-center rounded-full gap-1 md:gap-2 p-1.5 px-3 md:p-2 md:px-4 hover:bg-gray-200">
                                             <PiShareFatLight className={"text-[16px] md:text-[20px]"}/>
