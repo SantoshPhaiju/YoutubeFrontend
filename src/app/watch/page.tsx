@@ -5,7 +5,7 @@ import SemiVideo from "@/components/semiVideoComponent";
 import ClientVideoPageLayout from "@/components/video/client-vidoepage-layout.client";
 import {FiBookmark} from "react-icons/fi";
 import {PiShareFatLight} from "react-icons/pi";
-import { getVideoByIdCached } from "@/services/api/videos/video.service";
+import {getVideoByIdCached, getVideoComments} from "@/services/api/videos/video.service";
 import {formatDate} from "@/utils/formatDate";
 import {notFound} from "next/navigation";
 import {cookies} from "next/headers";
@@ -22,7 +22,7 @@ interface WatchPageProps {
 }
 
 
-export async function generateMetadata({ searchParams }: WatchPageProps): Promise<Metadata> {
+export async function generateMetadata({searchParams}: WatchPageProps): Promise<Metadata> {
     const cookieStore = await cookies();
     const user = cookieStore.get("user");
     const userData = user ? JSON.parse(user.value) : null;
@@ -54,12 +54,23 @@ const Page = async ({searchParams}: WatchPageProps) => {
     // const video = await getVideoById({ id: videoId });
     const video = await (async () => {
         try {
-
             return await getVideoByIdCached(videoId, userData?._id);
         } catch (error) {
             notFound();
         }
     })();
+
+    const comments = await (
+        async () => {
+            try {
+                return await getVideoComments({videoId});
+            } catch (error) {
+                console.error("Error fetching comments:", error);
+                return [];
+            }
+        }
+    )();
+    console.log("comments", comments);
 
     const videoOwner = Array.isArray(video.owner) ? video.owner[0] : video.owner;
     const isOwner = userData?.username === videoOwner.username;
@@ -102,7 +113,8 @@ const Page = async ({searchParams}: WatchPageProps) => {
                                     </div>
                                     <div
                                         className="flex justify-start xl:justify-end gap-1 md:gap-2 flex-wrap items-center ">
-                                        <LikeComponent isDisliked={video?.isDisliked} isLiked={video?.isLiked || false} likeCount={video?.likeCount} videoId={video?._id} />
+                                        <LikeComponent isDisliked={video?.isDisliked} isLiked={video?.isLiked || false}
+                                                       likeCount={video?.likeCount} videoId={video?._id}/>
                                         <div
                                             className="flex justify-center bg-gray-100 items-center rounded-full gap-1 md:gap-2 p-1.5 px-3 md:p-2 md:px-4 hover:bg-gray-200">
                                             <PiShareFatLight className={"text-[16px] md:text-[20px]"}/>
@@ -126,14 +138,15 @@ const Page = async ({searchParams}: WatchPageProps) => {
                                 className="descriptionSection flex flex-col gap-2 py-[12px] px-[12px] h-auto w-full bg-gray-100 rounded-xl">
                                 <div
                                     className="flex justify-start items-center gap-2 font-semibold text-[15px] font-roboto">
-                                    <VideoView videoDuration={video.duration} videoId={video._id} viewCount={video.viewCount}/>
+                                    <VideoView videoDuration={video.duration} videoId={video._id}
+                                               viewCount={video.viewCount}/>
                                     <div>{
                                         formatDate(video.createdAt)
                                     }</div>
                                 </div>
                                 <SeeMoreComponent videoDescription={video.description}/>
                             </div>
-                            <CommentComponent userData={userData}/>
+                            <CommentComponent comments={comments} userData={userData}/>
                         </div>
                         <div className="rightContainer w-full xl:block xl:w-[30%] ">
                             <SemiNav/>

@@ -55,3 +55,13 @@ export const trackVideoView = async (videoId: string)  => {
     }
 }
 
+export const getCommentsReplies = async (commentId: string) => {
+    try {
+        const response = await api.get(`/comments/${commentId}/replies`);
+        return response.data.data;
+    } catch (error) {
+        console.error("error", error);
+        throw error;
+    }
+}
+

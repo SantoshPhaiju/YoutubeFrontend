@@ -36,6 +36,26 @@ export const getVideoById = async (
     }
 };
 
+export const getVideoComments = async (
+    {videoId}: { videoId: string }
+): Promise<any[]> => {
+    try {
+        const cookieStore = await cookies();
+        const token = cookieStore.get("accessToken")?.value;
+
+        const response: AxiosResponse<any> =
+            await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/videos/${videoId}/comments/`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        return response.data.data;
+    } catch (error) {
+        console.error("error", error);
+        throw error;
+    }
+};
+
 export const getVideoByIdCached = cache(async (id: string, userId?: string) => {
     return await getVideoById({id, userId});
 });
