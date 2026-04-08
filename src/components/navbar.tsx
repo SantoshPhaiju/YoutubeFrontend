@@ -67,7 +67,7 @@ const Navbar = ({
     return (
         <>
             <header
-                className="w-full select-none flex justify-between bg-white items-center fixed top-0 left-0 py-2 px-2 md:px-4 z-40 gap-4">
+                className="w-full select-none flex justify-between bg-white items-center fixed top-0 left-0 py-1.5 px-2 md:px-3.5 z-40 gap-4">
                 <div className="logo select-none flex justify-center items-center gap-1 text-2xl font-semibold">
                     <div
                         // onClick={() => {
@@ -94,17 +94,17 @@ const Navbar = ({
                     >
                         <RxHamburgerMenu/>
                     </div>
-                    <FaYoutube className=" text-red-700"/>
+                    <FaYoutube className="text-3xl! text-red-500"/>
                     <Link
                         href={"/"}
-                        className="text-[18px] font-roboto font-semibold 2xl:text-2xl"
+                        className="text-[18px] -ml-1 font-roboto font-semibold lg:text-xl 2xl:text-3xl relative font-roboto-condensed"
                     >
-                        Santosh
+                        SanTube <span className={"text-xs absolute -top-1 font-normal -right-4"}>NP</span>
                     </Link>
                 </div>
                 <div
-                    className="flex justify-between gap-2 md:gap-4 items-center w-auto sm:w-[90%] md:w-[80%] lg:w-[70%] 2xl:w-[66%]">
-                    <div className="search w-full max-w-150">
+                    className="flex justify-between gap-2 md:gap-4 items-center w-auto sm:w-[90%] md:w-[80%] lg:w-[100%] 2xl:w-[66%]">
+                    <div className="search w-full ">
                         <Search />
                     </div>
 

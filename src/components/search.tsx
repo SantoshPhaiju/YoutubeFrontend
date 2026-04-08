@@ -35,7 +35,7 @@ const Search = () => {
                     className="hidden sm:flex justify-center items-center gap-2 h-full w-full"
                     onSubmit={form.handleSubmit(onSubmit)}
                 >
-                    <div className="flex justify-center items-center gap-0 h-full w-[84%] sm:w-[80%] md:w-[88%]">
+                    <div className="flex justify-center items-center gap-0 h-full w-[84%] sm:w-[80%] md:w-[70%]">
                         <FormField
                             control={form.control}
                             name="searchQuery"
@@ -55,12 +55,12 @@ const Search = () => {
                             type="submit"
                             variant="secondary"
                             size="icon"
-                            className="border-r h-full border-gray-300 pl-2 w-[60px] bg-white border-t border-b rounded-r-full"
+                            className="border-r h-full border-gray-300 pl-1 w-[60px] bg-gray-100 border-t border-b rounded-r-full px-8"
                         >
-                            <IoSearch className="h-[50px] w-[50px]"/>
+                            <IoSearch className="h-[24px]! w-[24px]!"/>
                         </Button>
                     </div>
-                    <div className="w-[14%] sm:w-[18%] md:w-[14%] flex justify-center items-center h-full">
+                    <div className=" flex justify-center items-center h-full">
                         <div
                             className="h-10 w-10 flex justify-center items-center bg-gray-200 hover:bg-gray-300 rounded-full cursor-pointer">
                             <FaMicrophone/>
@@ -70,7 +70,7 @@ const Search = () => {
             </Form>
 
             <div className="flex justify-center items-center h-full gap-1 sm:hidden">
-                <IoSearch className="h-[24px] w-[24px] text-gray-600"/>
+                <IoSearch className="h-[32px] w-[32px] text-gray-600"/>
 
                 <div
                     className="h-9 w-9 flex justify-center items-center bg-gray-200 hover:bg-gray-300 rounded-full cursor-pointer">

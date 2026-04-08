@@ -60,6 +60,8 @@ const Page = async ({searchParams}: WatchPageProps) => {
         }
     })();
 
+    console.log("video", video);
+
     const comments = await (
         async () => {
             try {
@@ -82,11 +84,11 @@ const Page = async ({searchParams}: WatchPageProps) => {
     return (
         <>
             <ClientVideoPageLayout>
-                <div className="px-4 md:px-8 lg:px-12 xl:px-16 pb-2 z-0">
+                <div className="px-2 md:px-4 lg:px-6 pb-2 -mt-4 z-0">
                     {/* <Videopage /> */}
                     <div
                         className="w-full px-2 mx-auto h-auto cursor-pointer flex flex-col xl:flex-row xl:justify-center xl:items-start gap-6">
-                        <div className="leftContainer w-full flex flex-col gap-3 xl:w-[70%] ">
+                        <div className="leftContainer w-full flex flex-col gap-3 xl:w-[73%] ">
                             <div className="videoPlayer w-full rounded-xl overflow-hidden aspect-video">
                                 {/*<Image*/}
                                 {/*  src={"/assets/thumb.jpg"}*/}
@@ -148,7 +150,7 @@ const Page = async ({searchParams}: WatchPageProps) => {
                             </div>
                             <CommentComponent comments={comments} userData={userData}/>
                         </div>
-                        <div className="rightContainer w-full xl:block xl:w-[30%] ">
+                        <div className="rightContainer w-full xl:block xl:w-[27%] ">
                             <SemiNav/>
                             <SemiVideo/>
                             <SemiVideo/>
