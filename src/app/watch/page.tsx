@@ -1,4 +1,4 @@
-import CommentComponent from "@/components/video/comment/comment-component";
+import CommentsSection from "@/components/video/comment/CommentsSection";
 import SeeMoreComponent from "@/components/video/seemore/see-more-component";
 import SemiNav from "@/components/semi-nav";
 import SemiVideo from "@/components/semiVideoComponent";
@@ -148,7 +148,7 @@ const Page = async ({searchParams}: WatchPageProps) => {
                                 </div>
                                 <SeeMoreComponent videoDescription={video.description}/>
                             </div>
-                            <CommentComponent comments={comments} userData={userData}/>
+                            <CommentsSection videoOwnerId={videoOwner._id} comments={comments} userData={userData} videoId={video._id}/>
                         </div>
                         <div className="rightContainer w-full xl:block xl:w-[27%] ">
                             <SemiNav/>

@@ -8,19 +8,34 @@ import {IoMdClose} from "react-icons/io";
 import {MdKeyboardArrowDown} from "react-icons/md";
 import {Avatar, AvatarFallback, AvatarImage} from "../../ui/avatar";
 import {Button} from "../../ui/button";
-import {formatDate} from "@/utils/formatDate";
-import {timeAgo} from "@/utils/timeAgo";
-import {formatViews} from "@/utils/formatVideoView";
-import {Badge} from "@/components/ui/badge";
-import CommentReplies from "@/components/video/comment/CommentReplies";
+import Comment from "@/components/video/comment/Comment";
+import {useCreateCommentMutation} from "@/services/mutations/commentMutation";
+import {User} from "@/store/userStore";
+import {toast} from "sonner";
 
-const CommentComponent = ({userData, comments}: { userData: any, comments: any }) => {
+const CommentsSection = ({userData, comments, videoId, videoOwnerId}: { userData: User, comments: any, videoId: string, videoOwnerId: string }) => {
     const [showCommentModal, setShowCommentModal] = useState(false);
-    const [showCommentReplies, setShowCommentReplies] = useState(false);
+    const [commentsClient, setCommentsClient] = useState<any>(comments);
+    const [comment, setComment] = useState<any>("");
+    const createCommentMutation = useCreateCommentMutation();
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+        console.log("comment", comment);
+        const response = await createCommentMutation.mutateAsync({videoId, comment});
+        if (response.success) {
+            setCommentsClient([...commentsClient, response.data]);
+            setComment("");
+            toast.success(response.message);
+        } else {
+            console.log(response.message);
+            toast.error(response.message);
+        }
+    }
 
     return (
         <>
-            <div className="commentSection ">
+            <div className="commentSection">
                 <div className="large hidden xl:flex flex-col gap-4 h-auto mb-4 mt-4 w-full">
                     <h1 className="font-semibold text-[20px]">{comments.length} Comments</h1>
                     <div className="addComment flex gap-4 w-full items-start">
@@ -28,112 +43,48 @@ const CommentComponent = ({userData, comments}: { userData: any, comments: any }
                             <Avatar className="">
                                 <AvatarImage
                                     src={userData?.avatar || `https://github.com/shadcn.png`}
-                                    alt="@shadcn"
+                                    alt={`@${userData?.username || "User"}`}
                                     className="rounded-[50%] z-0"
                                 />
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
                         </div>
                         <div className="w-full flex flex-col gap-2">
-                            <input
-                                type="text"
-                                name="comment"
-                                id="comment"
-                                placeholder="Add a comment..."
-                                className="w-full transition-all duration-300 border-b-2 border-gray-300 text-md py-[4px] outline-hidden focus:outline-hidden focus:border-black"
-                            />
-                            <div className="flex justify-end gap-2 items-center">
-                                <Button
-                                    variant={"ghost"}
-                                    className="text-sm font-semibold rounded-full"
-                                >
-                                    Cancel
-                                </Button>
-                                <Button
-                                    variant={"default"}
-                                    className="text-sm font-semibold rounded-full bg-gray-200 text-black hover:bg-gray-300"
-                                >
-                                    Comment
-                                </Button>
-                            </div>
+                            <form onSubmit={handleSubmit}>
+                                <input
+                                    type="text"
+                                    name="comment"
+                                    id="comment"
+                                    placeholder="Add a comment..."
+                                    value={comment}
+                                    onChange={(e) => setComment(e.target.value)}
+                                    className="w-full transition-all duration-300 border-b-2 border-gray-300 text-md py-[4px] outline-hidden focus:outline-hidden focus:border-black"
+                                />
+                                <div className="flex justify-end gap-2 items-center mt-2">
+                                    <Button
+                                        variant={"ghost"}
+                                        className="text-sm font-semibold rounded-full"
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        variant={"default"}
+                                        type={"submit"}
+                                        className="text-sm font-semibold rounded-full bg-gray-200 text-black hover:bg-gray-300"
+                                    >
+                                        Comment
+                                    </Button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div className="comments flex flex-col gap-4 w-full">
                         {
-                            comments.length > 0 ? comments.map((comment: any, index: number) => (
-                                <div key={index} className="comment flex gap-3 w-full">
-                                    <div className="w-10 h-10 z-0">
-                                        <Avatar className="">
-                                            <AvatarImage
-                                                src={comment?.author?.avatar}
-                                                alt={comment?.author?.fullname || "User"}
-                                                className="rounded-[50%] z-0"
-                                            />
-                                            <AvatarFallback>CN</AvatarFallback>
-                                        </Avatar>
+                            commentsClient.length > 0 ? commentsClient.map((comment: any, index: number) => (
+                                    <div key={index} className="comment">
+                                        <Comment videoOwnerId={videoOwnerId} comment={comment}/>
                                     </div>
-                                    <div>
-                                        <div className="flex gap-1 items-center justify-start">
-                                            {userData?._id === comment?.author?._id ?
-                                                (<>
-                                                        <Badge className={"px-1 mr-1"}>
-                                                            @{comment?.author?.username}
-                                                        </Badge>
-                                                    </>
-                                                ) : (
-                                                    <div className="text-gray-800 text-xs font-semibold">
-                                                        @{comment?.author?.username}
-                                                    </div>
-                                                )}
-                                            <div className="text-gray-600 text-[12px] font-normal">
-                                                {timeAgo(comment?.createdAt)}
-                                            </div>
-                                        </div>
-                                        <div className={"mt-1 text-[15px]"}>
-                                            {comment?.content}
-                                        </div>
-                                        <div className="flex justify-start gap-4 items-center mt-2 text-md">
-                                            <div className="likes flex justify-start items-center gap-2">
-                                                <div className="flex justify-center items-center gap-1">
-                                                    <div
-                                                        className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
-                                                        <BiLike size={18} className=""/>
-                                                    </div>
-                                                    <p className="font-sans font-semibold text-sm">{formatViews(comment?.likeCount)}</p>
-                                                </div>
-                                                <div className="">
-                                                    <div
-                                                        className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
-                                                        <BiDislike size={18}/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <Button variant={"ghost"}
-                                                    className={"shadow-none cursor-pointer rounded-full transition-all duration-300 hover:bg-accent text-xs py-1 px-3"}>
-                                                Reply
-                                            </Button>
-                                        </div>
-                                        {!showCommentReplies ? (<div
-                                            className="flex justify-center gap-1 items-center mt-2 text-sm text-black font-medium cursor-pointer hover:bg-gray-200 transition-all duration-300 py-2 px-2 rounded-full w-[120px] select-none mb-1 text-center"
-                                            onClick={() => {
-                                                setShowCommentReplies(true);
-                                            }}>
-
-                                            <div className={"flex gap-1.5 items-center"}>
-                                                <div className={"w-1 h-1 bg-black rounded-full"}></div>
-                                                {formatViews(comment?.totalReplies)} replies
-                                            </div>
-                                            <div>
-                                                <MdKeyboardArrowDown size={24}/>
-                                            </div>
-                                        </div>) : (
-                                            <CommentReplies userData={userData}
-                                                            commentId={comment?._id}/>
-                                        )
-                                        }
-                                    </div>
-                                </div>
-                            ))
+                                ))
                                 : (
                                     <div>
                                         No comments yet
@@ -476,4 +427,4 @@ const CommentComponent = ({userData, comments}: { userData: any, comments: any }
     );
 };
 
-export default CommentComponent;
+export default CommentsSection;
