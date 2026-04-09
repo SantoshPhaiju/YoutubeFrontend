@@ -30,6 +30,7 @@ import {cn} from "@/lib/utils";
 import ImageCropModal from "@/components/ImageCropModal";
 import Image from "next/image";
 import {useRouter} from "next/navigation";
+import useUserStore from "@/store/userStore";
 
 const SigninModal = () => {
     const [open, setOpen] = useState(false);
@@ -39,6 +40,7 @@ const SigninModal = () => {
     const router = useRouter();
 
     const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
+    const setUser = useUserStore((state) => state.setUser);
     const setAccessToken = useAuthStore((state) => state.setAccessToken);
     const setRefreshToken = useAuthStore((state) => state.setRefreshToken);
     const loginMutation = useLoginUser();
@@ -75,6 +77,7 @@ const SigninModal = () => {
             setAccessToken(data.data.token);
             setRefreshToken(data.data.refreshToken);
             setIsLoggedIn(true);
+            setUser(data.data.user);
             toast.success("Login successful");
             setOpen(false);
         } else {
