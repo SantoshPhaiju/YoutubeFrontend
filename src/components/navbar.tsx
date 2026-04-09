@@ -97,7 +97,7 @@ const Navbar = ({
                     <FaYoutube className="text-3xl! text-red-500"/>
                     <Link
                         href={"/"}
-                        className="text-[18px] -ml-1 font-roboto font-semibold lg:text-xl 2xl:text-3xl relative font-roboto-condensed"
+                        className="text-[18px] -ml-1 font-roboto font-semibold lg:text-xl relative font-roboto-condensed"
                     >
                         SanTube <span className={"text-xs absolute -top-1 font-normal -right-4"}>NP</span>
                     </Link>
