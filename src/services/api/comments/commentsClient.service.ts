@@ -3,8 +3,7 @@ import api from "@/services/axios";
 export const replyToComment = async (commentId: string) => {
     try {
         const response = await api.post(`/comments/${commentId}/reply`);
-    } catch (e)
-    {
+    } catch (e) {
         console.error(e);
         throw e;
     }
@@ -16,8 +15,7 @@ export const createComment = async (videoId: string, comment: string) => {
             comment,
         });
         return response.data;
-    } catch (e)
-    {
+    } catch (e) {
         console.error(e);
         throw e;
     }

@@ -13,7 +13,12 @@ import {useCreateCommentMutation} from "@/services/mutations/commentMutation";
 import {User} from "@/store/userStore";
 import {toast} from "sonner";
 
-const CommentsSection = ({userData, comments, videoId, videoOwnerId}: { userData: User, comments: any, videoId: string, videoOwnerId: string }) => {
+const CommentsSection = ({userData, comments, videoId, videoOwnerId}: {
+    userData: User,
+    comments: any,
+    videoId: string,
+    videoOwnerId: string
+}) => {
     const [showCommentModal, setShowCommentModal] = useState(false);
     const [commentsClient, setCommentsClient] = useState<any>(comments);
     const [comment, setComment] = useState<any>("");
@@ -78,6 +83,14 @@ const CommentsSection = ({userData, comments, videoId, videoOwnerId}: { userData
                             </form>
                         </div>
                     </div>
+                    <div className="filters flex gap-2 items-center justify-start">
+                        <Button size={"sm"} variant={"default"} className="py-1 ">
+                            Top
+                        </Button>
+                        <Button size={"sm"} variant={"secondary"} className="py-1">
+                            Newest
+                        </Button>
+                    </div>
                     <div className="comments flex flex-col gap-4 w-full">
                         {
                             commentsClient.length > 0 ? commentsClient.map((comment: any, index: number) => (
@@ -136,7 +149,7 @@ const CommentsSection = ({userData, comments, videoId, videoOwnerId}: { userData
             </div>
 
             <AnimatePresence>
-                {showCommentModal === true && (
+                {showCommentModal && (
                     <motion.div
                         initial={{y: "200%"}}
                         animate={{y: 0}}
