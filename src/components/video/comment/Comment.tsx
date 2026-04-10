@@ -10,16 +10,20 @@ import {MdKeyboardArrowDown} from "react-icons/md";
 import CommentReplies from "@/components/video/comment/CommentReplies";
 import useUserStore, {User} from "@/store/userStore";
 import {useState} from "react";
+import ReplyInput from "@/components/video/comment/ReplyInput";
 
 const Comment = ({
                      comment,
-    videoOwnerId
+                     videoOwnerId
                  }: {
     comment: any,
     videoOwnerId: string,
 }) => {
     const [showCommentReplies, setShowCommentReplies] = useState(false);
     const userData: User | null = useUserStore((state) => state.user);
+
+    const [showReply, setShowReply] = useState("");
+
     return (
         <>
             <div className="comment flex gap-3 w-full">
@@ -33,8 +37,8 @@ const Comment = ({
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                 </div>
-                <div>
-                    <div className="flex gap-1 items-center justify-start">
+                <div className={"w-full"}>
+                    <div className="flex gap-1 items-center justify-start w-full">
                         {videoOwnerId === comment?.author?._id ?
                             (<>
                                     <Badge className={"px-1 mr-1"}>
@@ -69,11 +73,19 @@ const Comment = ({
                                 </div>
                             </div>
                         </div>
-                        <Button variant={"ghost"}
-                                className={"shadow-none cursor-pointer rounded-full transition-all duration-300 hover:bg-accent text-xs py-1 px-3"}>
+                        <Button
+                            onClick={() => {
+                                setShowReply(comment?._id);
+                            }}
+                            variant={"ghost"}
+                            className={"shadow-none cursor-pointer rounded-full transition-all duration-300 hover:bg-accent text-xs py-1 px-3"}>
                             Reply
                         </Button>
+
                     </div>
+                    {showReply === comment._id && (
+                        <ReplyInput setShowReply={setShowReply} />
+                    )}
                     {comment?.totalReplies > 0 && (
                         !showCommentReplies ? (<div
                             className="flex justify-center gap-1 items-center mt-2 text-sm text-black font-medium cursor-pointer hover:bg-gray-200 transition-all duration-300 py-2 px-2 rounded-full w-[120px] select-none mb-1 text-center"
