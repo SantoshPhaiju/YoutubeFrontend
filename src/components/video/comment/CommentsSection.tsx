@@ -58,8 +58,8 @@ const CommentsSection = ({
             {comments.length} Comments
           </h1>
           <div className="addComment flex gap-4 w-full items-start">
-            <div className="w-[40px] h-[40px] z-0">
-              <Avatar className="">
+            <div className="w-[30px] h-[30px] z-0">
+              <Avatar className="w-[30px] h-[30px]">
                 <AvatarImage
                   src={userData?.avatar || `https://github.com/shadcn.png`}
                   alt={`@${userData?.username || "User"}`}

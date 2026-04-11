@@ -14,9 +14,11 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 const CommentReplyComp = ({
   comment,
   userData,
+    videoOwnerId,
 }: {
   comment: any;
   userData: any;
+  videoOwnerId: string;
 }) => {
   const [showReply, setShowReply] = useState("");
   const [showNestedReplies, setShowNestedReplies] = useState(true);
@@ -33,23 +35,6 @@ const CommentReplyComp = ({
         }`}
         data-level={comment?.level}
       >
-        {/* The L-shaped connector */}
-        {/* <div
-                                            className="shrink-0 transition-all duration-200 hover:border-[#000]"
-                                            style={{
-                                                position: 'absolute',
-                                                left: '-32.5px',           // = avatar width (32px) /
-                                                width: '20px',
-                                                height: '20px',           // = half of avatar height (32px / 2)
-                                                borderLeft: '1px solid #e5e7eb',
-                                                borderBottom: '1px solid #e5e7eb',
-                                                borderBottomLeftRadius: '10px',
-                                                alignSelf: 'flex-start',
-                                                marginTop: '0px',
-                                                flexShrink: 0,
-                                            }}
-                                        /> */}
-        {/* L-connector — now uses CSS class, hover works via parent group */}
         <div
           className="reply-l-connector"
           style={{
@@ -85,7 +70,7 @@ const CommentReplyComp = ({
         </div>
         <div className={"w-full"}>
           <div className="flex gap-1 items-center justify-start">
-            {userData?._id === comment?.author?._id ? (
+            {videoOwnerId === comment?.author?._id ? (
               <>
                 <Badge className={"px-1 mr-1"}>
                   @{comment?.author?.username}
@@ -135,7 +120,7 @@ const CommentReplyComp = ({
               <>
                 {comment.replies.map((reply: any, index: number) => (
                   <div key={index}>
-                    <CommentReplyComp comment={reply} userData={userData} />
+                    <CommentReplyComp videoOwnerId={videoOwnerId} comment={reply} userData={userData} />
                   </div>
                 ))}
                 <div

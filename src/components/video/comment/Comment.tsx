@@ -125,7 +125,7 @@ const Comment = ({
               </div>
             ) : (
               <>
-                <CommentReplies userData={userData} commentId={comment?._id} />
+                <CommentReplies videoOwnerId={videoOwnerId} userData={userData} commentId={comment?._id} />
                 <div
                   className="flex justify-center gap-1 items-center mt-3 text-sm text-black font-medium cursor-pointer hover:bg-gray-200 transition-all duration-300 py-2 px-2 rounded-full w-fit select-none mb-1"
                   onClick={() => setShowCommentReplies(false)}

@@ -6,9 +6,11 @@ import CommentReplyComp from "@/components/video/comment/CommentReplyComp";
 const CommentReplies = ({
                             commentId,
                             userData,
+    videoOwnerId,
                         }: {
     commentId: string;
     userData: any;
+    videoOwnerId: string;
 }) => {
 
     const {data, isLoading, isError, error} = useCommentReplyData(commentId);
@@ -23,7 +25,7 @@ const CommentReplies = ({
                 data.map((comment: any, index: number) => {
                     return (
                         <div key={index} className="-ml-1">
-                            <CommentReplyComp userData={userData} comment={comment}/>
+                            <CommentReplyComp videoOwnerId={videoOwnerId} userData={userData} comment={comment}/>
                         </div>
                     )
                 })
