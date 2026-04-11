@@ -124,10 +124,89 @@
   --breakpoint-small: 30rem;
 }
 
+/* Thread lines for comment replies (YouTube/Reddit style) */
+.thread-line-track {
+  flex: 1;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  padding-top: 4px;
+  padding-bottom: 34px;
+  cursor: pointer;
+  position: relative;
+  border: none;
+}
 
+.thread-line {
+  width: 1px;
+  height: 100%;
+  background-color: #e5e7eb;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.thread-line::after {
+  content: "";
+  position: absolute;
+  bottom: -12px;
+  left: 0;
+  width: 20px;
+  height: 14px;
+  border-left: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  border-bottom-left-radius: 24px;
+  border-right: none;
+  border-top: none;
+  transition: border-color 0.2s ease;
+}
+
+.thread-line-track:hover .thread-line {
+  background-color: #000;
+}
+
+.thread-line-track:hover .thread-line::after {
+  border-color: #000;
+}
+
+/* Highlight L-connector when parent thread-line is hovered */
+.comment.thread-level-hovered > .reply-l-connector {
+  border-color: #000 !important;
+}
+
+/* ── ADD THESE NEW ONES ── */
+
+/* The L-connector div on each reply */
+.reply-l-connector {
+  position: absolute;
+  left: -32.5px;
+  width: 20px;
+  height: 18px;
+  border-left: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  border-bottom-left-radius: 20px;
+  transition: border-color 0.2s ease; /* smooth hover */
+  align-self: "flex-start";
+  margin-top: "0px";
+  flex-shrink: 0;
+}
+
+/* 
+  The hover group wrapper — wraps the spine + the reply content together.
+  When user hovers anywhere in this group, both the spine AND
+  the L-connector change color at the same time.
+*/
+.reply-hover-group:hover .reply-l-connector {
+  border-color: #000;
+}
+
+.reply-hover-group:hover .thread-line {
+  background-color: #000;
+}
+
+.reply-hover-group:hover .thread-line::after {
+  border-color: #000;
+}
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
-
-

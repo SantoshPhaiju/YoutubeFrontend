@@ -14,6 +14,7 @@ export function useLoginUser() {
         },
         onError: (error) => {
             console.error(error);
+            toast.error(error.message);
             if(axios.isAxiosError(error)) {
                 toast.error(error.response?.data.message || "Something went wrong")
             }

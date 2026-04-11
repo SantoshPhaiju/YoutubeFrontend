@@ -17,13 +17,12 @@ const CommentReplies = ({
 
     if (isError) return <div>Error loading replies: {error.message}</div>;
 
-    console.log("commentreplies", data);
     return (
         <>
             {
                 data.map((comment: any, index: number) => {
                     return (
-                        <div key={index}>
+                        <div key={index} className="-ml-1">
                             <CommentReplyComp userData={userData} comment={comment}/>
                         </div>
                     )

@@ -71,6 +71,7 @@ const SigninModal = () => {
     const onLogin = async (values: z.infer<typeof loginFormSchema>) => {
         const payload = values;
         const data = await loginMutation.mutateAsync(payload);
+        toast.success(`palyload: ${JSON.stringify(payload)}`);
 
         if (data.statusCode === 200) {
             router.push("/");
