@@ -31,8 +31,6 @@ const CommentsSection = ({
   const [hoveredLevel, setHoveredLevel] = useState<number | null>(null);
   const createCommentMutation = useCreateCommentMutation();
 
-  console.log("CommentSection - hoveredLevel:", hoveredLevel);
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log("comment", comment);
