@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { useCreateCommentMutation } from "@/services/mutations/commentMutation";
 import { User } from "@/store/userStore";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { BiDislike, BiLike } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 import { MdKeyboardArrowDown } from "react-icons/md";
@@ -31,6 +31,15 @@ const CommentsSection = ({
   const [hoveredLevel, setHoveredLevel] = useState<number | null>(null);
   const createCommentMutation = useCreateCommentMutation();
 
+  useEffect(() => {
+    const newComments = comments.map((comment: any) => ({
+      ...comment,
+      replies: []
+    }));
+
+    setCommentsClient(newComments);
+  }, [comments]);
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log("comment", comment);
@@ -39,7 +48,10 @@ const CommentsSection = ({
       comment,
     });
     if (response.success) {
-      setCommentsClient([...commentsClient, response.data]);
+      let newComment = response.data;
+      newComment.replies = [];
+
+      setCommentsClient([...commentsClient, newComment]);
       setComment("");
       toast.success(response.message);
     } else {
@@ -75,7 +87,7 @@ const CommentsSection = ({
                   placeholder="Add a comment..."
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
-                  className="w-full transition-all duration-300 border-b-2 border-gray-300 text-md py-[4px] outline-hidden focus:outline-hidden focus:border-black"
+                  className="w-full transition-all duration-300 border-b-2 border-gray-300 text-md py-1 outline-hidden focus:outline-hidden focus:border-black"
                 />
                 <div className="flex justify-end gap-2 items-center mt-2">
                   <Button

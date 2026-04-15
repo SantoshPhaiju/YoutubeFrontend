@@ -10,27 +10,67 @@ import { timeAgo } from "@/utils/timeAgo";
 import { useContext, useState } from "react";
 import { BiDislike, BiLike } from "react-icons/bi";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import { useReplyToCommentMutation } from "@/services/mutations/commentMutation";
+import { useCommentReplyData } from "@/services/queries/commentQuery";
+import { toast } from "sonner";
+import {useQueryClient} from "@tanstack/react-query";
 
 const CommentReplyComp = ({
   comment,
   userData,
-    videoOwnerId,
+  videoOwnerId,
 }: {
   comment: any;
   userData: any;
   videoOwnerId: string;
 }) => {
+  console.log("comment in commentreply reply haha", comment);
   const [showReply, setShowReply] = useState("");
+  const [reply, setReply] = useState("");
   const [showNestedReplies, setShowNestedReplies] = useState(true);
+  const useReplyMutation = useReplyToCommentMutation();
+  const { refetch } = useCommentReplyData(comment?._id);
   const hoverContext = useContext(CommentHoverContext);
+  const queryClient = useQueryClient();
 
   const currentLevel = comment?.level || 0;
   const shouldHighlight = hoverContext?.hoveredLevel === currentLevel - 1;
 
+  const handleNestedReply = async (e: any) => {
+    e.preventDefault();
+
+    try {
+      const response = await useReplyMutation.mutateAsync({commentId: comment?._id, comment: reply});
+      if (response.success) {
+        console.log('response.data', response.data);
+        setShowReply("");
+        setReply("");
+
+        const invalidated = await queryClient.invalidateQueries({
+          queryKey: ["commentReplyData", comment.rootId],
+        });
+        console.log("invalidated", invalidated);
+          // const refetched = await refetch();
+          // console.log("refetched", refetched);
+          // const newReply = response.data;
+          // newReply.replies = [];
+          // comment.replies.push(newReply);
+          // comment.totalReplies = comment.totalReplies + 1;
+
+      }
+    } catch (e: any) {
+      console.log(e.message);
+      toast.error(e.message);
+    }
+  }
+
   return (
     <>
       <div
-        className={`comment flex gap-3 w-full mt-2 relative ml-1 ${
+          style={{
+            marginLeft: comment?.level == 1 ? "4px" : "8px",
+          }}
+        className={`comment flex gap-3 w-full mt-2 relative ${
           shouldHighlight ? "thread-level-hovered" : ""
         }`}
         data-level={comment?.level}
@@ -113,16 +153,34 @@ const CommentReplyComp = ({
             </Button>
           </div>
           {showReply === comment._id && (
-            <ReplyInput setShowReply={setShowReply} />
+            <ReplyInput reply={reply} handleReply={handleNestedReply} setReply={setReply} comment={comment} setShowReply={setShowReply} />
           )}
-          {comment?.replies?.length > 0 &&
-            (showNestedReplies ? (
+          {
+            comment?.replies?.length > 0 && comment?.replies.map((reply: any, index: number) => {
+              return (
+                <div key={index} className="-ml-1">
+                  <CommentReplyComp videoOwnerId={videoOwnerId}
+                                    userData={userData} comment={reply}/>
+                </div>
+              )
+            })
+          }
+          {comment?.totalReplies > 0 &&
+            (!showNestedReplies ? (
+              <div
+                className="flex justify-center gap-1 items-center mt-2 text-sm text-black font-medium cursor-pointer hover:bg-gray-200 transition-all duration-300 py-2 px-2 rounded-full w-fit select-none mb-1 text-center"
+                onClick={() => setShowNestedReplies(true)}
+              >
+                <div className={"flex gap-1.5 items-center"}>
+                  <div className={"w-1 h-1 bg-black rounded-full"}></div>
+                  {formatViews(comment?.totalReplies || 0)} replies
+                </div>
+                <div>
+                  <MdKeyboardArrowDown size={24}/>
+                </div>
+              </div>
+            ) : (
               <>
-                {comment.replies.map((reply: any, index: number) => (
-                  <div key={index}>
-                    <CommentReplyComp videoOwnerId={videoOwnerId} comment={reply} userData={userData} />
-                  </div>
-                ))}
                 <div
                   className="flex justify-center gap-1 items-center mt-3 text-sm text-black font-medium cursor-pointer hover:bg-gray-200 transition-all duration-300 py-2 px-2 rounded-full w-fit select-none mb-1"
                   onClick={() => setShowNestedReplies(false)}
@@ -133,20 +191,6 @@ const CommentReplyComp = ({
                   </div>
                 </div>
               </>
-            ) : (
-              <div
-                className="flex justify-center gap-1 items-center mt-2 text-sm text-black font-medium cursor-pointer hover:bg-gray-200 transition-all duration-300 py-2 px-2 rounded-full w-fit select-none mb-1"
-                onClick={() => setShowNestedReplies(true)}
-              >
-                <div className="flex gap-1.5 items-center">
-                  <div className="w-1 h-1 bg-black rounded-full"></div>
-                  {comment.totalReplies}{" "}
-                  {comment.totalReplies === 1 ? "reply" : "replies"}
-                </div>
-                <div>
-                  <MdKeyboardArrowDown size={20} />
-                </div>
-              </div>
             ))}
         </div>
       </div>

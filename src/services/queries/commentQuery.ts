@@ -5,8 +5,7 @@ export function useCommentReplyData(commentId: string) {
     return useQuery({
         queryKey: ["commentReplyData", commentId],
         queryFn: async ({queryKey}) => {
-            const data = await getCommentsReplies(queryKey[1] as string);
-            return data;
+            return await getCommentsReplies(queryKey[1] as string);
         },
         staleTime: 0,
     })

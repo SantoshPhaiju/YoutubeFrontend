@@ -1,8 +1,11 @@
 import api from "@/services/axios";
 
-export const replyToComment = async (commentId: string) => {
+export const replyToComment = async (commentId: string, comment: string) => {
     try {
-        const response = await api.post(`/comments/${commentId}/reply`);
+        const response = await api.post(`/comments/${commentId}/reply`, {
+            comment,
+        });
+        return response.data;
     } catch (e) {
         console.error(e);
         throw e;
