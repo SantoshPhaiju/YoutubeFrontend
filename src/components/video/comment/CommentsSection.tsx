@@ -42,7 +42,6 @@ const CommentsSection = ({
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log("comment", comment);
     const response = await createCommentMutation.mutateAsync({
       videoId,
       comment,
@@ -55,7 +54,6 @@ const CommentsSection = ({
       setComment("");
       toast.success(response.message);
     } else {
-      console.log(response.message);
       toast.error(response.message);
     }
   };

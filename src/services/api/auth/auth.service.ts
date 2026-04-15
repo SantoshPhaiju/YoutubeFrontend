@@ -8,9 +8,7 @@ export const signIn = async (payload: {
     password: string;
 }) => {
     try {
-        console.log("payload", payload);
         const response = await api.post("/users/login", payload);
-        console.log("response", response.data, "");
         return response.data;
     } catch (error) {
         throw error;

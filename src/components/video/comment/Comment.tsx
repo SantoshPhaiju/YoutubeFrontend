@@ -48,7 +48,6 @@ const Comment = ({
         try {
             const response = await useReplyMutation.mutateAsync({commentId: comment?._id, comment: reply});
             if (response.success) {
-                console.log('response.data', response.data);
                 setShowReply("");
                 setReply("");
                 if (showCommentReplies) {

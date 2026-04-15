@@ -24,7 +24,6 @@ const CommentReplyComp = ({
   userData: any;
   videoOwnerId: string;
 }) => {
-  console.log("comment in commentreply reply haha", comment);
   const [showReply, setShowReply] = useState("");
   const [reply, setReply] = useState("");
   const [showNestedReplies, setShowNestedReplies] = useState(true);
@@ -42,16 +41,12 @@ const CommentReplyComp = ({
     try {
       const response = await useReplyMutation.mutateAsync({commentId: comment?._id, comment: reply});
       if (response.success) {
-        console.log('response.data', response.data);
         setShowReply("");
         setReply("");
 
         const invalidated = await queryClient.invalidateQueries({
           queryKey: ["commentReplyData", comment.rootId],
         });
-        console.log("invalidated", invalidated);
-          // const refetched = await refetch();
-          // console.log("refetched", refetched);
           // const newReply = response.data;
           // newReply.replies = [];
           // comment.replies.push(newReply);

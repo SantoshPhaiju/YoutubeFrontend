@@ -72,7 +72,7 @@ const Page = async ({searchParams}: WatchPageProps) => {
             }
         }
     )();
-    console.log("comments", comments);
+
 
     const videoOwner = Array.isArray(video.owner) ? video.owner[0] : video.owner;
     const isOwner = userData?.username === videoOwner.username;
