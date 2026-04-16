@@ -13,6 +13,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Button } from "../../ui/button";
+import useAuthStore from "@/store/authStore";
 
 const CommentsSection = ({
   userData,
@@ -30,6 +31,7 @@ const CommentsSection = ({
   const [comment, setComment] = useState<any>("");
   const [hoveredLevel, setHoveredLevel] = useState<number | null>(null);
   const createCommentMutation = useCreateCommentMutation();
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   useEffect(() => {
     const newComments = comments.map((comment: any) => ({
@@ -41,7 +43,10 @@ const CommentsSection = ({
   }, [comments]);
 
   const handleSubmit = async (e: any) => {
+    console.log('dislodge', isLoggedIn);
     e.preventDefault();
+    if(!isLoggedIn) return toast.error("Please login to comment");
+    if(comment.length === 0) return toast.error("Comment cannot be empty");
     const response = await createCommentMutation.mutateAsync({
       videoId,
       comment,
@@ -97,7 +102,7 @@ const CommentsSection = ({
                   <Button
                     variant={"default"}
                     type={"submit"}
-                    className="text-sm font-semibold rounded-full bg-gray-200 text-black hover:bg-gray-300"
+                    className="text-sm cursor-pointer font-semibold rounded-full bg-gray-200 text-black hover:bg-gray-300"
                   >
                     Comment
                   </Button>
