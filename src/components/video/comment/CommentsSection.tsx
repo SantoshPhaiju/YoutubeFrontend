@@ -43,7 +43,6 @@ const CommentsSection = ({
   }, [comments]);
 
   const handleSubmit = async (e: any) => {
-    console.log('dislodge', isLoggedIn);
     e.preventDefault();
     if(!isLoggedIn) return toast.error("Please login to comment");
     if(comment.length === 0) return toast.error("Comment cannot be empty");
