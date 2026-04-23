@@ -103,8 +103,8 @@ const Navbar = ({
                     </Link>
                 </div>
                 <div
-                    className="flex justify-between gap-2 md:gap-4 items-center w-auto sm:w-[90%] md:w-[80%] lg:w-[100%] 2xl:w-[66%]">
-                    <div className="search w-full ">
+                    className="flex justify-end gap-2 md:gap-4 items-center w-full">
+                    <div className="search w-full">
                         <Search />
                     </div>
 
