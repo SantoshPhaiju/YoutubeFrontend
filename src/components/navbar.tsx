@@ -67,7 +67,7 @@ const Navbar = ({
     return (
         <>
             <header
-                className="w-full select-none flex justify-between bg-white items-center fixed top-0 left-0 py-1.5 px-2 md:px-3.5 z-40 gap-4">
+                className="w-full select-none flex justify-between bg-white items-center fixed top-0 left-0 py-1.5 md:pb-3! pb-3! px-2 md:px-3.5 z-50 gap-4">
                 <div className="logo select-none flex justify-center items-center gap-1 text-2xl font-semibold">
                     <div
                         // onClick={() => {
@@ -132,7 +132,7 @@ const Navbar = ({
             {showCategories && (
                 <div
                     className={cn(
-                        `sticky z-50 top-[57px] flex justify-center items-center pt-5 bg-white ml-[250px] left-[250px]`,
+                        `sticky z-40 top-[70px] flex justify-center items-center pt-5 bg-white ml-[250px] left-[250px]`,
                         {
                             "ml-0 md:ml-[90px]": isSidebarOpen === false,
                         }

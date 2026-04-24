@@ -11,6 +11,8 @@ import { Input } from "./ui/input";
 import { useState } from "react";
 import {FiSearch} from "react-icons/fi";
 import {cn} from "@/lib/utils";
+import {RxCross2} from "react-icons/rx";
+import {LuHistory} from "react-icons/lu";
 
 const formSchema = z.object({
     searchQuery: z.string().min(2).max(50),
@@ -60,10 +62,105 @@ const Search = () => {
                                                 placeholder="Search"
                                                 onFocus={() => setSearchFocus(true)}
                                                 onBlur={() => setSearchFocus(false)}
-                                                className={cn(`px-4 h-full border border-gray-300 focus-visible:ring-transparent focus-visible:border-black rounded-l-full text-[16px] md:text-[18px]`, {
+                                                className={cn(`px-4 h-full border border-gray-300 focus-visible:ring-transparent focus-visible:border-purple-900 z-50 rounded-l-full text-[16px] md:text-[18px] focus:shadow-[inset_0_1px_4px_rgba(0,0,0,0.2)] focus-visible:shadow-[inset_0_1px_4px_rgba(0,0,0,0.2)]`, {
                                                     'pl-[52px]': searchFocus === true
                                                 })}
+                                                autoComplete={"off"}
                                             />
+                                            {searchFocus && <div className={"absolute top-[42px] left-0 bg-white p-2 rounded-xl h-[70vh] overflow-y-auto min-w-[350px] w-full z-[9999] border border-gray-300 shadow-md"}>
+                                                <ul className={"flex flex-col gap-2"}>
+                                                    <li className={"hover:bg-gray-100 w-full cursor-pointer px-2 py-2 rounded-lg flex justify-between items-center"}>
+
+                                                        <div className={"flex justify-start items-center gap-4"}>
+                                                            <div>
+                                                                <LuHistory className={"text-xl font-black"} />
+
+                                                            </div>
+                                                            <div>
+                                                                content here
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <RxCross2 />
+                                                        </div>
+                                                    </li>
+                                                    <li className={"hover:bg-gray-100 w-full cursor-pointer px-2 py-2 rounded-lg flex justify-between items-center"}>
+
+                                                        <div className={"flex justify-start items-center gap-4"}>
+                                                            <div>
+                                                                <LuHistory className={"text-xl font-black"} />
+
+                                                            </div>
+                                                            <div>
+                                                                content here
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <RxCross2 />
+                                                        </div>
+                                                    </li>
+                                                    <li className={"hover:bg-gray-100 w-full cursor-pointer px-2 py-2 rounded-lg flex justify-between items-center"}>
+
+                                                        <div className={"flex justify-start items-center gap-4"}>
+                                                            <div>
+                                                                <LuHistory className={"text-xl font-black"} />
+
+                                                            </div>
+                                                            <div>
+                                                                content here
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <RxCross2 />
+                                                        </div>
+                                                    </li>
+                                                    <li className={"hover:bg-gray-100 w-full cursor-pointer px-2 py-2 rounded-lg flex justify-between items-center"}>
+
+                                                        <div className={"flex justify-start items-center gap-4"}>
+                                                            <div>
+                                                                <LuHistory className={"text-xl font-black"} />
+
+                                                            </div>
+                                                            <div>
+                                                                content here
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <RxCross2 />
+                                                        </div>
+                                                    </li>
+                                                    <li className={"hover:bg-gray-100 w-full cursor-pointer px-2 py-2 rounded-lg flex justify-between items-center"}>
+
+                                                        <div className={"flex justify-start items-center gap-4"}>
+                                                            <div>
+                                                                <LuHistory className={"text-xl font-black"} />
+
+                                                            </div>
+                                                            <div>
+                                                                content here
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <RxCross2 />
+                                                        </div>
+                                                    </li>
+                                                    <li className={"hover:bg-gray-100 w-full cursor-pointer px-2 py-2 rounded-lg flex justify-between items-center"}>
+
+                                                        <div className={"flex justify-start items-center gap-4"}>
+                                                            <div>
+                                                                <LuHistory className={"text-xl font-black"} />
+
+                                                            </div>
+                                                            <div>
+                                                                content here
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <RxCross2 />
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>}
                                         </div>
                                     </FormControl>
                                 </FormItem>
