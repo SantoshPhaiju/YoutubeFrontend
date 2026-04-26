@@ -1,18 +1,20 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { FaMicrophone } from "react-icons/fa6";
-import { IoSearch } from "react-icons/io5";
-import { z } from "zod";
-import { Button } from "./ui/button";
-import { Form, FormControl, FormField, FormItem } from "./ui/form";
-import { Input } from "./ui/input";
-import { useState } from "react";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {useForm} from "react-hook-form";
+import {FaMicrophone} from "react-icons/fa6";
+import {IoSearch} from "react-icons/io5";
+import {z} from "zod";
+import {Button} from "./ui/button";
+import {Form, FormControl, FormField, FormItem} from "./ui/form";
+import {Input} from "./ui/input";
+import {useEffect, useState} from "react";
 import {FiSearch} from "react-icons/fi";
 import {cn} from "@/lib/utils";
 import {RxCross2} from "react-icons/rx";
 import {LuHistory} from "react-icons/lu";
+import {useSearchSuggestions} from "@/services/queries/searchQuery";
+import {getSuggestions} from "@/services/api/search/searchClient.service";
 
 const formSchema = z.object({
     searchQuery: z.string().min(2).max(50),
@@ -26,7 +28,28 @@ const Search = () => {
         },
     });
 
+    const searchQuery = form.watch("searchQuery");
+
     const [searchFocus, setSearchFocus] = useState(false);
+    const [searchSuggestions, setSearchSuggestions] = useState<string[]>([]);
+
+    const fetchSuggestions = async (query: string) => {
+        const suggestions = await getSuggestions(query);
+        setSearchSuggestions(suggestions?.data);
+    }
+
+    useEffect(() => {
+        if (searchQuery.length < 2) {
+            setSearchSuggestions([]); // ✅ clear suggestions
+            return;
+        }
+
+        const loadSuggestions = async () => {
+            await fetchSuggestions(searchQuery);
+        };
+
+        loadSuggestions();
+    }, [searchQuery]);
 
     function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values);
@@ -44,7 +67,7 @@ const Search = () => {
                         <FormField
                             control={form.control}
                             name="searchQuery"
-                            render={({ field }) => (
+                            render={({field}) => (
                                 <FormItem className={cn(`h-full`, {
                                     'w-[calc(80%-36px)]': !searchFocus,
                                     'w-[80%]': searchFocus
@@ -60,107 +83,46 @@ const Search = () => {
                                             <Input
                                                 {...field}
                                                 placeholder="Search"
+                                                onChange={(e) => {
+                                                    field.onChange(e); // ✅ MUST call this
+                                                }}
                                                 onFocus={() => setSearchFocus(true)}
                                                 onBlur={() => setSearchFocus(false)}
-                                                className={cn(`px-4 h-full border border-gray-300 focus-visible:ring-transparent focus-visible:border-purple-900 z-50 rounded-l-full text-[16px] md:text-[18px] focus:shadow-[inset_0_1px_4px_rgba(0,0,0,0.2)] focus-visible:shadow-[inset_0_1px_4px_rgba(0,0,0,0.2)]`, {
+                                                className={cn(`px-4 h-full border border-gray-300 focus-visible:ring-transparent focus-visible:border-purple-900 z-50 rounded-l-full text-[14px] md:text-[16px] focus:shadow-[inset_0_1px_4px_rgba(0,0,0,0.2)] focus-visible:shadow-[inset_0_1px_4px_rgba(0,0,0,0.2)]`, {
                                                     'pl-[52px]': searchFocus === true
                                                 })}
                                                 autoComplete={"off"}
                                             />
-                                            {searchFocus && <div className={"absolute top-[42px] left-0 bg-white p-2 rounded-xl h-[70vh] overflow-y-auto min-w-[350px] w-full z-[9999] border border-gray-300 shadow-md"}>
-                                                <ul className={"flex flex-col gap-2"}>
-                                                    <li className={"hover:bg-gray-100 w-full cursor-pointer px-2 py-2 rounded-lg flex justify-between items-center"}>
+                                            {(searchFocus &&
+                                                    searchSuggestions.length > 0) &&
+                                                <div
+                                                    className={"absolute top-[42px] left-0 bg-white p-2 rounded-xl h-[70vh] overflow-y-auto min-w-[350px] w-full z-[9999] border border-gray-300 shadow-md"}>
+                                                    <ul className={"flex flex-col gap-2"}>
+                                                        {
+                                                            searchSuggestions.map((item, index) => {
+                                                                return (
+                                                                    <li key={index}
+                                                                        className={"hover:bg-gray-100 w-full cursor-pointer px-2 py-2 rounded-lg flex justify-between items-center"}>
 
-                                                        <div className={"flex justify-start items-center gap-4"}>
-                                                            <div>
-                                                                <LuHistory className={"text-xl font-black"} />
-
-                                                            </div>
-                                                            <div>
-                                                                content here
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <RxCross2 />
-                                                        </div>
-                                                    </li>
-                                                    <li className={"hover:bg-gray-100 w-full cursor-pointer px-2 py-2 rounded-lg flex justify-between items-center"}>
-
-                                                        <div className={"flex justify-start items-center gap-4"}>
-                                                            <div>
-                                                                <LuHistory className={"text-xl font-black"} />
-
-                                                            </div>
-                                                            <div>
-                                                                content here
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <RxCross2 />
-                                                        </div>
-                                                    </li>
-                                                    <li className={"hover:bg-gray-100 w-full cursor-pointer px-2 py-2 rounded-lg flex justify-between items-center"}>
-
-                                                        <div className={"flex justify-start items-center gap-4"}>
-                                                            <div>
-                                                                <LuHistory className={"text-xl font-black"} />
-
-                                                            </div>
-                                                            <div>
-                                                                content here
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <RxCross2 />
-                                                        </div>
-                                                    </li>
-                                                    <li className={"hover:bg-gray-100 w-full cursor-pointer px-2 py-2 rounded-lg flex justify-between items-center"}>
-
-                                                        <div className={"flex justify-start items-center gap-4"}>
-                                                            <div>
-                                                                <LuHistory className={"text-xl font-black"} />
-
-                                                            </div>
-                                                            <div>
-                                                                content here
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <RxCross2 />
-                                                        </div>
-                                                    </li>
-                                                    <li className={"hover:bg-gray-100 w-full cursor-pointer px-2 py-2 rounded-lg flex justify-between items-center"}>
-
-                                                        <div className={"flex justify-start items-center gap-4"}>
-                                                            <div>
-                                                                <LuHistory className={"text-xl font-black"} />
-
-                                                            </div>
-                                                            <div>
-                                                                content here
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <RxCross2 />
-                                                        </div>
-                                                    </li>
-                                                    <li className={"hover:bg-gray-100 w-full cursor-pointer px-2 py-2 rounded-lg flex justify-between items-center"}>
-
-                                                        <div className={"flex justify-start items-center gap-4"}>
-                                                            <div>
-                                                                <LuHistory className={"text-xl font-black"} />
-
-                                                            </div>
-                                                            <div>
-                                                                content here
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <RxCross2 />
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>}
+                                                                        <div
+                                                                            className={"flex justify-start items-center gap-4"}>
+                                                                            <div>
+                                                                                <LuHistory
+                                                                                    className={"text-xl font-black"}/>
+                                                                            </div>
+                                                                            <div>
+                                                                                {item?.query}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div>
+                                                                            <RxCross2/>
+                                                                        </div>
+                                                                    </li>
+                                                                )
+                                                            })
+                                                        }
+                                                    </ul>
+                                                </div>}
                                         </div>
                                     </FormControl>
                                 </FormItem>
@@ -174,14 +136,15 @@ const Search = () => {
                             size="icon"
                             className="border-r h-full border-gray-300 pl-1 w-[60px] bg-gray-100 border-t border-b rounded-r-full px-4 md:px-8 cursor-pointer"
                         >
-                            <IoSearch className="h-[24px]! w-[24px]!" />
+                            <IoSearch className="h-[24px]! w-[24px]!"/>
                         </Button>
                     </div>
 
                     {/* 🎤 Mic Button */}
                     <div className="flex justify-center items-center h-full">
-                        <div className="h-10 w-10 flex justify-center items-center bg-gray-200 hover:bg-gray-300 rounded-full cursor-pointer">
-                            <FaMicrophone />
+                        <div
+                            className="h-10 w-10 flex justify-center items-center bg-gray-200 hover:bg-gray-300 rounded-full cursor-pointer">
+                            <FaMicrophone/>
                         </div>
                     </div>
                 </form>
@@ -189,10 +152,11 @@ const Search = () => {
 
             {/* 📱 Mobile View */}
             <div className="flex justify-center items-center h-full gap-1 sm:hidden">
-                <IoSearch className="h-[32px] w-[32px] text-gray-600" />
+                <IoSearch className="h-[32px] w-[32px] text-gray-600"/>
 
-                <div className="h-9 w-9 flex justify-center items-center bg-gray-200 hover:bg-gray-300 rounded-full cursor-pointer">
-                    <FaMicrophone />
+                <div
+                    className="h-9 w-9 flex justify-center items-center bg-gray-200 hover:bg-gray-300 rounded-full cursor-pointer">
+                    <FaMicrophone/>
                 </div>
             </div>
         </div>

@@ -28,7 +28,7 @@ const CommentReplyComp = ({
   const [reply, setReply] = useState("");
   const [showNestedReplies, setShowNestedReplies] = useState(true);
   const useReplyMutation = useReplyToCommentMutation();
-  const { refetch } = useCommentReplyData(comment?._id);
+
   const hoverContext = useContext(CommentHoverContext);
   const queryClient = useQueryClient();
 
