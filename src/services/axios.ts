@@ -1,5 +1,5 @@
 import axios from "axios";
-import {getCookie} from "cookies-next";
+import {deleteCookie, getCookie} from "cookies-next";
 
 const api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -14,6 +14,25 @@ api.interceptors.request.use(
         }
         return config;
     },
+);
+
+
+// ✅ Response interceptor
+api.interceptors.response.use(
+    (response) => response,
+
+    (error) => {
+        if (error.response?.status === 401) {
+
+            // remove token
+            deleteCookie("accessToken");
+
+            // redirect login
+            // window.location.href = "/";
+        }
+
+        return Promise.reject(error);
+    }
 );
 
 export default api;

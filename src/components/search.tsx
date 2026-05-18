@@ -13,7 +13,6 @@ import {FiSearch} from "react-icons/fi";
 import {cn} from "@/lib/utils";
 import {RxCross2} from "react-icons/rx";
 import {LuHistory} from "react-icons/lu";
-import {useSearchSuggestions} from "@/services/queries/searchQuery";
 import {getSuggestions} from "@/services/api/search/searchClient.service";
 
 const formSchema = z.object({
@@ -29,6 +28,7 @@ const Search = () => {
     });
 
     const searchQuery = form.watch("searchQuery");
+    const [debouncedQuery, setDebouncedQuery] = useState(searchQuery);
 
     const [searchFocus, setSearchFocus] = useState(false);
     const [searchSuggestions, setSearchSuggestions] = useState<string[]>([]);
@@ -38,18 +38,39 @@ const Search = () => {
         setSearchSuggestions(suggestions?.data);
     }
 
+    // useEffect(() => {
+    //     if (searchQuery.length < 2) {
+    //         setSearchSuggestions([]); // ✅ clear suggestions
+    //         return;
+    //     }
+    //
+    //     const loadSuggestions = async () => {
+    //         await fetchSuggestions(searchQuery);
+    //     };
+    //
+    //     loadSuggestions();
+    // }, [searchQuery]);
+
     useEffect(() => {
-        if (searchQuery.length < 2) {
-            setSearchSuggestions([]); // ✅ clear suggestions
+        const timer = setTimeout(() => {
+            setDebouncedQuery(searchQuery);
+        }, 500);
+
+        return () => clearTimeout(timer);
+    }, [searchQuery]);
+
+    useEffect(() => {
+        if (debouncedQuery.length < 2) {
+            setSearchSuggestions([]);
             return;
         }
 
         const loadSuggestions = async () => {
-            await fetchSuggestions(searchQuery);
+            await fetchSuggestions(debouncedQuery);
         };
 
         loadSuggestions();
-    }, [searchQuery]);
+    }, [debouncedQuery]);
 
     function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values);
@@ -96,7 +117,7 @@ const Search = () => {
                                             {(searchFocus &&
                                                     searchSuggestions.length > 0) &&
                                                 <div
-                                                    className={"absolute top-[42px] left-0 bg-white p-2 rounded-xl h-[70vh] overflow-y-auto min-w-[350px] w-full z-[9999] border border-gray-300 shadow-md"}>
+                                                    className={"absolute top-[42px] left-0 bg-white p-2 rounded-xl h-auto max-h-[70vh] overflow-y-auto min-w-[350px] w-full z-[9999] border border-gray-300 shadow-md"}>
                                                     <ul className={"flex flex-col gap-2"}>
                                                         {
                                                             searchSuggestions.map((item, index) => {
