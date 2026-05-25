@@ -16,6 +16,7 @@ export type UserState = {
 
 type UserActions = {
     setUser: (user: User) => void;
+    deleteUser: () => void;
 }
 
 type UserStore = UserState & UserActions;
@@ -24,6 +25,9 @@ const userStore = (set: (fn: Partial<UserStore>) => void): UserStore => ({
     user: null,
     setUser: (user: User) => {
         return set({user})
+    },
+    deleteUser: () => {
+        return set({});
     }
 });
 

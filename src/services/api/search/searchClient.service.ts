@@ -10,3 +10,13 @@ export const getSuggestions = async (query: string) => {
         throw error;
     }
 }
+
+export const saveSuggestion = async (query: string) => {
+    try {
+        const response = await api.post(`/search/suggestions/save?q=${query}`);
+        return response.data;
+    } catch (error) {
+        console.error("error", error);
+        throw error;
+    }
+}

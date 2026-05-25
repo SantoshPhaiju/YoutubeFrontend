@@ -1,7 +1,5 @@
-import {createStore} from "zustand/vanilla";
-import {create} from "zustand/react";
-import {devtools} from "zustand/middleware";
-import {persist} from "zustand/middleware";
+import { create } from "zustand";
+import { devtools, persist } from "zustand/middleware";
 
 type AuthState = {
     accessToken: string | null;
@@ -18,25 +16,35 @@ type AuthActions = {
 
 type AuthStore = AuthState & AuthActions;
 
-
-const authStore = (set: (fn: Partial<AuthStore>) => void): AuthStore => ({
-    accessToken: null,
-    refreshToken: null,
-    isLoggedIn: false,
-    setAccessToken: (token: string) => {
-        set({accessToken: token});
-    },
-    setRefreshToken: (token: string) => set({refreshToken: token}),
-    setIsLoggedIn: (isLoggedIn: boolean) => set({isLoggedIn}),
-    logout: () => set({accessToken: null, refreshToken: null, isLoggedIn: false}),
-})
-
-const useAuthStore = create(
+const useAuthStore = create<AuthStore>()(
     devtools(
-        persist(authStore, {
-            name: "auth-storage",
-        })
+        persist(
+            (set) => ({
+                accessToken: null,
+                refreshToken: null,
+                isLoggedIn: false,
+
+                setAccessToken: (token) =>
+                    set({ accessToken: token }),
+
+                setRefreshToken: (token) =>
+                    set({ refreshToken: token }),
+
+                setIsLoggedIn: (isLoggedIn) =>
+                    set({ isLoggedIn }),
+
+                logout: () =>
+                    set({
+                        accessToken: null,
+                        refreshToken: null,
+                        isLoggedIn: false,
+                    }),
+            }),
+            {
+                name: "auth-storage",
+            }
+        )
     )
-)
+);
 
 export default useAuthStore;

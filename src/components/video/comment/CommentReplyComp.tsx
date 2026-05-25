@@ -151,7 +151,7 @@ const CommentReplyComp = ({
             <ReplyInput reply={reply} handleReply={handleNestedReply} setReply={setReply} comment={comment} setShowReply={setShowReply} />
           )}
           {
-            comment?.replies?.length > 0 && comment?.replies.map((reply: any, index: number) => {
+            (comment?.replies?.length > 0 && showNestedReplies === true) && comment?.replies.map((reply: any, index: number) => {
               return (
                 <div key={index} className="-ml-1">
                   <CommentReplyComp videoOwnerId={videoOwnerId}
