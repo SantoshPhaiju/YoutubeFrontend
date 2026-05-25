@@ -225,7 +225,7 @@ const Search = () => {
                       {searchFocus && searchSuggestions.length > 0 && (
                         <div
                           className={
-                            "absolute top-10.5 left-0 bg-white p-2 rounded-xl h-auto max-h-[70vh] overflow-y-auto min-w-87.5 w-full z-9999 shadow-md"
+                            "absolute top-10.5 left-0 bg-white p-2 rounded-xl h-auto max-h-[70vh] overflow-y-auto min-w-87.5 w-full z-9999 shadow-md no-scrollbar"
                           }
                         >
                           <ul className={"flex flex-col gap-2"}>
