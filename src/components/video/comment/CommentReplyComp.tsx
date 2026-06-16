@@ -5,15 +5,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import ReplyInput from "@/components/video/comment/ReplyInput";
 import { CommentHoverContext } from "@/context/comment-hover-context";
+import { useReplyToCommentMutation } from "@/services/mutations/commentMutation";
 import { formatViews } from "@/utils/formatVideoView";
 import { timeAgo } from "@/utils/timeAgo";
+import { useQueryClient } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { BiDislike, BiLike } from "react-icons/bi";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
-import { useReplyToCommentMutation } from "@/services/mutations/commentMutation";
-import { useCommentReplyData } from "@/services/queries/commentQuery";
 import { toast } from "sonner";
-import {useQueryClient} from "@tanstack/react-query";
 
 const CommentReplyComp = ({
   comment,
@@ -39,7 +38,10 @@ const CommentReplyComp = ({
     e.preventDefault();
 
     try {
-      const response = await useReplyMutation.mutateAsync({commentId: comment?._id, comment: reply});
+      const response = await useReplyMutation.mutateAsync({
+        commentId: comment?._id,
+        comment: reply,
+      });
       if (response.success) {
         setShowReply("");
         setReply("");
@@ -47,24 +49,23 @@ const CommentReplyComp = ({
         const invalidated = await queryClient.invalidateQueries({
           queryKey: ["commentReplyData", comment.rootId],
         });
-          // const newReply = response.data;
-          // newReply.replies = [];
-          // comment.replies.push(newReply);
-          // comment.totalReplies = comment.totalReplies + 1;
-
+        // const newReply = response.data;
+        // newReply.replies = [];
+        // comment.replies.push(newReply);
+        // comment.totalReplies = comment.totalReplies + 1;
       }
     } catch (e: any) {
       console.log(e.message);
       toast.error(e.message);
     }
-  }
+  };
 
   return (
     <>
       <div
-          style={{
-            marginLeft: comment?.level == 1 ? "4px" : "8px",
-          }}
+        style={{
+          marginLeft: comment?.level == 1 ? "4px" : "8px",
+        }}
         className={`comment flex gap-3 w-full mt-2 relative ${
           shouldHighlight ? "thread-level-hovered" : ""
         }`}
@@ -120,7 +121,14 @@ const CommentReplyComp = ({
               {timeAgo(comment?.createdAt)}
             </div>
           </div>
-          <div className={"mt-1 text-[15px]"}>{comment?.content}</div>
+          <div className={"mt-1 text-[15px]"}>
+            {comment?.replyingToId !== null && comment?.level > 1 && (
+              <span className={"px-1 text-blue-600 font-normal text-[13px] "}>
+                @{comment?.replyingToId?.username}
+              </span>
+            )}
+            {comment?.content}
+          </div>
           <div className="flex justify-start gap-4 items-center mt-2 text-md">
             <div className="likes flex justify-start items-center gap-2">
               <div className="flex justify-center items-center gap-1">
@@ -148,18 +156,27 @@ const CommentReplyComp = ({
             </Button>
           </div>
           {showReply === comment._id && (
-            <ReplyInput reply={reply} handleReply={handleNestedReply} setReply={setReply} comment={comment} setShowReply={setShowReply} />
+            <ReplyInput
+              reply={reply}
+              handleReply={handleNestedReply}
+              setReply={setReply}
+              comment={comment}
+              setShowReply={setShowReply}
+            />
           )}
-          {
-            (comment?.replies?.length > 0 && showNestedReplies === true) && comment?.replies.map((reply: any, index: number) => {
+          {comment?.replies?.length > 0 &&
+            showNestedReplies === true &&
+            comment?.replies.map((reply: any, index: number) => {
               return (
                 <div key={index} className="-ml-1">
-                  <CommentReplyComp videoOwnerId={videoOwnerId}
-                                    userData={userData} comment={reply}/>
+                  <CommentReplyComp
+                    videoOwnerId={videoOwnerId}
+                    userData={userData}
+                    comment={reply}
+                  />
                 </div>
-              )
-            })
-          }
+              );
+            })}
           {comment?.totalReplies > 0 &&
             (!showNestedReplies ? (
               <div
@@ -171,7 +188,7 @@ const CommentReplyComp = ({
                   {formatViews(comment?.totalReplies || 0)} replies
                 </div>
                 <div>
-                  <MdKeyboardArrowDown size={24}/>
+                  <MdKeyboardArrowDown size={24} />
                 </div>
               </div>
             ) : (
