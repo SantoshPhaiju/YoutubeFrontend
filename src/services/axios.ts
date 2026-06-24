@@ -25,6 +25,7 @@ api.interceptors.response.use(
   async (error) => {
     const isAuthRoute =
       error.config?.url?.includes("/users/login") ||
+      error.config?.url?.includes("/users/logout") ||
       error.config?.url?.includes("/users/register");
 
     if (error.response?.status === 401 && !isAuthRoute) {
