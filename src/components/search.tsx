@@ -71,7 +71,7 @@ const Search = () => {
 
   // useEffect(() => {
   //     if (searchQuery.length < 2) {
-  //         setSearchSuggestions([]); 
+  //         setSearchSuggestions([]);
   //         return;
   //     }
   //
@@ -155,7 +155,6 @@ const Search = () => {
                 >
                   <FormControl>
                     <div className="relative w-full h-full">
-                      {/* 🔍 Search Icon inside input */}
                       {searchFocus && (
                         <FiSearch
                           className={`absolute ml-1 left-2.5 top-1/2 -translate-y-1/2 text-gray-800 text-xl`}
