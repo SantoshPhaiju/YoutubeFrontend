@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { getSuggestions } from "@/services/api/search/searchClient.service";
 import { useSearchMutation } from "@/services/mutations/searchMutation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaMicrophone } from "react-icons/fa6";
@@ -33,6 +34,10 @@ const Search = () => {
       searchQuery: "",
     },
   });
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const router = useRouter();
 
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
 
@@ -66,7 +71,7 @@ const Search = () => {
 
   // useEffect(() => {
   //     if (searchQuery.length < 2) {
-  //         setSearchSuggestions([]); // ✅ clear suggestions
+  //         setSearchSuggestions([]); 
   //         return;
   //     }
   //
@@ -90,7 +95,7 @@ const Search = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       if (isNavigating.current) {
-        isNavigating.current = false; // reset after skipping
+        isNavigating.current = false;
         return;
       }
       setDebouncedQuery(searchQuery);
@@ -116,7 +121,7 @@ const Search = () => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-
+    inputRef.current?.blur(); // remove focus
     searchMutation.mutate(values.searchQuery, {
       onSuccess: (data) => {
         console.log("Search suggestion saved successfully:", data);
@@ -125,6 +130,9 @@ const Search = () => {
         console.error("Error saving search suggestion:", error);
       },
     });
+
+    router.push(`/results?search_query=${values.searchQuery}`);
+    setSearchFocus(false);
   }
 
   return (
@@ -156,6 +164,8 @@ const Search = () => {
 
                       <Input
                         {...field}
+                        ref={inputRef}
+                        autoFocus={false}
                         onKeyDown={(e) => {
                           if (!searchSuggestions.length) return;
 
