@@ -8,6 +8,7 @@ const badgeData = [
   {
     name: "All",
     link: "/",
+    selected: true,
   },
   {
     name: "Music",
@@ -69,17 +70,21 @@ const badgeData = [
 
 const SemiNav = () => {
   return (
-    <ScrollArea className={cn("w-[94%] mb-1 px-0 z-0")}>
-      <div className="h-auto mb-4 w-full flex justify-start items-center gap-3 whitespace-nowrap">
+    <ScrollArea className={cn("w-full mb-1 px-4 z-0")}>
+      <div className="h-auto mb-4 w-full flex justify-start items-center gap-3.5 whitespace-nowrap">
         {badgeData.map((badge, index) => {
           return (
             <div key={index}>
-              <SemiNavBadge badgeName={badge.name} badgeLink={badge.link} />
+              <SemiNavBadge
+                badgeName={badge.name}
+                badgeLink={badge.link}
+                selected={badge.selected || false}
+              />
             </div>
           );
         })}
       </div>
-      <ScrollBar orientation="horizontal" className="mb-1" />
+      <ScrollBar orientation="horizontal" className="" />
     </ScrollArea>
   );
 };
