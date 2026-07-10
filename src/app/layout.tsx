@@ -1,10 +1,10 @@
 import RootClientLayout from "@/components/root-client-layout";
 import { inter, roboto, robotoCondensed } from "@/fonts";
+import { TanstackProvider } from "@/providers/TanstackProvider";
 import type { Metadata } from "next";
 import React from "react";
+import { Toaster } from "sonner";
 import "./globals.css";
-import { TanstackProvider } from "@/providers/TanstackProvider";
-import {Toaster} from "sonner";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -31,11 +31,10 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${robotoCondensed.variable} ${roboto.variable} ${roboto.className} antialiased`}
       >
-
-      <TanstackProvider>
-        <RootClientLayout>{children}</RootClientLayout>
+        <TanstackProvider>
+          <RootClientLayout>{children}</RootClientLayout>
           <Toaster />
-      </TanstackProvider>
+        </TanstackProvider>
       </body>
     </html>
   );
