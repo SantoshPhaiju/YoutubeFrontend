@@ -136,7 +136,7 @@ const Navbar = ({
       {showCategories && (
         <div
           className={cn(
-            `sticky z-40 top-[65px] flex justify-center items-center pt-5 bg-white ml-[250px] left-[250px]`,
+            `sticky z-40 top-[50px] flex justify-center items-center pt-5 bg-white ml-[250px] left-[250px]`,
             {
               "ml-0 md:ml-[90px]": isSidebarOpen === false,
             },

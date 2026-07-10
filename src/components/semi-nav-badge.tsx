@@ -6,9 +6,11 @@ import { Badge } from "./ui/badge";
 const SemiNavBadge = ({
   badgeName,
   badgeLink,
+  selected = false,
 }: {
   badgeName: string;
   badgeLink: string;
+  selected?: boolean;
 }) => {
   return (
     <div>
@@ -16,7 +18,10 @@ const SemiNavBadge = ({
         href={badgeLink}
         // className="flex w-full items-center gap-6 px-4 py-2 rounded-lg hover:bg-gray-200 cursor-pointer"
       >
-        <Badge variant={"secondary"} className="py-1 whitespace-nowrap w-auto cursor-pointer text-[14px]">
+        <Badge
+          variant={selected ? "default" : "secondary"}
+          className="py-1 px-3 whitespace-nowrap w-auto cursor-pointer text-[14px]"
+        >
           {badgeName}
         </Badge>
       </Link>
