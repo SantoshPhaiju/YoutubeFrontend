@@ -4,6 +4,7 @@ import { TanstackProvider } from "@/providers/TanstackProvider";
 import type { Metadata } from "next";
 import React from "react";
 import { Toaster } from "sonner";
+// @ts-ignore - allow side-effect import of CSS when no type declarations are present
 import "./globals.css";
 
 // const geistSans = Geist({

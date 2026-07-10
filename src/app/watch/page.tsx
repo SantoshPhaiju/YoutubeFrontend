@@ -131,7 +131,7 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                         Save
                       </p>
                     </div>
-                    <div className="rounded-full h-auto py-3.5 px-2 md:py-[18px] md:px-3 bg-gray-100 hover:bg-gray-200 flex justify-center gap-[2px] items-center">
+                    <div className="rounded-full h-auto py-3.5 px-2 md:py-4.5 md:px-3 bg-gray-100 hover:bg-gray-200 flex justify-center gap-0.5 items-center">
                       <div className="bg-gray-700 h-0.75 w-0.75 md:h-1 md:w-1 rounded-full"></div>
                       <div className="bg-gray-700 h-0.75 w-0.75 md:h-1 md:w-1 rounded-full"></div>
                       <div className="bg-gray-700 h-0.75 w-0.75 md:h-1 md:w-1 rounded-full"></div>
@@ -139,7 +139,7 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                   </div>
                 </div>
               </div>
-              <div className="descriptionSection flex flex-col gap-2 py-[12px] px-[12px] h-auto w-full bg-gray-100 rounded-xl">
+              <div className="descriptionSection flex flex-col gap-2 py-3 px-3 h-auto w-full bg-gray-100 rounded-xl">
                 <div className="flex justify-start items-center gap-2 font-semibold text-[15px] font-roboto">
                   <VideoView
                     videoDuration={video.duration}

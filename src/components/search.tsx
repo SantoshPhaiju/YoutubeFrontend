@@ -17,7 +17,6 @@ import { Button } from "./ui/button";
 import { Form, FormControl, FormField, FormItem } from "./ui/form";
 import { Input } from "./ui/input";
 
-// Add this type above the Search component
 type Suggestion = {
   query: string;
   isHistory: boolean;
@@ -65,7 +64,7 @@ const Search = () => {
       suggestionRefs.current[activeSuggestionIndex]
     ) {
       suggestionRefs.current[activeSuggestionIndex]?.scrollIntoView({
-        block: "nearest", // only scrolls if item is out of view, doesn't jump if already visible
+        block: "nearest",
       });
     }
   }, [activeSuggestionIndex]);
@@ -122,8 +121,28 @@ const Search = () => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    inputRef.current?.blur(); // remove focus
-    searchMutation.mutate(values.searchQuery, {
+    performSearch(values.searchQuery);
+  }
+
+  const searchRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+        setSearchFocus(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const performSearch = (query: string) => {
+    inputRef.current?.blur();
+    searchMutation.mutate(query, {
       onSuccess: (data) => {
         console.log("Search suggestion saved successfully:", data);
       },
@@ -132,9 +151,9 @@ const Search = () => {
       },
     });
 
-    router.push(`/results?search_query=${values.searchQuery}`);
+    router.push(`/results?search_query=${query}`);
     setSearchFocus(false);
-  }
+  };
 
   return (
     <div className="h-10.5 w-full ">
@@ -143,7 +162,10 @@ const Search = () => {
           className="hidden sm:flex mx-auto justify-center items-center gap-2 h-full w-[80%] "
           onSubmit={form.handleSubmit(onSubmit)}
         >
-          <div className="flex justify-end pr-8 items-center gap-0 h-full w-full ">
+          <div
+            ref={searchRef}
+            className="flex justify-end pr-8 items-center gap-0 h-full w-full "
+          >
             <FormField
               control={form.control}
               name="searchQuery"
@@ -223,7 +245,7 @@ const Search = () => {
                           field.onChange(e);
                         }}
                         onFocus={() => setSearchFocus(true)}
-                        onBlur={() => setSearchFocus(false)}
+                        // onBlur={() => setSearchFocus(false)}
                         className={cn(
                           `px-4 h-full border border-gray-300 focus-visible:ring-transparent focus-visible:border-purple-800 z-50 rounded-l-full text-[14px] md:text-[16px] shadow-none focus:shadow-[inset_0_1px_4px_rgba(0,0,0,0.2)] focus-visible:shadow-[inset_0_1px_4px_rgba(0,0,0,0.2)]`,
                           {
@@ -240,9 +262,12 @@ const Search = () => {
                         >
                           <ul className={"flex flex-col gap-2"}>
                             {searchSuggestions.map((item, index) => {
-                              //   console.log("item", item);
                               return (
                                 <li
+                                  onMouseDown={() => {
+                                    form.setValue("searchQuery", item.query);
+                                    performSearch(item.query);
+                                  }}
                                   key={index}
                                   ref={(el) => {
                                     suggestionRefs.current[index] = el;
@@ -313,7 +338,7 @@ const Search = () => {
               type="submit"
               variant="secondary"
               size="icon"
-              className="border-r shadow-none h-full border-gray-300 pl-1 w-15 bg-gray-100 border-t border-b rounded-r-full px-4 md:px-8 cursor-pointer"
+              className="border-r transition-all duration-300 shadow-none h-full border-gray-300 pl-1 w-15 bg-gray-100 hover:bg-gray-200 border-t border-b rounded-r-full px-4 md:px-8 cursor-pointer"
             >
               <IoSearch className="h-6! w-6!" />
             </Button>
