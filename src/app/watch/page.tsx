@@ -82,10 +82,9 @@ const Page = async ({ searchParams }: WatchPageProps) => {
   return (
     <>
       <ClientVideoPageLayout>
-        <div className="px-2 md:px-4 lg:px-6 pb-2 -mt-4 z-0">
-          {/* <Videopage /> */}
-          <div className="w-full px-2 mx-auto h-auto cursor-pointer flex flex-col xl:flex-row xl:justify-center xl:items-start gap-6">
-            <div className="leftContainer w-full flex flex-col gap-3 xl:w-[73%] ">
+        <div className="px-2 pb-2 -mt-4 z-0">
+          <div className="w-full px-2 mx-auto h-auto cursor-pointer flex flex-col xl:flex-row xl:justify-center xl:items-start gap-4">
+            <div className="leftContainer w-full flex flex-col gap-2 xl:w-[72%] ">
               <div className="videoPlayer w-full rounded-xl overflow-hidden aspect-video">
                 {/*<Image*/}
                 {/*  src={"/assets/thumb.jpg"}*/}
@@ -157,12 +156,14 @@ const Page = async ({ searchParams }: WatchPageProps) => {
                 videoId={video._id}
               />
             </div>
-            <div className="rightContainer w-full xl:block xl:w-[27%] ">
+            <div className="rightContainer w-full xl:block xl:w-[28%] ">
               <SemiNav />
-              <SemiVideo />
-              <SemiVideo />
-              <SemiVideo />
-              <SemiVideo />
+              <div className="flex -mt-1 flex-col gap-3 items-start justify-center">
+                <SemiVideo />
+                <SemiVideo />
+                <SemiVideo />
+                <SemiVideo />
+              </div>
             </div>
           </div>
         </div>

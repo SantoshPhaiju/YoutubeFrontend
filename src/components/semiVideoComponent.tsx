@@ -3,7 +3,7 @@ import { MdVerified } from "react-icons/md";
 
 const SemiVideo = () => {
   return (
-    <div className="w-full md:h-[150px] lg:h-[180px] xl:h-[110px] 3xl:h-[130px] cursor-pointer flex flex-col md:flex-row justify-start xl:justify-between items-center gap-2 mt-3">
+    <div className="w-full md:h-[150px] lg:h-[180px] xl:h-[110px] 3xl:h-[130px] cursor-pointer flex flex-col md:flex-row justify-start xl:justify-between items-center gap-2">
       <Image
         src={"/assets/thumb.jpg"}
         height={200}
@@ -14,9 +14,14 @@ const SemiVideo = () => {
 
       <div className="details w-auto xl:w-[56%] h-full flex gap-2">
         <div className="flex flex-col gap-1 px-1">
-            <div className={"text-[14px] text-black font-medium leading-normal line-clamp-2"}>
-                How to Make Money Using Google Maps in 2025 ($100 - $200 PER DAY) something Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            </div>
+          <div
+            className={
+              "text-[14px] text-black font-medium leading-normal line-clamp-2"
+            }
+          >
+            How to Make Money Using Google Maps in 2025 ($100 - $200 PER DAY)
+            something Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          </div>
           <div className="flex flex-col ">
             <div className="channelName text-[13px] text-gray-600 flex justify-start items-center gap-1">
               Santosh Phaiju <MdVerified />

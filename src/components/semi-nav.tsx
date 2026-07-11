@@ -70,7 +70,7 @@ const badgeData = [
 
 const SemiNav = () => {
   return (
-    <ScrollArea className={cn("w-full mb-1 px-4 z-0")}>
+    <ScrollArea className={cn("w-full mb-1 z-0")}>
       <div className="h-auto mb-4 w-full flex justify-start items-center gap-3.5 whitespace-nowrap">
         {badgeData.map((badge, index) => {
           return (
