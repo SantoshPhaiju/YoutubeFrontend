@@ -37,7 +37,7 @@ export async function generateMetadata({
   const videoOwner = Array.isArray(video.owner) ? video.owner[0] : video.owner;
 
   return {
-    title: `${video.title} | ${videoOwner?.fullname}`,
+    title: `(23) ${video.title} | ${videoOwner?.fullname}`,
     description: video.description,
   };
 }

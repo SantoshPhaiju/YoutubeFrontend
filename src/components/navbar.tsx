@@ -98,7 +98,7 @@ const Navbar = ({
             href={"/"}
             className="text-[18px] -ml-1 font-roboto font-semibold lg:text-xl relative font-roboto-condensed"
           >
-            SanTube{" "}
+            &nbsp;SanTube{" "}
             <span className={"text-xs absolute -top-1 font-normal -right-4"}>
               NP
             </span>

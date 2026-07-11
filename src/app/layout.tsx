@@ -20,6 +20,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "(23) Youtube",
   description: "youtube.com",
+  icons: {
+    icon: "/ytfavico.png",
+  },
 };
 
 export default function RootLayout({
