@@ -79,9 +79,9 @@ const Sidebar = ({
   return (
     <div className="bg-white z-50">
       {isSidebarOpen && (
-        <ScrollArea className={cn(`h-[94vh] px-4 py-4 mt-[56px] w-auto`)}>
+        <ScrollArea className={cn(`h-[94vh] py-4 mt-[56px] w-auto`)}>
           <div className="">
-            <div className="top flex flex-col gap-2 w-full">
+            <div className="top px-4 flex mb-2 flex-col gap-1 w-full">
               {topLinks.map((link, index) => {
                 return (
                   <div key={index}>
@@ -94,17 +94,18 @@ const Sidebar = ({
                 );
               })}
             </div>
-            <br/>
-            <hr className={"bg-gray-300 border-none h-px w-full "} />
-            <div className="py-4">
-              <div className="flex justify-start items-center px-4 py-2 gap-1 cursor-pointer hover:bg-gray-200 rounded-lg text-lg text-gray-700">
+            <hr
+              className={"bg-black/30 rounded-full border-none h-px w-full "}
+            />
+            <div className="py-2 px-4">
+              <div className="flex justify-start items-center px-4 py-1 gap-1 cursor-pointer hover:bg-gray-200 rounded-lg text-md text-gray-700">
                 <div>You</div>
                 <div>
                   <MdKeyboardArrowRight className="text-2xl" />
                 </div>
               </div>
 
-              <div className="top py-3 flex flex-col gap-2 w-full">
+              <div className="top py-2 flex flex-col gap-1 w-full">
                 {lowerLinks.map((link, index) => {
                   return (
                     <div key={index}>
@@ -129,7 +130,7 @@ const Sidebar = ({
               </div>
             </div>
           </div>
-          <ScrollBar orientation="vertical" />
+          <ScrollBar orientation="vertical" className="w-0 h-0" />
         </ScrollArea>
       )}
       {isSidebarOpen === false && (
@@ -163,7 +164,7 @@ const Sidebar = ({
               })}
             </div>
           </div>
-          <ScrollBar orientation="vertical" />
+          <ScrollBar orientation="vertical" className="w-0 h-0" />
         </ScrollArea>
       )}
     </div>

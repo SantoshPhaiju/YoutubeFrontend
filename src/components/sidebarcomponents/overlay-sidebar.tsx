@@ -128,9 +128,9 @@ const OverlaySidebar = ({
                 </Link>
               </div>
             </div>
-            <ScrollArea className="mt-4 px-4 h-[88vh]">
+            <ScrollArea className="mt-4 h-[88vh]">
               <div className="">
-                <div className="top flex flex-col gap-2 w-full">
+                <div className="top px-4 mb-2 flex flex-col gap-1 w-full">
                   {topLinks.map((link, index) => {
                     return (
                       <div key={index}>
@@ -144,15 +144,15 @@ const OverlaySidebar = ({
                   })}
                 </div>
                 <hr className={"bg-gray-300 border-none h-px w-full "} />
-                <div className="py-4">
-                  <div className="flex justify-start items-center px-4 py-2 gap-1 cursor-pointer hover:bg-gray-200 rounded-lg text-lg text-gray-700">
+                <div className="py-1 px-4">
+                  <div className="flex justify-start items-center px-4 py-1 gap-1 cursor-pointer hover:bg-gray-200 rounded-lg text-md text-gray-700">
                     <div>You</div>
                     <div>
                       <MdKeyboardArrowRight className="text-2xl" />
                     </div>
                   </div>
 
-                  <div className="top py-3 flex flex-col gap-2 w-full">
+                  <div className="top py-1 flex flex-col gap-1 w-full">
                     {lowerLinks.map((link, index) => {
                       return (
                         <div key={index}>
@@ -178,7 +178,7 @@ const OverlaySidebar = ({
                   </div>
                 </div>
               </div>
-              <ScrollBar orientation="vertical" />
+              <ScrollBar orientation="vertical" className="w-0 h-0" />
             </ScrollArea>
           </motion.div>
         )}

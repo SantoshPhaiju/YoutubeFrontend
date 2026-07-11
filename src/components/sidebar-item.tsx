@@ -16,21 +16,21 @@ const SidebarItem = ({
     <Link
       href={link}
       className={cn(
-        "flex items-center w-auto gap-6 px-4 py-2 rounded-lg hover:bg-gray-200 cursor-pointer overflow-hidden"
+        "flex items-center w-auto gap-6 px-3 py-2 rounded-lg hover:bg-gray-200 cursor-pointer overflow-hidden "
       )}
     >
       {name !== "Shorts" ? (
-        <div className="icon text-xl">{icon}</div>
+        <div className="icon text-lg font-bold">{icon}</div>
       ) : (
         <Image
           src={"/assets/ytshorts.webp"}
           alt="shorts"
-          width={16}
-          height={16}
+          width={15}
+          height={15}
           className=""
         />
       )}
-      <div className={cn("text-md")}>{name}</div>
+      <div className={cn("text-sm")}>{name}</div>
     </Link>
   );
 };
