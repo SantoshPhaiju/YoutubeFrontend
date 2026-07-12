@@ -120,7 +120,6 @@ const Search = () => {
   const searchMutation = useSearchMutation();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
     performSearch(values.searchQuery);
   }
 
@@ -144,7 +143,7 @@ const Search = () => {
     inputRef.current?.blur();
     searchMutation.mutate(query, {
       onSuccess: (data) => {
-        console.log("Search suggestion saved successfully:", data);
+        // console.log("Search suggestion saved successfully:", data);
       },
       onError: (error) => {
         console.error("Error saving search suggestion:", error);

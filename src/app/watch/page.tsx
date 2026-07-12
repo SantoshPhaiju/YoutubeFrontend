@@ -61,7 +61,7 @@ const Page = async ({ searchParams }: WatchPageProps) => {
     }
   })();
 
-  console.log("video", video);
+  // console.log("video", video);
 
   const comments = await (async () => {
     try {
