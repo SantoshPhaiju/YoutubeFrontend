@@ -1,64 +1,67 @@
 // here we will write the backend communication logic, means sending http request to the backend
 
-import {IVideo} from "@/@types/videos/videos.type";
-import axios, {AxiosResponse} from "axios";
-import {cookies} from "next/headers";
-import {cache} from "react";
+import { IVideo } from "@/@types/videos/videos.type";
+import axios, { AxiosResponse } from "axios";
+import { cookies } from "next/headers";
+import { cache } from "react";
 
 type GetVideoParams = {
-    id: string;
-    userId?: string;
+  id: string;
+  userId?: string;
 };
 
 type GetVideoResponse = {
-    data: {
-        video: IVideo;
-    };
+  data: {
+    video: IVideo;
+  };
 };
 
-export const getVideoById = async (
-    {id}: GetVideoParams
-): Promise<IVideo> => {
-    try {
-        const cookieStore = await cookies();
-        const token = cookieStore.get("accessToken")?.value;
+export const getVideoById = async ({ id }: GetVideoParams): Promise<IVideo> => {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("accessToken")?.value;
 
-        const response: AxiosResponse<GetVideoResponse> =
-            await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/videos/get-video/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-        return response.data.data.video;
-    } catch (error) {
-        console.error("error", error);
-        throw error;
-    }
+    const response: AxiosResponse<GetVideoResponse> = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/videos/get-video/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return response.data.data.video;
+  } catch (error) {
+    console.error("error", error);
+    throw error;
+  }
 };
 
-export const getVideoComments = async (
-    {videoId}: { videoId: string }
-): Promise<any[]> => {
-    try {
-        const cookieStore = await cookies();
-        const token = cookieStore.get("accessToken")?.value;
+export const getVideoComments = async ({
+  videoId,
+}: {
+  videoId: string;
+}): Promise<any[]> => {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("accessToken")?.value;
 
-        const response: AxiosResponse<any> =
-            await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/videos/${videoId}/comments/`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-        return response.data.data;
-    } catch (error) {
-        console.error("error", error);
-        throw error;
-    }
+    const response: AxiosResponse<any> = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/videos/${videoId}/comments/`,
+      token
+        ? {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        : {},
+    );
+    return response.data.data;
+  } catch (error) {
+    console.error("error", error);
+    throw error;
+  }
 };
 
 export const getVideoByIdCached = cache(async (id: string, userId?: string) => {
-    return await getVideoById({id, userId});
+  return await getVideoById({ id, userId });
 });
-
-
-
