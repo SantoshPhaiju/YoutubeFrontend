@@ -4,16 +4,16 @@ import Comment from "@/components/video/comment/Comment";
 import { CommentHoverContext } from "@/context/comment-hover-context";
 import { cn } from "@/lib/utils";
 import { useCreateCommentMutation } from "@/services/mutations/commentMutation";
+import useAuthStore from "@/store/authStore";
 import { User } from "@/store/userStore";
 import { AnimatePresence, motion } from "framer-motion";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { BiDislike, BiLike } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Button } from "../../ui/button";
-import useAuthStore from "@/store/authStore";
 
 const CommentsSection = ({
   userData,
@@ -36,7 +36,7 @@ const CommentsSection = ({
   useEffect(() => {
     const newComments = comments.map((comment: any) => ({
       ...comment,
-      replies: []
+      replies: [],
     }));
 
     setCommentsClient(newComments);
@@ -44,8 +44,8 @@ const CommentsSection = ({
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    if(!isLoggedIn) return toast.error("Please login to comment");
-    if(comment.length === 0) return toast.error("Comment cannot be empty");
+    if (!isLoggedIn) return toast.error("Please login to comment");
+    if (comment.length === 0) return toast.error("Comment cannot be empty");
     const response = await createCommentMutation.mutateAsync({
       videoId,
       comment,

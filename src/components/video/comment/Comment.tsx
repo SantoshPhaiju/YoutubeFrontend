@@ -13,9 +13,9 @@ import useUserStore, { User } from "@/store/userStore";
 import { formatViews } from "@/utils/formatVideoView";
 import { timeAgo } from "@/utils/timeAgo";
 import { useContext, useEffect, useState } from "react";
-import { BiDislike, BiLike } from "react-icons/bi";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { toast } from "sonner";
+import CommentLike from "./CommentLike";
 
 const Comment = ({
   comment,
@@ -24,7 +24,6 @@ const Comment = ({
   comment: any;
   videoOwnerId: string;
 }) => {
-  // console.log("comment data from comment compo", comment);
   const [showCommentReplies, setShowCommentReplies] = useState(false);
   const userData: User | null = useUserStore((state) => state.user);
   const [showReply, setShowReply] = useState("");
@@ -67,14 +66,14 @@ const Comment = ({
           comment.totalReplies = comment.totalReplies + 1;
         } else {
           const newReply = response.data;
-        //   newReply.replies = [];
-        //   comment.replies.push(newReply);
+          //   newReply.replies = [];
+          //   comment.replies.push(newReply);
           comment.totalReplies = comment.totalReplies + 1;
           setShowCommentReplies(true);
         }
       }
     } catch (e: any) {
-      console.log(e.message);
+      // console.log(e.message);
       toast.error(e.message);
     }
   };
@@ -130,7 +129,7 @@ const Comment = ({
           </div>
           <div className={"mt-1 text-[15px]"}>{comment?.content}</div>
           <div className="flex justify-start gap-4 items-center mt-2 text-md">
-            <div className="likes flex justify-start items-center gap-2">
+            {/* <div className="likes flex justify-start items-center gap-2 border border-black">
               <div className="flex justify-center items-center gap-1">
                 <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
                   <BiLike size={18} className="" />
@@ -144,7 +143,13 @@ const Comment = ({
                   <BiDislike size={18} />
                 </div>
               </div>
-            </div>
+            </div> */}
+            <CommentLike
+              likeCount={comment?.likeCount || 0}
+              commentId={comment?._id}
+              isLiked={comment?.isLiked || false}
+              isDisliked={comment?.isDisliked || false}
+            />
             <Button
               onClick={() => {
                 setShowReply(comment?._id);

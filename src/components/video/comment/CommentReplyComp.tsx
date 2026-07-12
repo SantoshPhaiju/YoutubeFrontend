@@ -10,9 +10,9 @@ import { formatViews } from "@/utils/formatVideoView";
 import { timeAgo } from "@/utils/timeAgo";
 import { useQueryClient } from "@tanstack/react-query";
 import { useContext, useState } from "react";
-import { BiDislike, BiLike } from "react-icons/bi";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { toast } from "sonner";
+import CommentLike from "./CommentLike";
 
 const CommentReplyComp = ({
   comment,
@@ -55,7 +55,7 @@ const CommentReplyComp = ({
         // comment.totalReplies = comment.totalReplies + 1;
       }
     } catch (e: any) {
-      console.log(e.message);
+      // console.log(e.message);
       toast.error(e.message);
     }
   };
@@ -131,7 +131,7 @@ const CommentReplyComp = ({
           </div>
           <div className="flex justify-start gap-4 items-center mt-2 text-md">
             <div className="likes flex justify-start items-center gap-2">
-              <div className="flex justify-center items-center gap-1">
+              {/* <div className="flex justify-center items-center gap-1">
                 <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
                   <BiLike size={18} className="" />
                 </div>
@@ -143,7 +143,13 @@ const CommentReplyComp = ({
                 <div className="rounded-full p-2 hover:bg-gray-200 transition-all duration-300">
                   <BiDislike size={18} />
                 </div>
-              </div>
+              </div> */}
+              <CommentLike
+                commentId={comment?._id}
+                likeCount={comment?.likeCount}
+                isLiked={comment?.isLiked || false}
+                isDisliked={comment?.isDisliked || false}
+              />
             </div>
             <Button
               onClick={() => setShowReply(comment._id)}
