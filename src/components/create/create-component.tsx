@@ -10,9 +10,9 @@ import {
 } from "@/components/ui/dialog";
 import { useState } from "react";
 import { BsBroadcast } from "react-icons/bs";
-import { FaPlus } from "react-icons/fa6";
 import { GoVideo } from "react-icons/go";
 import { IoCreateOutline } from "react-icons/io5";
+import { RiAddLargeLine } from "react-icons/ri";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -30,11 +30,12 @@ const CreateComponent = () => {
       <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
         <DropdownMenuTrigger asChild>
           <Button
-            className="flex px-2 sm:px-4 justify-center items-center gap-1 md:gap-2 text-red-700 text-sm md:text-md rounded-full bg-gray-100 hover:bg-gray-200 select-none cursor-pointer shadow-none border border-gray-300"
+            className="flex px-2 md:px-3 py-2! h-full! justify-center items-center gap-1 md:gap-2 text-red-700 text-sm md:text-md rounded-full bg-slate-100 hover:bg-gray-200 select-none cursor-pointer shadow-none border border-gray-200"
             variant={"outline"}
           >
-            <FaPlus size={28} className="h-8 w-8" />
-            <span className="">Create</span>
+            {/* <FaPlus className="h-6! w-6!" /> */}
+            <RiAddLargeLine className="h-5! w-5! text-black!" />
+            <span className="font-medium">Create</span>
           </Button>
         </DropdownMenuTrigger>
 

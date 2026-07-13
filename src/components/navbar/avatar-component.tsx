@@ -1,7 +1,6 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { logoutUserApi } from "@/services/api/auth/auth.service";
 import { useLogoutUser } from "@/services/mutations/authMutation";
 import { useUserDataQuery } from "@/services/queries/authQuery";
 import useAuthStore from "@/store/authStore";
@@ -94,7 +93,7 @@ const AvatarComponent = ({
                     const logoutRes = await logoutUser.mutateAsync();
                     if (logoutRes.success) {
                       toast.success("Logged out successfully");
-                      logoutUserApi();
+                      logout();
                       setIsLoggedIn(false);
                     }
                   }
