@@ -39,7 +39,7 @@ const CreateComponent = () => {
           </Button>
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent className="px-0 py-2 min-w-[170px] rounded-[8px] mr-4">
+        <DropdownMenuContent className="px-0 py-2 min-w-42.5 rounded-lg mr-4">
           <DropdownMenuGroup>
             <DropdownMenuItem className="hover:bg-gray-300/50! px-3 cursor-pointer py-2">
               <div
