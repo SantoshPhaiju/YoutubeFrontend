@@ -18,14 +18,14 @@ const SidebarItem = ({
     <Link
       href={link}
       className={cn(
-        "flex items-center w-auto gap-6 px-3 py-2 rounded-lg hover:bg-gray-200 cursor-pointer overflow-hidden "
+        "flex items-center w-auto gap-6 px-3 py-2 rounded-lg hover:bg-gray-200 cursor-pointer overflow-hidden ",
       )}
     >
       {icon ? (
         <div className="icon text-lg font-bold">{icon}</div>
       ) : (
         <Image
-          src={image || "/assets/ytshorts.webp"}
+          src={image || "/assets/thumb.jpg"}
           alt="shorts"
           width={15}
           height={15}
