@@ -38,6 +38,8 @@ const Page = async ({ params }: { params: { username: string } }) => {
     );
     const allVideos = channelData?.data?.videos;
     const channelVideos = isOwner ? allVideos : publicVideos;
+    const avatar = await getValidImage(channelData.data.avatar);
+    const coverImage = await getValidImage(channelData.data.coverImage);
 
     return (
       <>
@@ -62,7 +64,7 @@ const Page = async ({ params }: { params: { username: string } }) => {
               {channelData?.data?.coverImage !== null && (
                 <div>
                   <Image
-                    src={channelData?.data?.coverImage || "/assets/thumb.jpg"}
+                    src={coverImage}
                     height={900}
                     width={900}
                     className="h-auto max-h-[180px] w-full object-cover object-center rounded-2xl"
@@ -73,7 +75,7 @@ const Page = async ({ params }: { params: { username: string } }) => {
               <div className="flex gap-2 sm:gap-4 items-start mt-2 sm:mt-0">
                 <div className="left min-w-[100px] sm:min-w-[140px] md:min-w-[180px]">
                   <Image
-                    src={channelData?.data?.avatar || "/assets/thumb.jpg"}
+                    src={avatar}
                     height={400}
                     width={400}
                     className="h-[100px] w-[100px]  sm:h-[140px] sm:w-[140px] md:w-[180px] md:h-[180px] object-cover rounded-full"
@@ -318,3 +320,18 @@ const Page = async ({ params }: { params: { username: string } }) => {
 };
 
 export default Page;
+
+async function getValidImage(url?: string) {
+  if (!url) return "/assets/thumb.jpg";
+
+  try {
+    const res = await fetch(url, {
+      method: "HEAD",
+      cache: "no-store",
+    });
+
+    return res.ok ? url : "/assets/thumb.jpg";
+  } catch {
+    return "/assets/thumb.jpg";
+  }
+}
