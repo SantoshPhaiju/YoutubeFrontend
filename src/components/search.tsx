@@ -183,6 +183,17 @@ const Search = () => {
                         />
                       )}
 
+                      {field.value.length > 0 && (
+                        <RxCross2
+                          className="absolute scale-125 right-2 top-1/2 -translate-y-1/2 text-black text-xl cursor-pointer hover:scale-150 transition-transform duration-200"
+                          onClick={() => {
+                            form.setValue("searchQuery", "");
+                            setSearchSuggestions([]);
+                            setActiveSuggestionIndex(-1);
+                          }}
+                        />
+                      )}
+
                       <Input
                         {...field}
                         ref={inputRef}
@@ -246,7 +257,7 @@ const Search = () => {
                         onFocus={() => setSearchFocus(true)}
                         // onBlur={() => setSearchFocus(false)}
                         className={cn(
-                          `px-4 h-full border border-gray-300 focus-visible:ring-transparent focus-visible:border-purple-800 z-50 rounded-l-full text-[14px] md:text-[16px] shadow-none focus:shadow-[inset_0_1px_4px_rgba(0,0,0,0.2)] focus-visible:shadow-[inset_0_1px_4px_rgba(0,0,0,0.2)]`,
+                          `px-4 pr-7 h-full border border-gray-300 focus-visible:ring-transparent focus-visible:border-purple-800 z-50 rounded-l-full text-[14px] md:text-[16px] shadow-none focus:shadow-[inset_0_1px_4px_rgba(0,0,0,0.2)] focus-visible:shadow-[inset_0_1px_4px_rgba(0,0,0,0.2)]`,
                           {
                             "pl-13": searchFocus === true,
                           },
