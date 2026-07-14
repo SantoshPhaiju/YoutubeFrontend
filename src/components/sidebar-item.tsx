@@ -25,16 +25,21 @@ const SidebarItem = ({
       {icon ? (
         <div className="icon text-lg font-bold">{icon}</div>
       ) : (
-        <Image
-          src={imgSrc}
-          alt="shorts"
-          width={15}
-          height={15}
-          className="rounded-full object-cover w-5 h-5"
-          onError={() => setImgSrc("/assets/thumb.jpg")}
-        />
+        <div className="w-8 h-6 rounded-full overflow-hidden bg-black">
+          <Image
+            src={imgSrc}
+            alt="shorts"
+            width={1440}
+            height={1440}
+            className="rounded-full object-cover w-full h-full"
+            onError={() => setImgSrc("/assets/thumb.jpg")}
+          />
+        </div>
       )}
-      <div className={cn("text-sm")}>{name}</div>
+      <div className="flex justify-between items-center w-full ">
+        <div className={cn("text-sm")}>{name}</div>
+        {image && <div className="h-1 w-1 bg-blue-800 rounded-full"></div>}
+      </div>
     </Link>
   );
 };

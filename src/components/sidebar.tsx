@@ -110,14 +110,14 @@ const Sidebar = ({
               className={"bg-black/30 rounded-full border-none h-px w-full "}
             />
             <div className="py-2 px-4">
-              <div className="flex justify-start items-center px-4 py-1.5 gap-1 cursor-pointer hover:bg-gray-200 rounded-lg text-md text-gray-700">
-                <div>Subscriptions</div>
+              <div className="flex justify-start items-center px-4 py-1.5  cursor-pointer hover:bg-gray-200 rounded-lg text-md text-gray-700">
+                <div className="font-medium">Subscriptions</div>
                 <div>
                   <MdKeyboardArrowRight className="text-2xl" />
                 </div>
               </div>
 
-              <div className="top py-2 flex flex-col gap-1 w-full">
+              <div className="top py-2 flex flex-col gap-0 w-full">
                 {subscriptions.map((item, index) => {
                   return (
                     <div key={index}>
