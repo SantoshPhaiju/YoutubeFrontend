@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { useSubscriptionQuery } from "@/services/queries/subscriptionQuery";
+import useAuthStore from "@/store/authStore";
 import { useEffect, useState } from "react";
 import { BiCut } from "react-icons/bi";
 import { FaRegClock } from "react-icons/fa6";
@@ -79,14 +80,17 @@ const Sidebar = ({
   setIsSidebarOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [subscriptions, setSubscriptions] = useState<any[]>([]);
-  const { data, isLoading, isError, error } = useSubscriptionQuery();
+  const isloggedIn = useAuthStore((state) => state.isLoggedIn);
+  const { data, isLoading, isError, error } = useSubscriptionQuery({
+    enabled: !!isloggedIn,
+  });
   useEffect(() => {
     setSubscriptions(data?.data || []);
   }, [data]);
 
-  if (isLoading) return <div>Loading data...</div>;
+  // if (isLoading) return <div>Loading data...</div>;
 
-  if (isError) return <div>Error loading data: {error.message}</div>;
+  // if (isError) return <div>Error loading data: {error.message}</div>;
 
   return (
     <div className="bg-white z-50">
@@ -109,30 +113,32 @@ const Sidebar = ({
             <hr
               className={"bg-black/30 rounded-full border-none h-px w-full "}
             />
-            <div className="py-2 px-4">
-              <div className="flex justify-start items-center px-4 py-1.5  cursor-pointer hover:bg-gray-200 rounded-lg text-md text-gray-700">
-                <div className="font-medium">Subscriptions</div>
-                <div>
-                  <MdKeyboardArrowRight className="text-2xl" />
+            {(!isLoading || !isError) && subscriptions.length > 0 && (
+              <div className="py-2 px-4">
+                <div className="flex justify-start items-center px-4 py-1.5  cursor-pointer hover:bg-gray-200 rounded-lg text-md text-gray-700">
+                  <div className="font-medium">Subscriptions</div>
+                  <div>
+                    <MdKeyboardArrowRight className="text-2xl" />
+                  </div>
+                </div>
+
+                <div className="top py-2 flex flex-col gap-0 w-full">
+                  {subscriptions.map((item, index) => {
+                    return (
+                      <div key={index}>
+                        <SidebarItem
+                          name={item?.channel?.fullname || "Unknown Channel"}
+                          image={item?.channel?.avatar}
+                          link={`/${item?.channel?.username || ""}`}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
-
-              <div className="top py-2 flex flex-col gap-0 w-full">
-                {subscriptions.map((item, index) => {
-                  return (
-                    <div key={index}>
-                      <SidebarItem
-                        name={item?.channel?.fullname || "Unknown Channel"}
-                        image={item?.channel?.avatar}
-                        link={`/${item?.channel?.username || ""}`}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-              </div>
+            )}
             <hr
-              className={"bg-black/30 rounded-full border-none h-px w-full "}
+              className={"bg-gray-300 rounded-full border-none h-[0.5px] w-full "}
             />
             <div className="py-2 px-4">
               <div className="flex justify-start items-center px-4 py-1.5 gap-1 cursor-pointer hover:bg-gray-200 rounded-lg text-md text-gray-700">
