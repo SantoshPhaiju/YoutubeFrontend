@@ -73,7 +73,6 @@ const Comment = ({
         }
       }
     } catch (e: any) {
-      // console.log(e.message);
       toast.error(e.message);
     }
   };

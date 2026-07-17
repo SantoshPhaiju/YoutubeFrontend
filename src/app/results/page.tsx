@@ -15,7 +15,6 @@ const Page = async ({ searchParams }: ResultsPageProps) => {
   const searchQuery = (await searchParams).search_query;
 
   const searchResults = await getSearchResults(searchQuery || "");
-  // console.log("searchResults", searchResults);
 
   if (searchResults?.success === false) {
     return <p>Error fetching search results: {searchResults?.message}</p>;

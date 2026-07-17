@@ -27,7 +27,6 @@ const userStore = (set: (fn: Partial<UserStore>) => void): UserStore => ({
     return set({ user });
   },
   deleteUser: () => {
-    // console.log("Deleting user from store");
     return set({ user: null });
   },
 });

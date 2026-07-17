@@ -55,7 +55,6 @@ const CommentReplyComp = ({
         // comment.totalReplies = comment.totalReplies + 1;
       }
     } catch (e: any) {
-      // console.log(e.message);
       toast.error(e.message);
     }
   };
