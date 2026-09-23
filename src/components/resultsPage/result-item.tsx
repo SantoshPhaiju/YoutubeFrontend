@@ -3,7 +3,7 @@ import { timeAgo } from "@/utils/timeAgo";
 import Image from "next/image";
 import Link from "next/link";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import ResultItemAvatar from "./result-item-avatar";
 
 const ResultItem = ({ resultData }: { resultData: any }) => {
   return (
@@ -37,7 +37,7 @@ const ResultItem = ({ resultData }: { resultData: any }) => {
           </div>
 
           <div className="channelInfo flex gap-2 items-center py-1">
-            <Avatar className="w-6 h-6">
+            {/* <Avatar className="w-6 h-6">
               <AvatarImage src={resultData?.owner?.avatar} />
               <AvatarFallback>
                 {resultData?.owner?.fullname || "CN"}
@@ -47,7 +47,12 @@ const ResultItem = ({ resultData }: { resultData: any }) => {
               <p className="font-normal text-[12px] md:text-[14px]">
                 {resultData?.owner?.fullname || "Channel Name"}
               </p>
-            </div>
+            </div> */}
+            <ResultItemAvatar
+              fullname={resultData?.owner?.fullname || "Channel Name"}
+              avatar={resultData?.owner?.avatar || "/assets/avatar.jpg"}
+              channelLink={"/" + resultData?.owner?.username}
+            />
           </div>
           <div className="videoDesc ">
             <p className="text-[10px] line-clamp-2 capitalize md:text-[12px] text-gray-600">
