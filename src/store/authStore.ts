@@ -1,3 +1,4 @@
+import { a } from "framer-motion/client";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
@@ -36,6 +37,7 @@ const useAuthStore = create<AuthStore>()(
             refreshToken: null,
             isLoggedIn: false,
           }),
+        a,
       }),
       {
         name: "auth-storage",
